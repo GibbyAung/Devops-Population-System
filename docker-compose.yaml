@@ -1,0 +1,52 @@
+
+services:
+
+  mysql:
+    image: mysql:8.4
+
+    container_name: devops-mysql
+
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: world
+      MYSQL_USER: devops
+      MYSQL_PASSWORD: devopspassword
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database/world.sql:/docker-entrypoint-initdb.d/world.sql:ro
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: devops-population-app
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: world
+      DB_USER: devops
+      DB_PASSWORD: devopspassword
+
+    stdin_open: true
+    tty: true
+
+    command: ["java", "-jar", "app.jar"]
+
+volumes:
+  mysql-data:

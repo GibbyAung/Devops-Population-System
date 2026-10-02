@@ -46,7 +46,7 @@ services:
     stdin_open: true
     tty: true
 
-    command: ["java", "-jar", "app.jar"]
+    command: ["Atlantis"]
 
 volumes:
   mysql-data:

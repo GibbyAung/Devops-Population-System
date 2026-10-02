@@ -23,19 +23,34 @@ public class Main {
 
         try {
             CountryReportService service =
-                    new CountryReportService(new CountryRepository());
+                    new CountryReportService(
+                            new CountryRepository()
+                    );
+
+            ReportFormatter formatter =
+                    new ReportFormatter();
+
+            String continent =
+                    args.length > 0 ? args[0] : "Asia";
+
+            System.out.println(
+                    "Countries in continent: " + continent
+            );
 
             List<Country> countries =
-                    service.generateWorldReport(database.getConnection());
+                    service.generateContinentReport(
+                            database.getConnection(),
+                            continent
+                    );
 
-            new ReportFormatter().printCountries(countries);
+            formatter.printCountries(countries);
 
         } catch (SQLException exception) {
             System.err.println(
-                    "Country report failed: " + exception.getMessage()
+                    "Continent country report failed: "
+                            + exception.getMessage()
             );
             System.exit(1);
-
         } finally {
             database.disconnect();
         }

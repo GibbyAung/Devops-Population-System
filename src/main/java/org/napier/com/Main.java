@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
+
         DatabaseConnection database = new DatabaseConnection();
         database.connect();
 
@@ -30,27 +32,82 @@ public class Main {
             ReportFormatter formatter =
                     new ReportFormatter();
 
-            String continent =
-                    args.length > 0 ? args[0] : "Asia";
+            /*
+             * Requirement 3 - Region Country Report
+             *
+             * Example:
+             * java -jar app.jar region "Eastern Asia"
+             */
+            if (args.length >= 2
+                    && args[0].equalsIgnoreCase("region")) {
 
-            System.out.println(
-                    "Countries in continent: " + continent
-            );
+                String region = args[1];
 
-            List<Country> countries =
-                    service.generateContinentReport(
-                            database.getConnection(),
-                            continent
-                    );
+                System.out.println(
+                        "Countries in region: " + region
+                );
 
-            formatter.printCountries(countries);
+                List<Country> countries =
+                        service.generateRegionReport(
+                                database.getConnection(),
+                                region
+                        );
+
+                formatter.printCountries(countries);
+            }
+
+            /*
+             * Requirement 2 - Continent Country Report
+             *
+             * Example:
+             * java -jar app.jar Asia
+             */
+            else if (args.length >= 1) {
+
+                String continent = args[0];
+
+                System.out.println(
+                        "Countries in continent: " + continent
+                );
+
+                List<Country> countries =
+                        service.generateContinentReport(
+                                database.getConnection(),
+                                continent
+                        );
+
+                formatter.printCountries(countries);
+            }
+
+            /*
+             * Requirement 1 - World Country Report
+             *
+             * Example:
+             * java -jar app.jar
+             */
+            else {
+
+                System.out.println(
+                        "All countries in the world"
+                );
+
+                List<Country> countries =
+                        service.generateWorldReport(
+                                database.getConnection()
+                        );
+
+                formatter.printCountries(countries);
+            }
 
         } catch (SQLException exception) {
+
             System.err.println(
-                    "Continent country report failed: "
+                    "Country report failed: "
                             + exception.getMessage()
             );
+
             System.exit(1);
+
         } finally {
             database.disconnect();
         }

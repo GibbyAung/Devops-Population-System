@@ -46,7 +46,7 @@ services:
     stdin_open: true
     tty: true
 
-    command: ["Atlantis"]
+    command: ["region", "Eastern Asia"]
 
 volumes:
   mysql-data:

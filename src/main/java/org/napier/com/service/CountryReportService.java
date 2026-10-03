@@ -19,6 +19,13 @@ public class CountryReportService {
         return repository.findAllCountries(connection);
     }
 
+    public List<Country> generateRegionReport(
+            Connection connection,
+            String region) throws SQLException {
+
+        return repository.findCountriesByRegion(connection, region);
+    }
+
     public List<Country> generateContinentReport(
             Connection connection,
             String continent) throws SQLException {

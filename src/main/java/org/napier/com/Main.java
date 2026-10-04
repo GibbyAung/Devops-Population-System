@@ -11,6 +11,25 @@ import java.util.List;
 
 public class Main {
 
+    private static int parsePositiveInteger(String value) {
+        try {
+            int result = Integer.parseInt(value);
+
+            if (result <= 0) {
+                throw new IllegalArgumentException(
+                        "N must be a positive whole number."
+                );
+            }
+
+            return result;
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException(
+                    "N must be a positive whole number.",
+                    exception
+            );
+        }
+    }
+
     public static void main(String[] args) {
 
         DatabaseConnection database = new DatabaseConnection();
@@ -31,6 +50,35 @@ public class Main {
 
             ReportFormatter formatter =
                     new ReportFormatter();
+
+            /*
+             * Requirement 4 - Top N Country Report
+             *
+             */
+
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("top-n")) {
+
+                if (args.length < 2) {
+                    throw new IllegalArgumentException(
+                            "N must be provided as a positive whole number."
+                    );
+                }
+
+                int limit = parsePositiveInteger(args[1]);
+
+                System.out.println(
+                        "Top " + limit + " countries in the world"
+                );
+
+                List<Country> countries =
+                        service.generateWorldTopNReport(
+                                database.getConnection(),
+                                limit
+                        );
+
+                formatter.printCountries(countries);
+            }
 
             /*
              * Requirement 3 - Region Country Report
@@ -99,6 +147,12 @@ public class Main {
                 formatter.printCountries(countries);
             }
 
+        } catch (IllegalArgumentException exception) {
+            System.err.println(
+                    "Top-N country report failed: "
+                            + exception.getMessage()
+            );
+            System.exit(1);
         } catch (SQLException exception) {
 
             System.err.println(

@@ -37,6 +37,15 @@ public class CountryRepository {
         ORDER BY c.Population DESC
         """;
 
+    private static final String FIND_TOP_N_COUNTRIES = """
+        SELECT c.Code, c.Name, c.Continent, c.Region, c.Population,
+               capital.Name AS Capital
+        FROM country c
+        LEFT JOIN city capital ON c.Capital = capital.ID
+        ORDER BY c.Population DESC
+        LIMIT ?
+        """;
+
     public List<Country> findAllCountries(Connection connection)
             throws SQLException {
         try (PreparedStatement statement =
@@ -65,6 +74,18 @@ public class CountryRepository {
                      connection.prepareStatement(FIND_COUNTRIES_BY_REGION)) {
 
             statement.setString(1, region);
+            return mapCountries(statement);
+        }
+    }
+
+    public List<Country> findTopNCountries(
+            Connection connection,
+            int limit) throws SQLException {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(FIND_TOP_N_COUNTRIES)) {
+
+            statement.setInt(1, limit);
             return mapCountries(statement);
         }
     }

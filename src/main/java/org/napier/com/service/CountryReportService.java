@@ -34,4 +34,17 @@ public class CountryReportService {
                 continent
         );
     }
+
+    public List<Country> generateWorldTopNReport(
+            Connection connection,
+            int limit) throws SQLException {
+
+        if (limit <= 0) {
+            throw new IllegalArgumentException(
+                    "N must be a positive whole number."
+            );
+        }
+
+        return repository.findTopNCountries(connection, limit);
+    }
 }

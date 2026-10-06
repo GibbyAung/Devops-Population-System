@@ -11,18 +11,51 @@ class CountryReportServiceTest {
             new CountryReportService(new CountryRepository());
 
     @Test
-    void rejectsZeroBeforeDatabaseQuery() {
+    void rejectsZeroForContinentTopN() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> service.generateWorldTopNReport(null, 0)
+                () -> service.generateContinentTopNReport(
+                        null,
+                        "Asia",
+                        0
+                )
+        );
+
+    }
+
+    @Test
+    void rejectsNegativeForRegionTopN() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateRegionTopNReport(
+                        null,
+                        "Eastern Asia",
+                        -1
+                )
         );
     }
 
     @Test
-    void rejectsNegativeBeforeDatabaseQuery() {
+    void rejectsBlankContinent() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> service.generateWorldTopNReport(null, -5)
+                () -> service.generateContinentTopNReport(
+                        null,
+                        "   ",
+                        5
+                )
+        );
+    }
+
+    @Test
+    void rejectsBlankRegion() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateRegionTopNReport(
+                        null,
+                        "",
+                        5
+                )
         );
     }
 }

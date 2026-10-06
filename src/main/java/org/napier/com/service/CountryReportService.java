@@ -47,4 +47,50 @@ public class CountryReportService {
 
         return repository.findTopNCountries(connection, limit);
     }
+
+    private void validateLimit(int limit) {
+        if (limit <= 0) {
+            throw new IllegalArgumentException(
+                    "N must be a positive whole number."
+            );
+        }
+    }
+
+    private void validateScope(String scope, String label) {
+        if (scope == null || scope.isBlank()) {
+            throw new IllegalArgumentException(
+                    label + " must be provided."
+            );
+        }
+    }
+
+    public List<Country> generateContinentTopNReport(
+            Connection connection,
+            String continent,
+            int limit) throws SQLException {
+
+        validateScope(continent, "Continent");
+        validateLimit(limit);
+
+        return repository.findTopNCountriesByContinent(
+                connection,
+                continent,
+                limit
+        );
+    }
+
+    public List<Country> generateRegionTopNReport(
+            Connection connection,
+            String region,
+            int limit) throws SQLException {
+
+        validateScope(region, "Region");
+        validateLimit(limit);
+
+        return repository.findTopNCountriesByRegion(
+                connection,
+                region,
+                limit
+        );
+    }
 }

@@ -52,6 +52,63 @@ public class Main {
                     new ReportFormatter();
 
             /*
+             * Requirement 5, 6
+             *
+             */
+
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("continent-top-n")) {
+
+                if (args.length < 3) {
+                    throw new IllegalArgumentException(
+                            "A continent and positive N are required."
+                    );
+                }
+
+                String continent = args[1];
+                int limit = parsePositiveInteger(args[2]);
+
+                System.out.println(
+                        "Top " + limit + " countries in continent: " + continent
+                );
+
+                List<Country> countries =
+                        service.generateContinentTopNReport(
+                                database.getConnection(),
+                                continent,
+                                limit
+                        );
+
+                formatter.printCountries(countries);
+            }
+
+            else if (args.length >= 1
+                    && args[0].equalsIgnoreCase("region-top-n")) {
+
+                if (args.length < 3) {
+                    throw new IllegalArgumentException(
+                            "A region and positive N are required."
+                    );
+                }
+
+                String region = args[1];
+                int limit = parsePositiveInteger(args[2]);
+
+                System.out.println(
+                        "Top " + limit + " countries in region: " + region
+                );
+
+                List<Country> countries =
+                        service.generateRegionTopNReport(
+                                database.getConnection(),
+                                region,
+                                limit
+                        );
+
+                formatter.printCountries(countries);
+            }
+
+            /*
              * Requirement 4 - Top N Country Report
              *
              */

@@ -35,7 +35,7 @@ public class DatabaseConnection {
                     Thread.sleep(5000);
                 }
                 connection = DriverManager.getConnection(url, user, password);
-                System.out.println("Successfully connected to " + host + ":" + port + "/" + dbName);
+                System.out.println("Successfully connected to " + host + ":" + port + "/" + dbName + "\n");
                 return;
             } catch (SQLException e) {
                 System.out.println("Failed to connect attempt " + (i + 1) + ": " + e.getMessage());

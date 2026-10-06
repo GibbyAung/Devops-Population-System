@@ -22,6 +22,7 @@ public class Main {
             }
 
             return result;
+
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException(
                     "N must be a positive whole number.",
@@ -53,7 +54,6 @@ public class Main {
 
             /*
              * Requirement 5, 6
-             *
              */
 
             if (args.length >= 1
@@ -68,10 +68,6 @@ public class Main {
                 String continent = args[1];
                 int limit = parsePositiveInteger(args[2]);
 
-                System.out.println(
-                        "Top " + limit + " countries in continent: " + continent
-                );
-
                 List<Country> countries =
                         service.generateContinentTopNReport(
                                 database.getConnection(),
@@ -79,7 +75,12 @@ public class Main {
                                 limit
                         );
 
-                formatter.printCountries(countries);
+                formatter.printCountries(
+                        "Top " + limit
+                                + " countries in continent: "
+                                + continent,
+                        countries
+                );
             }
 
             else if (args.length >= 1
@@ -94,10 +95,6 @@ public class Main {
                 String region = args[1];
                 int limit = parsePositiveInteger(args[2]);
 
-                System.out.println(
-                        "Top " + limit + " countries in region: " + region
-                );
-
                 List<Country> countries =
                         service.generateRegionTopNReport(
                                 database.getConnection(),
@@ -105,12 +102,16 @@ public class Main {
                                 limit
                         );
 
-                formatter.printCountries(countries);
+                formatter.printCountries(
+                        "Top " + limit
+                                + " countries in region: "
+                                + region,
+                        countries
+                );
             }
 
             /*
              * Requirement 4 - Top N Country Report
-             *
              */
 
             if (args.length >= 1
@@ -124,17 +125,16 @@ public class Main {
 
                 int limit = parsePositiveInteger(args[1]);
 
-                System.out.println(
-                        "Top " + limit + " countries in the world"
-                );
-
                 List<Country> countries =
                         service.generateWorldTopNReport(
                                 database.getConnection(),
                                 limit
                         );
 
-                formatter.printCountries(countries);
+                formatter.printCountries(
+                        "Top " + limit + " countries in the world",
+                        countries
+                );
             }
 
             /*
@@ -148,17 +148,16 @@ public class Main {
 
                 String region = args[1];
 
-                System.out.println(
-                        "Countries in region: " + region
-                );
-
                 List<Country> countries =
                         service.generateRegionReport(
                                 database.getConnection(),
                                 region
                         );
 
-                formatter.printCountries(countries);
+                formatter.printCountries(
+                        "Countries in region: " + region,
+                        countries
+                );
             }
 
             /*
@@ -171,17 +170,16 @@ public class Main {
 
                 String continent = args[0];
 
-                System.out.println(
-                        "Countries in continent: " + continent
-                );
-
                 List<Country> countries =
                         service.generateContinentReport(
                                 database.getConnection(),
                                 continent
                         );
 
-                formatter.printCountries(countries);
+                formatter.printCountries(
+                        "Countries in continent: " + continent,
+                        countries
+                );
             }
 
             /*
@@ -192,24 +190,26 @@ public class Main {
              */
             else {
 
-                System.out.println(
-                        "All countries in the world"
-                );
-
                 List<Country> countries =
                         service.generateWorldReport(
                                 database.getConnection()
                         );
 
-                formatter.printCountries(countries);
+                formatter.printCountries(
+                        "All countries in the world",
+                        countries
+                );
             }
 
         } catch (IllegalArgumentException exception) {
+
             System.err.println(
                     "Top-N country report failed: "
                             + exception.getMessage()
             );
+
             System.exit(1);
+
         } catch (SQLException exception) {
 
             System.err.println(

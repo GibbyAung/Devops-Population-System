@@ -5,6 +5,9 @@ import org.napier.com.model.Country;
 import org.napier.com.report.ReportFormatter;
 import org.napier.com.repository.CountryRepository;
 import org.napier.com.service.CountryReportService;
+import org.napier.com.model.City;
+import org.napier.com.repository.CityRepository;
+import org.napier.com.service.CityReportService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -51,6 +54,46 @@ public class Main {
 
             ReportFormatter formatter =
                     new ReportFormatter();
+
+            CityReportService cityService =
+                    new CityReportService(new CityRepository());
+
+// Requirement 7 - All cities in world
+// Example: java -jar app.jar city-world
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-world")) {
+
+                List<City> cities =
+                        cityService.generateWorldReport(
+                                database.getConnection()
+                        );
+
+                formatter.printCities(
+                        "All cities in the world",
+                        cities
+                );
+                return;
+            }
+
+// Requirement 8 - Cities in continent
+// Example: java -jar app.jar city-continent Asia
+            if (args.length >= 2
+                    && args[0].equalsIgnoreCase("city-continent")) {
+
+                String continent = args[1];
+
+                List<City> cities =
+                        cityService.generateContinentReport(
+                                database.getConnection(),
+                                continent
+                        );
+
+                formatter.printCities(
+                        "Cities in continent: " + continent,
+                        cities
+                );
+                return;
+            }
 
             /*
              * Requirement 5, 6
@@ -200,6 +243,7 @@ public class Main {
                         countries
                 );
             }
+
 
         } catch (IllegalArgumentException exception) {
 

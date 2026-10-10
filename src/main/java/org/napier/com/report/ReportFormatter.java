@@ -1,6 +1,7 @@
 package org.napier.com.report;
 
 import org.napier.com.model.Country;
+import org.napier.com.model.City;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,14 @@ public class ReportFormatter {
     };
 
     private static final int POPULATION_COLUMN = 4;
+
+    private static final String[] CITY_HEADERS = {
+            "Name",
+            "Country",
+            "District",
+            "Population"
+    };
+    private static final int CITY_POPULATION_COLUMN = 3;
 
     public void printCountries(List<Country> countries) {
         printCountries("Countries", countries);
@@ -159,5 +168,89 @@ public class ReportFormatter {
 
     private String valueOrBlank(String value) {
         return value == null ? "" : value;
+    }
+
+    public void printCities(List<City> cities) {
+        printCities("Cities", cities);
+    }
+
+    public void printCities(String reportName, List<City> cities) {
+        System.out.println("Report for " + reportName);
+        System.out.println();
+
+        if (cities.isEmpty()) {
+            System.out.println("No cities found.");
+            System.out.println();
+            return;
+        }
+
+        List<String[]> rows = new ArrayList<>();
+
+        for (City city : cities) {
+            rows.add(toCityRow(city));
+        }
+
+        String[] totalRow = createCityTotalRow(cities);
+
+        List<String[]> rowsForWidthCalculation = new ArrayList<>(rows);
+        rowsForWidthCalculation.add(totalRow);
+
+        int[] columnWidths =
+                calculateCityColumnWidths(rowsForWidthCalculation);
+
+        System.out.println(formatSeparator(columnWidths));
+        System.out.println(formatRow(CITY_HEADERS, columnWidths));
+        System.out.println(formatSeparator(columnWidths));
+
+        for (String[] row : rows) {
+            System.out.println(formatRow(row, columnWidths));
+        }
+
+        System.out.println(formatSeparator(columnWidths));
+        System.out.println(formatRow(totalRow, columnWidths));
+        System.out.println(formatSeparator(columnWidths));
+
+        System.out.println();
+    }
+
+    private String[] toCityRow(City city) {
+        return new String[]{
+                valueOrBlank(city.getName()),
+                valueOrBlank(city.getCountry()),
+                valueOrBlank(city.getDistrict()),
+                formatPopulation(city.getPopulation())
+        };
+    }
+
+    private String[] createCityTotalRow(List<City> cities) {
+        long totalPopulation = cities.stream()
+                .mapToLong(City::getPopulation)
+                .sum();
+
+        return new String[]{
+                "Total",
+                cities.size() + " Cities",
+                "",
+                formatPopulation(totalPopulation)
+        };
+    }
+
+    private int[] calculateCityColumnWidths(List<String[]> rows) {
+        int[] widths = new int[CITY_HEADERS.length];
+
+        for (int column = 0; column < CITY_HEADERS.length; column++) {
+            widths[column] = CITY_HEADERS[column].length();
+        }
+
+        for (String[] row : rows) {
+            for (int column = 0; column < row.length; column++) {
+                widths[column] = Math.max(
+                        widths[column],
+                        row[column].length()
+                );
+            }
+        }
+
+        return widths;
     }
 }

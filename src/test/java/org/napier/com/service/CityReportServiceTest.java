@@ -31,4 +31,36 @@ class CityReportServiceTest {
                 )
         );
     }
+    @Test
+    void rejectsBlankRegion() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateRegionReport(
+                        null,
+                        "   "
+                )
+        );
+    }
+
+    @Test
+    void rejectsBlankCountryCode() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateCountryReport(
+                        null,
+                        ""
+                )
+        );
+    }
+
+    @Test
+    void rejectsNullCountryCode() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateCountryReport(
+                        null,
+                        null
+                )
+        );
+    }
 }

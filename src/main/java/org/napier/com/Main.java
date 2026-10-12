@@ -57,6 +57,45 @@ public class Main {
 
             CityReportService cityService =
                     new CityReportService(new CityRepository());
+            // Requirement 9 - Cities in region
+// Example: java -jar app.jar city-region "Eastern Asia"
+            if (args.length >= 2
+                    && args[0].equalsIgnoreCase("city-region")) {
+
+                String region = args[1];
+
+                List<City> cities =
+                        cityService.generateRegionReport(
+                                database.getConnection(),
+                                region
+                        );
+
+                formatter.printCities(
+                        "Cities in region: " + region,
+                        cities
+                );
+                return;
+            }
+
+// Requirement 10 - Cities in country (use ISO code)
+// Example: java -jar app.jar city-country CHN
+            if (args.length >= 2
+                    && args[0].equalsIgnoreCase("city-country")) {
+
+                String countryCode = args[1];
+
+                List<City> cities =
+                        cityService.generateCountryReport(
+                                database.getConnection(),
+                                countryCode
+                        );
+
+                formatter.printCities(
+                        "Cities in country: " + countryCode,
+                        cities
+                );
+                return;
+            }
 
 // Requirement 7 - All cities in world
 // Example: java -jar app.jar city-world

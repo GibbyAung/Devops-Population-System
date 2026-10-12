@@ -35,11 +35,27 @@ public class CityReportService {
         }
     }
 
+
     private void validateLimit(int limit) {
         if (limit <= 0) {
             throw new IllegalArgumentException(
                     "N must be a positive whole number."
             );
         }
+    }
+    public List<City> generateRegionReport(
+            Connection connection,
+            String region) throws SQLException {
+
+        validateScope(region, "Region");
+        return repository.findCitiesByRegion(connection, region);
+    }
+
+    public List<City> generateCountryReport(
+            Connection connection,
+            String countryCode) throws SQLException {
+
+        validateScope(countryCode, "Country");
+        return repository.findCitiesByCountry(connection, countryCode);
     }
 }

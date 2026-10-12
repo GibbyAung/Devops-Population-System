@@ -17,7 +17,7 @@ The current development work implements **12 requirements of 32, which is 37.5%*
 
 The latest `master` release currently contains Requirements 1-6. Requirements 7-12 must complete the reviewed `develop -> release -> master` flow before they can be described as released.
 
-On 12 October 2026, the documentation-recovery branch completed 17 Maven tests with no failures and successfully ran Requirement 12 against MySQL through Docker. Screenshot evidence for Requirements 1-12 is linked below and tracked in [`evidence/README.md`](evidence/README.md). Requirements 4-6 should be recaptured after removing their unintended fallback output.
+On 12 October 2026, the documentation-recovery branch completed 17 Maven tests with no failures and successfully ran Requirement 12 against MySQL through Docker. Screenshot evidence for Requirements 1-12 is linked below and has been reviewed by Product Owner Saw Zwel Myat Tow. Requirements 4-6 should still be recaptured after removing their unintended fallback output.
 
 ## Technology
 
@@ -242,7 +242,7 @@ Private contribution percentages, matriculation numbers, and personal contact de
 
 ## Outstanding Assessment Items
 
-- **Evidence review:** independently review Requirements 1-12 and recapture Requirements 4-6 after their unintended fallback output is corrected.
+- **Evidence cleanup:** recapture Requirements 4-6 after their unintended fallback output is corrected; the current evidence has already been reviewed by the Product Owner.
 - **Coverage:** configure real coverage reporting for `master` before adding the required coverage badge.
 - **Licence:** the team has selected Apache License 2.0, but the complete root `LICENSE` file must be added and detected by GitHub before adding the required licence badge.
 - **Release:** merge accepted development work through `release` to `master` and publish the next release.

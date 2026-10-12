@@ -40,6 +40,21 @@ public class CityRepository {
         WHERE city.CountryCode = ?
         ORDER BY city.Population DESC
         """;
+    private static final String FIND_CITIES_BY_DISTRICT = """
+        SELECT city.Name AS Name, country.Name AS Country,
+               city.District, city.Population
+        FROM city JOIN country ON city.CountryCode = country.Code
+        WHERE city.District = ?
+        ORDER BY city.Population DESC
+        """;
+
+    private static final String FIND_TOP_N_WORLD_CITIES = """
+        SELECT city.Name AS Name, country.Name AS Country,
+               city.District, city.Population
+        FROM city JOIN country ON city.CountryCode = country.Code
+        ORDER BY city.Population DESC
+        LIMIT ?
+        """;
 
 
     public List<City> findAllCities(Connection connection)
@@ -84,6 +99,30 @@ public class CityRepository {
             return mapCities(statement);
         }
     }
+    public List<City> findCitiesByDistrict(
+            Connection connection,
+            String district) throws SQLException {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(FIND_CITIES_BY_DISTRICT)) {
+
+            statement.setString(1, district);
+            return mapCities(statement);
+        }
+    }
+
+    public List<City> findTopNWorldCities(
+            Connection connection,
+            int n) throws SQLException {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(FIND_TOP_N_WORLD_CITIES)) {
+
+            statement.setInt(1, n);
+            return mapCities(statement);
+        }
+    }
+
     private List<City> mapCities(PreparedStatement statement)
             throws SQLException {
 

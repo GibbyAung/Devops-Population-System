@@ -134,6 +134,59 @@ public class Main {
                 return;
             }
 
+            // Requirement 11 - All cities in a district
+            // Example: java -jar app.jar city-district California
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-district")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "District must be provided. Usage: city-district <district>"
+                    );
+                }
+
+                String district = args[1];
+
+                List<City> cities =
+                        cityService.generateDistrictReport(
+                                database.getConnection(),
+                                district
+                        );
+
+                formatter.printCities(
+                        "Cities in district: " + district,
+                        cities
+                );
+                return;
+            }
+
+            // Requirement 12 - Top N populated cities in the world
+            // Example: java -jar app.jar city-top-world 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-top-world")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "N must be provided. Usage: city-top-world <N>"
+                    );
+                }
+
+                int limit = parsePositiveInteger(args[1]);
+
+                List<City> cities =
+                        cityService.generateTopNWorldReport(
+                                database.getConnection(),
+                                limit
+                        );
+
+                formatter.printCities(
+                        "Top " + limit + " populated cities in the world",
+                        cities
+                );
+                return;
+            }
+
+
             /*
              * Requirement 5, 6
              */

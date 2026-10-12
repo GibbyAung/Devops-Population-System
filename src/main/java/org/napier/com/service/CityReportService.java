@@ -58,4 +58,20 @@ public class CityReportService {
         validateScope(countryCode, "Country");
         return repository.findCitiesByCountry(connection, countryCode);
     }
+
+    public List<City> generateDistrictReport(
+            Connection connection,
+            String district) throws SQLException {
+
+        validateScope(district, "District");
+        return repository.findCitiesByDistrict(connection, district);
+    }
+
+    public List<City> generateTopNWorldReport(
+            Connection connection,
+            int n) throws SQLException {
+
+        validateLimit(n);
+        return repository.findTopNWorldCities(connection, n);
+    }
 }

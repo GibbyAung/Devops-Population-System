@@ -12,10 +12,13 @@ Maven result: PASS - 17 tests, 0 failures, 0 errors, 0 skipped
 Docker result: PASS - Requirement 12 smoke check against MySQL
 Product Owner: Saw Zwel Myat Tow
 Scrum Master: Win Myat Aung
-Screenshot capture: Pending for Requirements 1-12
+Screenshot capture: Complete for Requirements 1-12
+Independent evidence review: Pending
 ```
 
-This verification proves the current branch builds, its automated tests pass, and Requirement 12 runs against MySQL. It does not replace the separate output screenshots required for each implemented requirement.
+This verification proves the current branch builds, its automated tests pass, and Requirement 12 runs against MySQL. Output screenshots are now present for Requirements 1-12. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
+
+Requirements 4-6 currently show the requested Top-N report followed by an unintended fallback report. Their required rows are visible, but these three screenshots should be recaptured after that control-flow defect is fixed.
 
 ## Evidence Rules
 
@@ -99,18 +102,18 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 
 | ID | Evidence file | Input shown | Required output | Check | Result | Reviewer |
 |---:|---|---|---|---|---|---|
-| 1 | `requirements/requirement-01.png` | World | Six country columns | Descending population | Pending screenshot | |
-| 2 | `requirements/requirement-02.png` | Continent | Six country columns | Filter + descending population | Pending screenshot | |
-| 3 | `requirements/requirement-03.png` | Region | Six country columns | Filter + descending population | Pending screenshot | |
-| 4 | `requirements/requirement-04.png` | N | Six country columns | N rows + descending population | Pending screenshot | |
-| 5 | `requirements/requirement-05.png` | Continent + N | Six country columns | Filter + N + descending population | Pending screenshot | |
-| 6 | `requirements/requirement-06.png` | Region + N | Six country columns | Filter + N + descending population | Pending screenshot | |
-| 7 | `requirements/requirement-07.png` | World | Four city columns | Descending population | Pending screenshot | |
-| 8 | `requirements/requirement-08.png` | Continent | Four city columns | Filter + descending population | Pending screenshot | |
-| 9 | `requirements/requirement-09.png` | Region | Four city columns | Filter + descending population | Pending screenshot | |
-| 10 | `requirements/requirement-10.png` | Country code | Four city columns | Filter + descending population | Pending screenshot | |
-| 11 | `requirements/requirement-11.png` | District | Four city columns | Filter + descending population | Pending screenshot | |
-| 12 | `requirements/requirement-12.png` | N | Four city columns | N rows + descending population | Pending screenshot | |
+| 1 | `requirements/requirement-01.png` | World | Six country columns | Descending population | Linked - review pending | |
+| 2 | `requirements/requirement-02.png` | Continent | Six country columns | Filter + descending population | Linked - review pending | |
+| 3 | `requirements/requirement-03.png` | Region | Six country columns | Filter + descending population | Linked - review pending | |
+| 4 | `requirements/requirement-04.png` | N | Six country columns | N rows + descending population | Linked - recapture recommended | |
+| 5 | `requirements/requirement-05.png` | Continent + N | Six country columns | Filter + N + descending population | Linked - recapture recommended | |
+| 6 | `requirements/requirement-06.png` | Region + N | Six country columns | Filter + N + descending population | Linked - recapture recommended | |
+| 7 | `requirements/requirement-07.png` and `requirements/requirement-07-total.png` | World | Four city columns | Descending population + total | Linked - review pending | |
+| 8 | `requirements/requirement-08.png` and `requirements/requirement-08-total.png` | Continent | Four city columns | Filter + descending population + total | Linked - review pending | |
+| 9 | `requirements/requirement-09.png` and `requirements/requirement-09-total.png` | Region | Four city columns | Filter + descending population + total | Linked - review pending | |
+| 10 | `requirements/requirement-10.png` and `requirements/requirement-10-total.png` | Country code | Four city columns | Filter + descending population + total | Linked - review pending | |
+| 11 | `requirements/requirement-11.png` and `requirements/requirement-11-total.png` | District | Four city columns | Filter + descending population + total | Linked - review pending | |
+| 12 | `requirements/requirement-12.png` | N | Four city columns | N rows + descending population | Linked - review pending | |
 | 13 | `requirements/requirement-13.png` | Continent + N | Four city columns | Filter + N + descending population | Not implemented | |
 | 14 | `requirements/requirement-14.png` | Region + N | Four city columns | Filter + N + descending population | Not implemented | |
 | 15 | `requirements/requirement-15.png` | Country + N | Four city columns | Filter + N + descending population | Not implemented | |
@@ -132,13 +135,12 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 | 31 | `requirements/requirement-31.png` | City | Population | Total checked | Not implemented | |
 | 32 | `requirements/requirement-32.png` | Five languages | Language, speakers, percentage | Descending count + calculations | Not implemented | |
 
-## After Capturing Each Screenshot
+## Complete the Evidence Review
 
-1. Save it with the exact expected filename.
-2. Ask a teammate to verify it.
-3. Change its register result from `Pending screenshot` to `Verified` and add the reviewer's name.
-4. Replace the corresponding `Pending capture` text in the root README with the Markdown image.
-5. Link the evidence commit on the relevant Zube card.
+1. Ask a teammate to open every linked image and verify its report title, input, required columns, ordering, and total or N where applicable.
+2. Change its register result to `Verified` and add the reviewer's name.
+3. Fix the Top-N country control flow, then replace the Requirement 4-6 screenshots with clean output and verify them again.
+4. Link the evidence commit on the relevant Zube cards.
 
 Use this image format in the root README:
 

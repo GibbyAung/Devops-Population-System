@@ -17,7 +17,7 @@ The current development work implements **12 requirements of 32, which is 37.5%*
 
 The latest `master` release currently contains Requirements 1-6. Requirements 7-12 must complete the reviewed `develop -> release -> master` flow before they can be described as released.
 
-On 12 October 2026, the documentation-recovery branch completed 17 Maven tests with no failures and successfully ran Requirement 12 against MySQL through Docker. Screenshot evidence for Requirements 1-12 is still being captured and is tracked in [`evidence/README.md`](evidence/README.md).
+On 12 October 2026, the documentation-recovery branch completed 17 Maven tests with no failures and successfully ran Requirement 12 against MySQL through Docker. Screenshot evidence for Requirements 1-12 is linked below and tracked in [`evidence/README.md`](evidence/README.md). Requirements 4-6 should be recaptured after removing their unintended fallback output.
 
 ## Technology
 
@@ -187,22 +187,22 @@ The release badge identifies the latest published version; it does not imply tha
 
 ## Requirement Evidence
 
-The following table reports implementation on the current development work. Before final delivery, each `Pending capture` entry must be replaced with the corresponding application-output image and the same changes must be released to `master`.
+The following table reports implementation on the current development work. Requirements with long output use a second image to show the final row count and total population. The same code and evidence must complete the release flow to `master` before final delivery.
 
 | ID | Requirement | Met | Screenshot |
 |---:|---|:---:|---|
-| 1 | All countries in the world by population | Yes | Pending capture: `evidence/requirements/requirement-01.png` |
-| 2 | All countries in a continent by population | Yes | Pending capture: `evidence/requirements/requirement-02.png` |
-| 3 | All countries in a region by population | Yes | Pending capture: `evidence/requirements/requirement-03.png` |
-| 4 | Top-N countries in the world | Yes | Pending capture: `evidence/requirements/requirement-04.png` |
-| 5 | Top-N countries in a continent | Yes | Pending capture: `evidence/requirements/requirement-05.png` |
-| 6 | Top-N countries in a region | Yes | Pending capture: `evidence/requirements/requirement-06.png` |
-| 7 | All cities in the world by population | Yes | Pending capture: `evidence/requirements/requirement-07.png` |
-| 8 | All cities in a continent by population | Yes | Pending capture: `evidence/requirements/requirement-08.png` |
-| 9 | All cities in a region by population | Yes | Pending capture: `evidence/requirements/requirement-09.png` |
-| 10 | All cities in a country by population | Yes | Pending capture: `evidence/requirements/requirement-10.png` |
-| 11 | All cities in a district by population | Yes | Pending capture: `evidence/requirements/requirement-11.png` |
-| 12 | Top-N cities in the world | Yes | Pending capture: `evidence/requirements/requirement-12.png` |
+| 1 | All countries in the world by population | Yes | ![Requirement 1](evidence/requirements/requirement-01.png) |
+| 2 | All countries in a continent by population | Yes | ![Requirement 2](evidence/requirements/requirement-02.png) |
+| 3 | All countries in a region by population | Yes | ![Requirement 3](evidence/requirements/requirement-03.png) |
+| 4 | Top-N countries in the world | Yes | ![Requirement 4](evidence/requirements/requirement-04.png) |
+| 5 | Top-N countries in a continent | Yes | ![Requirement 5](evidence/requirements/requirement-05.png) |
+| 6 | Top-N countries in a region | Yes | ![Requirement 6](evidence/requirements/requirement-06.png) |
+| 7 | All cities in the world by population | Yes | ![Requirement 7](evidence/requirements/requirement-07.png)<br>![Requirement 7 total](evidence/requirements/requirement-07-total.png) |
+| 8 | All cities in a continent by population | Yes | ![Requirement 8](evidence/requirements/requirement-08.png)<br>![Requirement 8 total](evidence/requirements/requirement-08-total.png) |
+| 9 | All cities in a region by population | Yes | ![Requirement 9](evidence/requirements/requirement-09.png)<br>![Requirement 9 total](evidence/requirements/requirement-09-total.png) |
+| 10 | All cities in a country by population | Yes | ![Requirement 10](evidence/requirements/requirement-10.png)<br>![Requirement 10 total](evidence/requirements/requirement-10-total.png) |
+| 11 | All cities in a district by population | Yes | ![Requirement 11](evidence/requirements/requirement-11.png)<br>![Requirement 11 total](evidence/requirements/requirement-11-total.png) |
+| 12 | Top-N cities in the world | Yes | ![Requirement 12](evidence/requirements/requirement-12.png) |
 | 13 | Top-N cities in a continent | No | |
 | 14 | Top-N cities in a region | No | |
 | 15 | Top-N cities in a country | No | |
@@ -242,7 +242,7 @@ Private contribution percentages, matriculation numbers, and personal contact de
 
 ## Outstanding Assessment Items
 
-- **Requirement screenshots:** capture and review output evidence for Requirements 1-12.
+- **Evidence review:** independently review Requirements 1-12 and recapture Requirements 4-6 after their unintended fallback output is corrected.
 - **Coverage:** configure real coverage reporting for `master` before adding the required coverage badge.
 - **Licence:** the team has selected Apache License 2.0, but the complete root `LICENSE` file must be added and detected by GitHub before adding the required licence badge.
 - **Release:** merge accepted development work through `release` to `master` and publish the next release.

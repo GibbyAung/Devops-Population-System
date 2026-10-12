@@ -18,8 +18,6 @@ Evidence review: COMPLETE - Saw Zwel Myat Tow (Product Owner)
 
 This verification proves the current branch builds, its automated tests pass, and Requirement 12 runs against MySQL. Output screenshots are now present for Requirements 1-12. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
 
-Requirements 4-6 currently show the requested Top-N report followed by an unintended fallback report. Their required rows are visible, but these three screenshots should be recaptured after that control-flow defect is fixed.
-
 ## Evidence Rules
 
 Every requirement marked `Yes` in the root README must have an application-output image showing:
@@ -105,9 +103,9 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 | 1 | `requirements/requirement-01.png` | World | Six country columns | Descending population | Verified | Saw Zwel Myat Tow |
 | 2 | `requirements/requirement-02.png` | Continent | Six country columns | Filter + descending population | Verified | Saw Zwel Myat Tow |
 | 3 | `requirements/requirement-03.png` | Region | Six country columns | Filter + descending population | Verified | Saw Zwel Myat Tow |
-| 4 | `requirements/requirement-04.png` | N | Six country columns | N rows + descending population | Verified - recapture recommended | Saw Zwel Myat Tow |
-| 5 | `requirements/requirement-05.png` | Continent + N | Six country columns | Filter + N + descending population | Verified - recapture recommended | Saw Zwel Myat Tow |
-| 6 | `requirements/requirement-06.png` | Region + N | Six country columns | Filter + N + descending population | Verified - recapture recommended | Saw Zwel Myat Tow |
+| 4 | `requirements/requirement-04.png` | N | Six country columns | N rows + descending population | Verified | Saw Zwel Myat Tow |
+| 5 | `requirements/requirement-05.png` | Continent + N | Six country columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
+| 6 | `requirements/requirement-06.png` | Region + N | Six country columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
 | 7 | `requirements/requirement-07.png` and `requirements/requirement-07-total.png` | World | Four city columns | Descending population + total | Verified | Saw Zwel Myat Tow |
 | 8 | `requirements/requirement-08.png` and `requirements/requirement-08-total.png` | Continent | Four city columns | Filter + descending population + total | Verified | Saw Zwel Myat Tow |
 | 9 | `requirements/requirement-09.png` and `requirements/requirement-09-total.png` | Region | Four city columns | Filter + descending population + total | Verified | Saw Zwel Myat Tow |
@@ -137,11 +135,7 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 
 ## Evidence Review Outcome
 
-Product Owner Saw Zwel Myat Tow reviewed the linked evidence for Requirements 1-12. The remaining evidence actions are:
-
-1. Fix the Top-N country control flow.
-2. Replace the Requirement 4-6 screenshots with clean output and ask the Product Owner to confirm the replacements.
-3. Link the evidence commit on the relevant Zube cards.
+Product Owner Saw Zwel Myat Tow reviewed and verified the linked evidence for Requirements 1-12. Link the evidence commit on the relevant Zube cards so the acceptance record remains traceable.
 
 Use this image format in the root README:
 

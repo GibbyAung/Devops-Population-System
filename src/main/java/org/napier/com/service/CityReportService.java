@@ -74,4 +74,34 @@ public class CityReportService {
         validateLimit(n);
         return repository.findTopNWorldCities(connection, n);
     }
+    public List<City> generateTopNContinentReport(
+            Connection connection,
+            String continent,
+            int limit) throws SQLException {
+
+        validateScope(continent, "Continent");
+        validateLimit(limit);
+
+        return repository.findTopNContinentCities(
+                connection,
+                continent,
+                limit
+        );
+    }
+
+    public List<City> generateTopNRegionReport(
+            Connection connection,
+            String region,
+            int limit) throws SQLException {
+
+        validateScope(region, "Region");
+        validateLimit(limit);
+
+        return repository.findTopNRegionCities(
+                connection,
+                region,
+                limit
+        );
+    }
+
 }

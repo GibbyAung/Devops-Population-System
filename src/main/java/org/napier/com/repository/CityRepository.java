@@ -56,6 +56,24 @@ public class CityRepository {
         LIMIT ?
         """;
 
+    private static final String FIND_TOP_N_CONTINENT_CITIES = """
+        SELECT city.Name AS Name, country.Name AS Country,
+               city.District, city.Population
+        FROM city JOIN country ON city.CountryCode = country.Code
+        WHERE country.Continent = ?
+        ORDER BY city.Population DESC
+        LIMIT ?
+        """;
+
+    private static final String FIND_TOP_N_REGION_CITIES = """
+        SELECT city.Name AS Name, country.Name AS Country,
+               city.District, city.Population
+        FROM city JOIN country ON city.CountryCode = country.Code
+        WHERE country.Region = ?
+        ORDER BY city.Population DESC
+        LIMIT ?
+        """;
+
 
     public List<City> findAllCities(Connection connection)
             throws SQLException {
@@ -119,6 +137,35 @@ public class CityRepository {
                      connection.prepareStatement(FIND_TOP_N_WORLD_CITIES)) {
 
             statement.setInt(1, n);
+            return mapCities(statement);
+        }
+    }
+    public List<City> findTopNContinentCities(
+            Connection connection,
+            String continent,
+            int limit) throws SQLException {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(
+                             FIND_TOP_N_CONTINENT_CITIES)) {
+
+            statement.setString(1, continent);
+            statement.setInt(2, limit);
+            return mapCities(statement);
+        }
+    }
+
+    public List<City> findTopNRegionCities(
+            Connection connection,
+            String region,
+            int limit) throws SQLException {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(
+                             FIND_TOP_N_REGION_CITIES)) {
+
+            statement.setString(1, region);
+            statement.setInt(2, limit);
             return mapCities(statement);
         }
     }

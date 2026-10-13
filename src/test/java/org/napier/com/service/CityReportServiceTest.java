@@ -107,4 +107,52 @@ class CityReportServiceTest {
                 )
         );
     }
+
+    @Test
+    void rejectsBlankContinentForTopN() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopNContinentReport(
+                        null,
+                        "   ",
+                        10
+                )
+        );
+    }
+
+    @Test
+    void rejectsZeroForContinentTopN() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopNContinentReport(
+                        null,
+                        "Asia",
+                        0
+                )
+        );
+    }
+
+    @Test
+    void rejectsBlankRegionForTopN() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopNRegionReport(
+                        null,
+                        "",
+                        10
+                )
+        );
+    }
+
+    @Test
+    void rejectsNegativeForRegionTopN() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopNRegionReport(
+                        null,
+                        "Eastern Asia",
+                        -1
+                )
+        );
+    }
 }

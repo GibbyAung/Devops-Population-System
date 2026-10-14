@@ -104,4 +104,24 @@ public class CityReportService {
         );
     }
 
+    public List<City> generateTopNCountryReport(
+            Connection connection,
+            String countryCode,
+            int limit) throws SQLException {
+
+        validateScope(countryCode, "Country");
+        validateLimit(limit);
+        return repository.findTopNCountryCities(connection, countryCode, limit);
+    }
+
+    public List<City> generateTopNDistrictReport(
+            Connection connection,
+            String district,
+            int limit) throws SQLException {
+
+        validateScope(district, "District");
+        validateLimit(limit);
+        return repository.findTopNDistrictCities(connection, district, limit);
+    }
+
 }

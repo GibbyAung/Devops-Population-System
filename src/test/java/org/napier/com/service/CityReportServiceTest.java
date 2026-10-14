@@ -155,4 +155,52 @@ class CityReportServiceTest {
                 )
         );
     }
+
+    @Test
+    void rejectsBlankCountryForTopN() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.generateTopNCountryReport(null, "   ", 10));
+    }
+
+    @Test
+    void rejectsNullCountryForTopN() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.generateTopNCountryReport(null, null, 10));
+    }
+
+    @Test
+    void rejectsZeroCountryTopN() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.generateTopNCountryReport(null, "CHN", 0));
+    }
+
+    @Test
+    void rejectsNegativeCountryTopN() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.generateTopNCountryReport(null, "CHN", -1));
+    }
+
+    @Test
+    void rejectsBlankDistrictForTopN() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.generateTopNDistrictReport(null, " ", 10));
+    }
+
+    @Test
+    void rejectsNullDistrictForTopN() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.generateTopNDistrictReport(null, null, 10));
+    }
+
+    @Test
+    void rejectsZeroDistrictTopN() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.generateTopNDistrictReport(null, "California", 0));
+    }
+
+    @Test
+    void rejectsNegativeDistrictTopN() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.generateTopNDistrictReport(null, "California", -5));
+    }
 }

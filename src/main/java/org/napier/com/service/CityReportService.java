@@ -74,4 +74,54 @@ public class CityReportService {
         validateLimit(n);
         return repository.findTopNWorldCities(connection, n);
     }
+    public List<City> generateTopNContinentReport(
+            Connection connection,
+            String continent,
+            int limit) throws SQLException {
+
+        validateScope(continent, "Continent");
+        validateLimit(limit);
+
+        return repository.findTopNContinentCities(
+                connection,
+                continent,
+                limit
+        );
+    }
+
+    public List<City> generateTopNRegionReport(
+            Connection connection,
+            String region,
+            int limit) throws SQLException {
+
+        validateScope(region, "Region");
+        validateLimit(limit);
+
+        return repository.findTopNRegionCities(
+                connection,
+                region,
+                limit
+        );
+    }
+
+    public List<City> generateTopNCountryReport(
+            Connection connection,
+            String countryCode,
+            int limit) throws SQLException {
+
+        validateScope(countryCode, "Country");
+        validateLimit(limit);
+        return repository.findTopNCountryCities(connection, countryCode, limit);
+    }
+
+    public List<City> generateTopNDistrictReport(
+            Connection connection,
+            String district,
+            int limit) throws SQLException {
+
+        validateScope(district, "District");
+        validateLimit(limit);
+        return repository.findTopNDistrictCities(connection, district, limit);
+    }
+
 }

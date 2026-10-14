@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Formats country and city report data as readable console tables.
+ */
 public class ReportFormatter {
 
     private static final String[] HEADERS = {
@@ -28,10 +31,16 @@ public class ReportFormatter {
     };
     private static final int CITY_POPULATION_COLUMN = 3;
 
+    /**
+     * Prints a country report with the default report name.
+     */
     public void printCountries(List<Country> countries) {
         printCountries("Countries", countries);
     }
 
+    /**
+     * Prints a named country report and its total population.
+     */
     public void printCountries(String reportName, List<Country> countries) {
         System.out.println("Report for " + reportName);
         System.out.println();
@@ -76,6 +85,11 @@ public class ReportFormatter {
         System.out.println();
     }
 
+    /**
+     * Converts a country into formatted table cells.
+     *
+     * @return country values ready for display
+     */
     private String[] toRow(Country country) {
         return new String[]{
                 valueOrBlank(country.getCode()),
@@ -87,6 +101,11 @@ public class ReportFormatter {
         };
     }
 
+    /**
+     * Creates the summary row for a country report.
+     *
+     * @return row containing country count and total population
+     */
     private String[] createTotalRow(List<Country> countries) {
         long totalPopulation = countries.stream()
                 .mapToLong(Country::getPopulation)
@@ -102,10 +121,20 @@ public class ReportFormatter {
         };
     }
 
+    /**
+     * Formats a population with thousands separators.
+     *
+     * @return formatted population value
+     */
     private String formatPopulation(long population) {
         return String.format(Locale.US, "%,d", population);
     }
 
+    /**
+     * Calculates country-table widths from headings and row values.
+     *
+     * @return display width for each country column
+     */
     private int[] calculateColumnWidths(List<String[]> rows) {
         int[] widths = new int[HEADERS.length];
 
@@ -127,6 +156,11 @@ public class ReportFormatter {
         return widths;
     }
 
+    /**
+     * Creates a table separator for the supplied column widths.
+     *
+     * @return formatted separator line
+     */
     private String formatSeparator(int[] columnWidths) {
         StringBuilder separator = new StringBuilder("+");
 
@@ -138,6 +172,11 @@ public class ReportFormatter {
         return separator.toString();
     }
 
+    /**
+     * Aligns and formats one row of table values.
+     *
+     * @return formatted table row
+     */
     private String formatRow(String[] values, int[] columnWidths) {
         StringBuilder row = new StringBuilder("|");
 
@@ -166,14 +205,25 @@ public class ReportFormatter {
         return row.toString();
     }
 
+    /**
+     * Replaces a null display value with an empty string.
+     *
+     * @return original value or an empty string
+     */
     private String valueOrBlank(String value) {
         return value == null ? "" : value;
     }
 
+    /**
+     * Prints a city report with the default report name.
+     */
     public void printCities(List<City> cities) {
         printCities("Cities", cities);
     }
 
+    /**
+     * Prints a named city report and its total population.
+     */
     public void printCities(String reportName, List<City> cities) {
         System.out.println("Report for " + reportName);
         System.out.println();
@@ -213,6 +263,11 @@ public class ReportFormatter {
         System.out.println();
     }
 
+    /**
+     * Converts a city into formatted table cells.
+     *
+     * @return city values ready for display
+     */
     private String[] toCityRow(City city) {
         return new String[]{
                 valueOrBlank(city.getName()),
@@ -222,6 +277,11 @@ public class ReportFormatter {
         };
     }
 
+    /**
+     * Creates the summary row for a city report.
+     *
+     * @return row containing city count and total population
+     */
     private String[] createCityTotalRow(List<City> cities) {
         long totalPopulation = cities.stream()
                 .mapToLong(City::getPopulation)
@@ -235,6 +295,11 @@ public class ReportFormatter {
         };
     }
 
+    /**
+     * Calculates city-table widths from headings and row values.
+     *
+     * @return display width for each city column
+     */
     private int[] calculateCityColumnWidths(List<String[]> rows) {
         int[] widths = new int[CITY_HEADERS.length];
 

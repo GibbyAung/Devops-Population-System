@@ -17,7 +17,7 @@ The current development work implements **16 requirements of 32, which is 50%**:
 
 The next functional work begins with Requirement 17, the capital-city reports.
 
-The latest `master` release currently contains Requirements 1-6. Requirements 7-16 are now on `develop` and must complete the reviewed `develop -> release -> master` flow before they can be described as released.
+The latest `master` release, `v0.3.0`, contains Requirements 1-16.
 
 On 14 October 2026, the merged documentation-recovery branch completed 29 Maven tests with no failures. Product Owner Saw Zwel Myat Tow reviewed and accepted the linked output evidence for Requirements 1-16.
 
@@ -191,7 +191,7 @@ The GitHub Actions workflow at `.github/workflows/main.yaml`:
 
 - Country reports: [`use-cases/country-report/`](use-cases/country-report/)
 - City reports: [`use-cases/city-report/`](use-cases/city-report/)
-- Use-case diagram: [`use-case.puml`](use-case.puml)
+- Use-case diagram: [`use-case-diagram.drawio.svg`](use-cases/use-case-diagram.drawio.svg)
 
 ## Releases
 
@@ -201,7 +201,7 @@ The release badge identifies the latest published version; it does not imply tha
 
 ## Requirement Evidence
 
-The following table reports implementation on the current development work. Requirements with long output use a second image to show the final row count and total population. The same code and evidence must complete the release flow to `master` before final delivery.
+The following table reports implementation in the latest `master` release. Requirements with long output use a second image to show the final row count and total population.
 
 | ID | Name | Met | Screenshot |
 |---:|---|:---:|---|
@@ -258,4 +258,3 @@ Private contribution percentages, matriculation numbers, and personal contact de
 
 - **Coverage:** configure real coverage reporting for `master` before adding the required coverage badge.
 - **Licence:** the team has selected Apache License 2.0, but the complete root `LICENSE` file must be added and detected by GitHub before adding the required licence badge.
-- **Release:** merge accepted development work through `release` to `master` and publish the next release.

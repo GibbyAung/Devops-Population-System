@@ -7,18 +7,34 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Validates city-report requests and delegates them to the repository.
+ */
 public class CityReportService {
     private final CityRepository repository;
 
+    /**
+     * Creates the service with its city data repository.
+     */
     public CityReportService(CityRepository repository) {
         this.repository = repository;
     }
 
+    /**
+     * Generates the worldwide city report.
+     *
+     * @return all cities ordered by descending population
+     */
     public List<City> generateWorldReport(Connection connection)
             throws SQLException {
         return repository.findAllCities(connection);
     }
 
+    /**
+     * Generates a city report for one continent.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> generateContinentReport(
             Connection connection,
             String continent) throws SQLException {
@@ -27,6 +43,9 @@ public class CityReportService {
         return repository.findCitiesByContinent(connection, continent);
     }
 
+    /**
+     * Rejects a missing or blank geographic scope.
+     */
     private void validateScope(String scope, String label) {
         if (scope == null || scope.isBlank()) {
             throw new IllegalArgumentException(
@@ -36,6 +55,9 @@ public class CityReportService {
     }
 
 
+    /**
+     * Rejects a Top-N limit that is not positive.
+     */
     private void validateLimit(int limit) {
         if (limit <= 0) {
             throw new IllegalArgumentException(
@@ -43,6 +65,11 @@ public class CityReportService {
             );
         }
     }
+    /**
+     * Generates a city report for one region.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> generateRegionReport(
             Connection connection,
             String region) throws SQLException {
@@ -51,6 +78,11 @@ public class CityReportService {
         return repository.findCitiesByRegion(connection, region);
     }
 
+    /**
+     * Generates a city report for one country.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> generateCountryReport(
             Connection connection,
             String countryCode) throws SQLException {
@@ -59,6 +91,11 @@ public class CityReportService {
         return repository.findCitiesByCountry(connection, countryCode);
     }
 
+    /**
+     * Generates a city report for one district.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> generateDistrictReport(
             Connection connection,
             String district) throws SQLException {
@@ -67,6 +104,11 @@ public class CityReportService {
         return repository.findCitiesByDistrict(connection, district);
     }
 
+    /**
+     * Generates a Top-N worldwide city report.
+     *
+     * @return up to N cities ordered by descending population
+     */
     public List<City> generateTopNWorldReport(
             Connection connection,
             int n) throws SQLException {
@@ -74,6 +116,11 @@ public class CityReportService {
         validateLimit(n);
         return repository.findTopNWorldCities(connection, n);
     }
+    /**
+     * Generates a Top-N city report for one continent.
+     *
+     * @return up to N matching cities ordered by descending population
+     */
     public List<City> generateTopNContinentReport(
             Connection connection,
             String continent,
@@ -89,6 +136,11 @@ public class CityReportService {
         );
     }
 
+    /**
+     * Generates a Top-N city report for one region.
+     *
+     * @return up to N matching cities ordered by descending population
+     */
     public List<City> generateTopNRegionReport(
             Connection connection,
             String region,
@@ -104,6 +156,11 @@ public class CityReportService {
         );
     }
 
+    /**
+     * Generates a Top-N city report for one country.
+     *
+     * @return up to N matching cities ordered by descending population
+     */
     public List<City> generateTopNCountryReport(
             Connection connection,
             String countryCode,
@@ -114,6 +171,11 @@ public class CityReportService {
         return repository.findTopNCountryCities(connection, countryCode, limit);
     }
 
+    /**
+     * Generates a Top-N city report for one district.
+     *
+     * @return up to N matching cities ordered by descending population
+     */
     public List<City> generateTopNDistrictReport(
             Connection connection,
             String district,

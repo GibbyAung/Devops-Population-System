@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Executes parameterized country-report queries against the world database.
+ */
 public class CountryRepository {
 
     private static final String FIND_ALL_COUNTRIES = """
@@ -66,6 +69,11 @@ public class CountryRepository {
         LIMIT ?
         """;
 
+    /**
+     * Finds every country ordered by population from largest to smallest.
+     *
+     * @return countries ordered by descending population
+     */
     public List<Country> findAllCountries(Connection connection)
             throws SQLException {
         try (PreparedStatement statement =
@@ -74,6 +82,11 @@ public class CountryRepository {
         }
     }
 
+    /**
+     * Finds countries in a continent ordered by descending population.
+     *
+     * @return matching countries ordered by descending population
+     */
     public List<Country> findCountriesByContinent(
             Connection connection,
             String continent) throws SQLException {
@@ -86,6 +99,11 @@ public class CountryRepository {
         }
     }
 
+    /**
+     * Finds countries in a region ordered by descending population.
+     *
+     * @return matching countries ordered by descending population
+     */
     public List<Country> findCountriesByRegion(
             Connection connection,
             String region) throws SQLException {
@@ -98,6 +116,11 @@ public class CountryRepository {
         }
     }
 
+    /**
+     * Finds up to N of the world's most populated countries.
+     *
+     * @return countries ordered by descending population
+     */
     public List<Country> findTopNCountries(
             Connection connection,
             int limit) throws SQLException {
@@ -110,6 +133,11 @@ public class CountryRepository {
         }
     }
 
+    /**
+     * Finds up to N of the most populated countries in a continent.
+     *
+     * @return matching countries ordered by descending population
+     */
     public List<Country> findTopNCountriesByContinent(
             Connection connection,
             String continent,
@@ -125,6 +153,11 @@ public class CountryRepository {
         }
     }
 
+    /**
+     * Finds up to N of the most populated countries in a region.
+     *
+     * @return matching countries ordered by descending population
+     */
     public List<Country> findTopNCountriesByRegion(
             Connection connection,
             String region,
@@ -140,6 +173,11 @@ public class CountryRepository {
         }
     }
 
+    /**
+     * Executes a prepared country query and maps each result row.
+     *
+     * @return country rows returned by the query
+     */
     private List<Country> mapCountries(PreparedStatement statement)
             throws SQLException {
 

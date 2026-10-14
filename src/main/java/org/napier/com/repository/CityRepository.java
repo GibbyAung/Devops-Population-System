@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Executes parameterized city-report queries against the world database.
+ */
 public class CityRepository {
 
     private static final String FIND_ALL_CITIES = """
@@ -93,6 +96,11 @@ public class CityRepository {
             """;
 
 
+    /**
+     * Finds every city ordered by population from largest to smallest.
+     *
+     * @return cities ordered by descending population
+     */
     public List<City> findAllCities(Connection connection)
             throws SQLException {
         try (PreparedStatement statement =
@@ -101,6 +109,11 @@ public class CityRepository {
         }
     }
 
+    /**
+     * Finds cities in a continent ordered by descending population.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> findCitiesByContinent(
             Connection connection,
             String continent) throws SQLException {
@@ -112,6 +125,11 @@ public class CityRepository {
             return mapCities(statement);
         }
     }
+    /**
+     * Finds cities in a region ordered by descending population.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> findCitiesByRegion(
             Connection connection,
             String region) throws SQLException {
@@ -124,6 +142,11 @@ public class CityRepository {
         }
     }
 
+    /**
+     * Finds cities in a country ordered by descending population.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> findCitiesByCountry(
             Connection connection,
             String countryCode) throws SQLException {
@@ -135,6 +158,11 @@ public class CityRepository {
             return mapCities(statement);
         }
     }
+    /**
+     * Finds cities in a district ordered by descending population.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> findCitiesByDistrict(
             Connection connection,
             String district) throws SQLException {
@@ -147,6 +175,11 @@ public class CityRepository {
         }
     }
 
+    /**
+     * Finds up to N of the world's most populated cities.
+     *
+     * @return cities ordered by descending population
+     */
     public List<City> findTopNWorldCities(
             Connection connection,
             int n) throws SQLException {
@@ -158,6 +191,11 @@ public class CityRepository {
             return mapCities(statement);
         }
     }
+    /**
+     * Finds up to N of the most populated cities in a continent.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> findTopNContinentCities(
             Connection connection,
             String continent,
@@ -173,6 +211,11 @@ public class CityRepository {
         }
     }
 
+    /**
+     * Finds up to N of the most populated cities in a region.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> findTopNRegionCities(
             Connection connection,
             String region,
@@ -188,6 +231,11 @@ public class CityRepository {
         }
     }
 
+    /**
+     * Executes a prepared city query and maps each result row.
+     *
+     * @return city rows returned by the query
+     */
     private List<City> mapCities(PreparedStatement statement)
             throws SQLException {
 
@@ -207,6 +255,11 @@ public class CityRepository {
         return cities;
     }
 
+    /**
+     * Finds up to N of the most populated cities in a country.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> findTopNCountryCities(
             Connection connection,
             String countryCode,
@@ -221,6 +274,11 @@ public class CityRepository {
         }
     }
 
+    /**
+     * Finds up to N of the most populated cities in a district.
+     *
+     * @return matching cities ordered by descending population
+     */
     public List<City> findTopNDistrictCities(
             Connection connection,
             String district,

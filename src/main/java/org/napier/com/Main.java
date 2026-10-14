@@ -12,8 +12,16 @@ import org.napier.com.service.CityReportService;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Command-line entry point for country and city population reports.
+ */
 public class Main {
 
+    /**
+     * Parses and validates a positive whole-number command argument.
+     *
+     * @return parsed positive integer
+     */
     private static int parsePositiveInteger(String value) {
         try {
             int result = Integer.parseInt(value);
@@ -34,6 +42,9 @@ public class Main {
         }
     }
 
+    /**
+     * Connects to the database and runs the report selected by the arguments.
+     */
     public static void main(String[] args) {
 
         DatabaseConnection database = new DatabaseConnection();

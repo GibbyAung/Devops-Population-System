@@ -5,18 +5,18 @@ This folder records application-output evidence for the requirements reported as
 ## Current Verification State
 
 ```text
-Verification date: 12 October 2026
-Application commit: f0efacc
+Verification date: 14 October 2026
+Application commit: fe25233
 Application branch: docs/documentation-recovery
-Maven result: PASS - 17 tests, 0 failures, 0 errors, 0 skipped
-Docker result: PASS - Requirement 12 smoke check against MySQL
+Maven result: PASS - 29 tests, 0 failures, 0 errors, 0 skipped
+Docker evidence: Requirements 1-16 reviewed by the Product Owner
 Product Owner: Saw Zwel Myat Tow
 Scrum Master: Win Myat Aung
-Screenshot capture: Complete for Requirements 1-12
-Evidence review: COMPLETE - Saw Zwel Myat Tow (Product Owner)
+Screenshot files: Complete for Requirements 1-16
+Evidence review: COMPLETE for Requirements 1-16 - Saw Zwel Myat Tow (Product Owner)
 ```
 
-This verification proves the current branch builds, its automated tests pass, and Requirement 12 runs against MySQL. Output screenshots are now present for Requirements 1-12. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
+This verification proves the current branch builds and its automated tests pass. Output screenshots are stored and reviewed for Requirements 1-16. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
 
 ## Evidence Rules
 
@@ -77,7 +77,7 @@ docker compose run --rm app region-top-n "Eastern Asia" 10
 
 ## Capture City Reports
 
-Requirements 7-12:
+Requirements 7-16:
 
 ```shell
 docker compose run --rm app city-world
@@ -86,6 +86,10 @@ docker compose run --rm app city-region "Eastern Asia"
 docker compose run --rm app city-country CHN
 docker compose run --rm app city-district California
 docker compose run --rm app city-top-world 10
+docker compose run --rm app city-top-continent Asia 10
+docker compose run --rm app city-top-region "Eastern Asia" 10
+docker compose run --rm app city-top-country CHN 10
+docker compose run --rm app city-top-district California 10
 ```
 
 Stop the environment after capturing the output:
@@ -112,10 +116,10 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 | 10 | `requirements/requirement-10.png` and `requirements/requirement-10-total.png` | Country code | Four city columns | Filter + descending population + total | Verified | Saw Zwel Myat Tow |
 | 11 | `requirements/requirement-11.png` and `requirements/requirement-11-total.png` | District | Four city columns | Filter + descending population + total | Verified | Saw Zwel Myat Tow |
 | 12 | `requirements/requirement-12.png` | N | Four city columns | N rows + descending population | Verified | Saw Zwel Myat Tow |
-| 13 | `requirements/requirement-13.png` | Continent + N | Four city columns | Filter + N + descending population | Not implemented | |
-| 14 | `requirements/requirement-14.png` | Region + N | Four city columns | Filter + N + descending population | Not implemented | |
-| 15 | `requirements/requirement-15.png` | Country + N | Four city columns | Filter + N + descending population | Not implemented | |
-| 16 | `requirements/requirement-16.png` | District + N | Four city columns | Filter + N + descending population | Not implemented | |
+| 13 | `requirements/requirement-13.png` | Continent + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
+| 14 | `requirements/requirement-14.png` | Region + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
+| 15 | `requirements/requirement-15.png` | Country + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
+| 16 | `requirements/requirement-16.png` | District + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
 | 17 | `requirements/requirement-17.png` | World | Three capital columns | Descending population | Not implemented | |
 | 18 | `requirements/requirement-18.png` | Continent | Three capital columns | Filter + descending population | Not implemented | |
 | 19 | `requirements/requirement-19.png` | Region | Three capital columns | Filter + descending population | Not implemented | |
@@ -135,12 +139,12 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 
 ## Evidence Review Outcome
 
-Product Owner Saw Zwel Myat Tow reviewed and verified the linked evidence for Requirements 1-12. Link the evidence commit on the relevant Zube cards so the acceptance record remains traceable.
+Product Owner Saw Zwel Myat Tow reviewed and verified the evidence for Requirements 1-16. Link the evidence commit on the relevant Zube cards so the acceptance record remains traceable.
 
 Use this image format in the root README:
 
 ```markdown
-![Requirement 12](evidence/requirements/requirement-12.png)
+![Requirement 16](evidence/requirements/requirement-16.png)
 ```
 
 Evidence captured from a development branch must not be described as evidence of the current `master` release until the same commit has completed the release flow.

@@ -10,14 +10,16 @@ This Java application generates population reports from the MySQL `world` databa
 
 ## Current Status
 
-The current development work implements **12 requirements of 32, which is 37.5%**:
+The current development work implements **16 requirements of 32, which is 50%**:
 
 - Requirements 1-6: country reports and Top-N country reports.
-- Requirements 7-12: city reports for the world, continent, region, country, and district, plus Top-N cities in the world.
+- Requirements 7-16: city reports for the world, continent, region, country, and district, including every required Top-N city variant.
 
-The latest `master` release currently contains Requirements 1-6. Requirements 7-12 must complete the reviewed `develop -> release -> master` flow before they can be described as released.
+The next functional work begins with Requirement 17, the capital-city reports.
 
-On 12 October 2026, the documentation-recovery branch completed 17 Maven tests with no failures and successfully ran Requirement 12 against MySQL through Docker. Screenshot evidence for Requirements 1-12 is linked below and has been reviewed by Product Owner Saw Zwel Myat Tow.
+The latest `master` release currently contains Requirements 1-6. Requirements 7-16 are now on `develop` and must complete the reviewed `develop -> release -> master` flow before they can be described as released.
+
+On 14 October 2026, the merged documentation-recovery branch completed 29 Maven tests with no failures. Product Owner Saw Zwel Myat Tow reviewed and accepted the linked output evidence for Requirements 1-16.
 
 ## Technology
 
@@ -122,6 +124,18 @@ docker compose run --rm app city-district California
 
 # Requirement 12: Top-N cities in the world
 docker compose run --rm app city-top-world 10
+
+# Requirement 13: Top-N cities in a continent
+docker compose run --rm app city-top-continent Asia 10
+
+# Requirement 14: Top-N cities in a region
+docker compose run --rm app city-top-region "Eastern Asia" 10
+
+# Requirement 15: Top-N cities in a country (ISO country code)
+docker compose run --rm app city-top-country CHN 10
+
+# Requirement 16: Top-N cities in a district
+docker compose run --rm app city-top-district California 10
 ```
 
 Stop the containers when finished:
@@ -203,10 +217,10 @@ The following table reports implementation on the current development work. Requ
 | 10 | All cities in a country by population | Yes | ![Requirement 10](evidence/requirements/requirement-10.png)<br>![Requirement 10 total](evidence/requirements/requirement-10-total.png) |
 | 11 | All cities in a district by population | Yes | ![Requirement 11](evidence/requirements/requirement-11.png)<br>![Requirement 11 total](evidence/requirements/requirement-11-total.png) |
 | 12 | Top-N cities in the world | Yes | ![Requirement 12](evidence/requirements/requirement-12.png) |
-| 13 | Top-N cities in a continent | No | |
-| 14 | Top-N cities in a region | No | |
-| 15 | Top-N cities in a country | No | |
-| 16 | Top-N cities in a district | No | |
+| 13 | Top-N cities in a continent | Yes | ![Requirement 13](evidence/requirements/requirement-13.png) |
+| 14 | Top-N cities in a region | Yes | ![Requirement 14](evidence/requirements/requirement-14.png) |
+| 15 | Top-N cities in a country | Yes | ![Requirement 15](evidence/requirements/requirement-15.png) |
+| 16 | Top-N cities in a district | Yes | ![Requirement 16](evidence/requirements/requirement-16.png) |
 | 17 | All capital cities in the world | No | |
 | 18 | All capital cities in a continent | No | |
 | 19 | All capital cities in a region | No | |

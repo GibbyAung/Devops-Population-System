@@ -44,4 +44,33 @@ class ReportFormatterTest {
         assertTrue(text.contains("Capital"));
         assertTrue(text.contains("London"));
     }
+
+    @Test
+    void printsRequiredCityHeadings() {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream original = System.out;
+
+        try {
+            System.setOut(new PrintStream(output));
+
+            new ReportFormatter().printCities(List.of(
+                    new org.napier.com.model.City(
+                            "Seoul",
+                            "South Korea",
+                            "Seoul",
+                            9981619L
+                    )
+            ));
+        } finally {
+            System.setOut(original);
+        }
+
+        String text = output.toString(StandardCharsets.UTF_8);
+
+        assertTrue(text.contains("Name"));
+        assertTrue(text.contains("Country"));
+        assertTrue(text.contains("District"));
+        assertTrue(text.contains("Population"));
+        assertTrue(text.contains("Seoul"));
+    }
 }

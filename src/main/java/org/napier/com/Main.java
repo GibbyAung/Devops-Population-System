@@ -5,6 +5,9 @@ import org.napier.com.model.Country;
 import org.napier.com.report.ReportFormatter;
 import org.napier.com.repository.CountryRepository;
 import org.napier.com.service.CountryReportService;
+import org.napier.com.model.City;
+import org.napier.com.repository.CityRepository;
+import org.napier.com.service.CityReportService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -51,6 +54,261 @@ public class Main {
 
             ReportFormatter formatter =
                     new ReportFormatter();
+
+            CityReportService cityService =
+                    new CityReportService(new CityRepository());
+
+            // Requirement 15 - Top N populated cities in a country (ISO code)
+            // Example: java -jar app.jar city-top-country CHN 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-top-country")) {
+
+                if (args.length != 3) {
+                    throw new IllegalArgumentException(
+                            "Country code and N must be provided. "
+                                    + "Usage: city-top-country <countryCode> <N>"
+                    );
+                }
+
+                String countryCode = args[1];
+                int limit = parsePositiveInteger(args[2]);
+
+                List<City> cities =
+                        cityService.generateTopNCountryReport(
+                                database.getConnection(),
+                                countryCode,
+                                limit
+                        );
+
+                formatter.printCities(
+                        "Top " + limit
+                                + " populated cities in country: " + countryCode,
+                        cities
+                );
+                return;
+            }
+
+            // Requirement 16 - Top N populated cities in a district
+            // Example: java -jar app.jar city-top-district California 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-top-district")) {
+
+                if (args.length != 3) {
+                    throw new IllegalArgumentException(
+                            "District and N must be provided. "
+                                    + "Usage: city-top-district <district> <N>"
+                    );
+                }
+
+                String district = args[1];
+                int limit = parsePositiveInteger(args[2]);
+
+                List<City> cities =
+                        cityService.generateTopNDistrictReport(
+                                database.getConnection(),
+                                district,
+                                limit
+                        );
+
+                formatter.printCities(
+                        "Top " + limit
+                                + " populated cities in district: " + district,
+                        cities
+                );
+                return;
+            }
+
+            // Requirement 9 - Cities in region
+// Example: java -jar app.jar city-region "Eastern Asia"
+            if (args.length >= 2
+                    && args[0].equalsIgnoreCase("city-region")) {
+
+                String region = args[1];
+
+                List<City> cities =
+                        cityService.generateRegionReport(
+                                database.getConnection(),
+                                region
+                        );
+
+                formatter.printCities(
+                        "Cities in region: " + region,
+                        cities
+                );
+                return;
+            }
+
+// Requirement 10 - Cities in country (use ISO code)
+// Example: java -jar app.jar city-country CHN
+            if (args.length >= 2
+                    && args[0].equalsIgnoreCase("city-country")) {
+
+                String countryCode = args[1];
+
+                List<City> cities =
+                        cityService.generateCountryReport(
+                                database.getConnection(),
+                                countryCode
+                        );
+
+                formatter.printCities(
+                        "Cities in country: " + countryCode,
+                        cities
+                );
+                return;
+            }
+
+// Requirement 7 - All cities in world
+// Example: java -jar app.jar city-world
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-world")) {
+
+                List<City> cities =
+                        cityService.generateWorldReport(
+                                database.getConnection()
+                        );
+
+                formatter.printCities(
+                        "All cities in the world",
+                        cities
+                );
+                return;
+            }
+
+// Requirement 8 - Cities in continent
+// Example: java -jar app.jar city-continent Asia
+            if (args.length >= 2
+                    && args[0].equalsIgnoreCase("city-continent")) {
+
+                String continent = args[1];
+
+                List<City> cities =
+                        cityService.generateContinentReport(
+                                database.getConnection(),
+                                continent
+                        );
+
+                formatter.printCities(
+                        "Cities in continent: " + continent,
+                        cities
+                );
+                return;
+            }
+
+            // Requirement 11 - All cities in a district
+            // Example: java -jar app.jar city-district California
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-district")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "District must be provided. Usage: city-district <district>"
+                    );
+                }
+
+                String district = args[1];
+
+                List<City> cities =
+                        cityService.generateDistrictReport(
+                                database.getConnection(),
+                                district
+                        );
+
+                formatter.printCities(
+                        "Cities in district: " + district,
+                        cities
+                );
+                return;
+            }
+
+            // Requirement 12 - Top N populated cities in the world
+            // Example: java -jar app.jar city-top-world 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-top-world")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "N must be provided. Usage: city-top-world <N>"
+                    );
+                }
+
+                int limit = parsePositiveInteger(args[1]);
+
+                List<City> cities =
+                        cityService.generateTopNWorldReport(
+                                database.getConnection(),
+                                limit
+                        );
+
+                formatter.printCities(
+                        "Top " + limit + " populated cities in the world",
+                        cities
+                );
+                return;
+            }
+
+            // Requirement 13 - Top N populated cities in a continent
+            // Example: java -jar app.jar city-top-continent Asia 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-top-continent")) {
+
+                if (args.length != 3) {
+                    throw new IllegalArgumentException(
+                            "Continent and N must be provided. "
+                                    + "Usage: city-top-continent <continent> <N>"
+                    );
+                }
+
+                String continent = args[1];
+                int limit = parsePositiveInteger(args[2]);
+
+                List<City> cities =
+                        cityService.generateTopNContinentReport(
+                                database.getConnection(),
+                                continent,
+                                limit
+                        );
+
+                formatter.printCities(
+                        "Top " + limit
+                                + " populated cities in continent: "
+                                + continent,
+                        cities
+                );
+                return;
+            }
+
+            // Requirement 14 - Top N populated cities in a region
+            // Example: java -jar app.jar city-top-region "Eastern Asia" 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-top-region")) {
+
+                if (args.length != 3) {
+                    throw new IllegalArgumentException(
+                            "Region and N must be provided. "
+                                    + "Usage: city-top-region <region> <N>"
+                    );
+                }
+
+                String region = args[1];
+                int limit = parsePositiveInteger(args[2]);
+
+                List<City> cities =
+                        cityService.generateTopNRegionReport(
+                                database.getConnection(),
+                                region,
+                                limit
+                        );
+
+                formatter.printCities(
+                        "Top " + limit
+                                + " populated cities in region: "
+                                + region,
+                        cities
+                );
+                return;
+            }
+
 
             /*
              * Requirement 5, 6
@@ -200,6 +458,7 @@ public class Main {
                         countries
                 );
             }
+
 
         } catch (IllegalArgumentException exception) {
 

@@ -3,6 +3,7 @@
 [![Master build](https://github.com/GibbyAung/Devops-Population-System/actions/workflows/main.yaml/badge.svg?branch=master)](https://github.com/GibbyAung/Devops-Population-System/actions/workflows/main.yaml?query=branch%3Amaster)
 [![Develop build](https://github.com/GibbyAung/Devops-Population-System/actions/workflows/main.yaml/badge.svg?branch=develop)](https://github.com/GibbyAung/Devops-Population-System/actions/workflows/main.yaml?query=branch%3Adevelop)
 [![Latest release](https://img.shields.io/github/v/release/GibbyAung/Devops-Population-System?include_prereleases)](https://github.com/GibbyAung/Devops-Population-System/releases)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 ## Project Purpose
 
@@ -17,7 +18,7 @@ The current development work implements **16 requirements of 32, which is 50%**:
 
 The next functional work begins with Requirement 17, the capital-city reports.
 
-The latest `master` release, `v0.3.0`, contains Requirements 1-16.
+The current `master` release contains Requirements 1-16.
 
 On 14 October 2026, the merged documentation-recovery branch completed 29 Maven tests with no failures. Product Owner Saw Zwel Myat Tow reviewed and accepted the linked output evidence for Requirements 1-16.
 
@@ -77,74 +78,9 @@ docker compose ps
 
 After changing Java code, repeat both `mvn clean package` and `docker compose build app`. Otherwise Docker may run an older JAR.
 
-## Run Country Reports
+## Run Reports
 
-Requirement 1 uses no application argument. With Compose MySQL running, execute the JAR locally:
-
-```shell
-DB_HOST=localhost java -jar target/*-jar-with-dependencies.jar
-```
-
-Run Requirements 2-6 in Docker:
-
-```shell
-# Requirement 2: countries in a continent
-docker compose run --rm app Asia
-
-# Requirement 3: countries in a region
-docker compose run --rm app region "Eastern Asia"
-
-# Requirement 4: Top-N countries in the world
-docker compose run --rm app top-n 10
-
-# Requirement 5: Top-N countries in a continent
-docker compose run --rm app continent-top-n Asia 10
-
-# Requirement 6: Top-N countries in a region
-docker compose run --rm app region-top-n "Eastern Asia" 10
-```
-
-## Run City Reports
-
-```shell
-# Requirement 7: all cities in the world
-docker compose run --rm app city-world
-
-# Requirement 8: cities in a continent
-docker compose run --rm app city-continent Asia
-
-# Requirement 9: cities in a region
-docker compose run --rm app city-region "Eastern Asia"
-
-# Requirement 10: cities in a country (ISO country code)
-docker compose run --rm app city-country CHN
-
-# Requirement 11: cities in a district
-docker compose run --rm app city-district California
-
-# Requirement 12: Top-N cities in the world
-docker compose run --rm app city-top-world 10
-
-# Requirement 13: Top-N cities in a continent
-docker compose run --rm app city-top-continent Asia 10
-
-# Requirement 14: Top-N cities in a region
-docker compose run --rm app city-top-region "Eastern Asia" 10
-
-# Requirement 15: Top-N cities in a country (ISO country code)
-docker compose run --rm app city-top-country CHN 10
-
-# Requirement 16: Top-N cities in a district
-docker compose run --rm app city-top-district California 10
-```
-
-Stop the containers when finished:
-
-```shell
-docker compose down
-```
-
-Do not use `docker compose down -v` unless intentionally deleting and rebuilding the local MySQL volume.
+The complete command reference for Requirements 1-16, regression checks, and shutdown instructions is in [`docs/REPORT_COMMANDS.md`](docs/REPORT_COMMANDS.md).
 
 ## Required Report Columns
 
@@ -187,11 +123,17 @@ The GitHub Actions workflow at `.github/workflows/main.yaml`:
 5. Starts the application with MySQL through Docker Compose.
 6. Displays application logs and cleans up containers.
 
-## Use Cases
+## Project Documentation
 
+- Report commands: [`docs/REPORT_COMMANDS.md`](docs/REPORT_COMMANDS.md)
+- Code Review 1 demonstration guide: [`docs/CODE_REVIEW_1_GUIDE.md`](docs/CODE_REVIEW_1_GUIDE.md)
 - Country reports: [`use-cases/country-report/`](use-cases/country-report/)
 - City reports: [`use-cases/city-report/`](use-cases/city-report/)
 - Use-case diagram: [`use-case-diagram.drawio.svg`](use-cases/use-case-diagram.drawio.svg)
+- Requirement evidence register: [`evidence/README.md`](evidence/README.md)
+- Team working agreement: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
+- Continuous integration workflow: [`.github/workflows/main.yaml`](.github/workflows/main.yaml)
+- GitHub Issues: [Project issues](https://github.com/GibbyAung/Devops-Population-System/issues)
 
 ## Releases
 
@@ -254,7 +196,10 @@ Detailed evidence rules and the verification register are in [`evidence/README.m
 
 Private contribution percentages, matriculation numbers, and personal contact details are intentionally not published.
 
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
+
 ## Outstanding Assessment Items
 
 - **Coverage:** configure real coverage reporting for `master` before adding the required coverage badge.
-- **Licence:** the team has selected Apache License 2.0, but the complete root `LICENSE` file must be added and detected by GitHub before adding the required licence badge.

@@ -11,43 +11,16 @@ This Java application generates population reports from the MySQL `world` databa
 
 ## Current Status
 
-The current development work implements **16 requirements of 32, which is 50%**:
+**16 of 32 requirements have been implemented (50%).**
 
 - Requirements 1-6: country reports and Top-N country reports.
 - Requirements 7-16: city reports for the world, continent, region, country, and district, including every required Top-N city variant.
 
-The next functional work begins with Requirement 17, the capital-city reports.
-
 The current `master` release contains Requirements 1-16.
-
-On 14 October 2026, the merged documentation-recovery branch completed 29 Maven tests with no failures. Product Owner Saw Zwel Myat Tow reviewed and accepted the linked output evidence for Requirements 1-16.
 
 ## Technology
 
-- Java 25
-- Maven
-- JUnit 5
-- MySQL 8.4 with the `world` database
-- Docker and Docker Compose
-- GitHub Actions
-- Zube for Product Backlog and Sprint management
-
-## Prerequisites
-
-- Git
-- Java 25 JDK
-- Maven
-- Docker with Docker Compose
-
-Confirm the tools are installed:
-
-```shell
-git --version
-java --version
-mvn --version
-docker --version
-docker compose version
-```
+Built with Java 25, Maven, JUnit 5, MySQL 8.4, Docker Compose, and GitHub Actions.
 
 ## Clone the Repository
 

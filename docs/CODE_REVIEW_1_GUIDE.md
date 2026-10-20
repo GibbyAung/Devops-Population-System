@@ -5,7 +5,7 @@ This guide maps the team's demonstration to the Code Review 1 checklist. Demonst
 ## Review Scope
 
 ```text
-Release: v0.3.2
+Release: v0.3.3
 Requirements implemented: 16 of 32
 Completion: 50%
 Product Owner: Saw Zwel Myat Tow
@@ -19,7 +19,7 @@ Requirements 17-18 remain on `feature/capital-city-reports` and are not represen
 - Confirm every attendee can access GitHub and Zube.
 - Select `master` on GitHub before presenting released code.
 - Confirm the latest `master` and `develop` workflows are green.
-- Confirm release `v0.3.2` and its tag are visible.
+- Confirm release `v0.3.3` and its tag are visible.
 - Confirm the Product Backlog, Sprint boards, issues, use cases, and evidence are accessible.
 - Pull the latest `master` locally and build it before the meeting.
 - Keep Docker Desktop running and the required tools already signed in.
@@ -29,7 +29,7 @@ Requirements 17-18 remain on `feature/capital-city-reports` and are not represen
 1. Show the root README, badges, project purpose, and `16/32 = 50%` status.
 2. Show the GitHub repository and team contribution history.
 3. Show `master`, `develop`, feature, and release branches to explain GitFlow.
-4. Show GitHub release `v0.3.2` and its corresponding tag.
+4. Show GitHub release `v0.3.3` and its corresponding tag.
 5. Show GitHub Issues written as user stories with acceptance criteria.
 6. Show the Product Backlog and its priority order in Zube.
 7. Show completed and active Sprint boards, story points, owners, and card states.

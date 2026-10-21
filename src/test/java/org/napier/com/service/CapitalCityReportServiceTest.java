@@ -65,4 +65,20 @@ class CapitalCityReportServiceTest {
                 exception.getMessage()
         );
     }
+
+    @Test
+    void rejectsZeroTopN() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopNWorldReport(null, 0)
+        );
+    }
+
+    @Test
+    void rejectsNegativeTopN() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopNWorldReport(null, -5)
+        );
+    }
 }

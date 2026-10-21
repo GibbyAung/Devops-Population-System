@@ -59,6 +59,30 @@ public class CapitalCityReportService {
     }
 
     /**
+     * Generates a Top-N worldwide capital-city report.
+     *
+     * @return up to N capital cities ordered by descending population
+     */
+    public List<CapitalCity> generateTopNWorldReport(
+            Connection connection,
+            int n) throws SQLException {
+
+        validateLimit(n);
+        return repository.findTopNCapitalCities(connection, n);
+    }
+
+    /**
+     * Rejects a Top-N limit that is not positive.
+     */
+    private void validateLimit(int limit) {
+        if (limit <= 0) {
+            throw new IllegalArgumentException(
+                    "N must be a positive whole number."
+            );
+        }
+    }
+
+    /**
      * Rejects a missing or blank geographic scope.
      */
     private void validateScope(String scope, String label) {

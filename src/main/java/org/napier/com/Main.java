@@ -158,6 +158,34 @@ public class Main {
                 return;
             }
 
+            // Requirement 20 - Top N populated capital cities in the world
+// Example: java -jar app.jar capital-top-world 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-top-world")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "N must be provided. "
+                                    + "Usage: capital-top-world <N>"
+                    );
+                }
+
+                int limit = parsePositiveInteger(args[1]);
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateTopNWorldReport(
+                                database.getConnection(),
+                                limit
+                        );
+
+                formatter.printCapitalCities(
+                        "Top " + limit
+                                + " populated capital cities in the world",
+                        capitalCities
+                );
+                return;
+            }
+
             // Requirement 15 - Top N populated cities in a country (ISO code)
             // Example: java -jar app.jar city-top-country CHN 10
             if (args.length >= 1

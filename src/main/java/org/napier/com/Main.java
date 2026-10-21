@@ -101,6 +101,8 @@ public class Main {
             }
 
 
+
+
             // Requirement 18 - All capital cities in a continent
             // Example: java -jar app.jar capital-continent Asia
             if (args.length >= 1
@@ -125,6 +127,34 @@ public class Main {
                         "Capital cities in continent: " + continent,
                         capitalCities
                 );
+                return;
+            }
+
+            // Requirement 19 - All capital cities in a region
+// Example: java -jar app.jar capital-region "Southeast Asia"
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-region")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Region must be provided. "
+                                    + "Usage: capital-region <region>"
+                    );
+                }
+
+                String region = args[1];
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateRegionReport(
+                                database.getConnection(),
+                                region
+                        );
+
+                formatter.printCapitalCities(
+                        "Capital cities in region: " + region,
+                        capitalCities
+                );
+
                 return;
             }
 

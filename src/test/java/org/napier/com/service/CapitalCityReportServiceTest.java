@@ -3,6 +3,7 @@ package org.napier.com.service;
 import org.junit.jupiter.api.Test;
 import org.napier.com.repository.CapitalCityRepository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CapitalCityReportServiceTest {
@@ -31,6 +32,37 @@ class CapitalCityReportServiceTest {
                         null,
                         null
                 )
+        );
+    }
+    @Test
+    void rejectsBlankRegion() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateRegionReport(
+                        null,
+                        "   "
+                )
+        );
+
+        assertEquals(
+                "Region must be provided.",
+                exception.getMessage()
+        );
+    }
+
+    @Test
+    void rejectsNullRegion() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateRegionReport(
+                        null,
+                        null
+                )
+        );
+
+        assertEquals(
+                "Region must be provided.",
+                exception.getMessage()
         );
     }
 }

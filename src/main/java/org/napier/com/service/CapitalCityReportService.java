@@ -46,6 +46,18 @@ public class CapitalCityReportService {
         );
     }
 
+    public List<CapitalCity> generateRegionReport(
+            Connection connection,
+            String region) throws SQLException {
+
+        validateScope(region, "Region");
+
+        return repository.findCapitalCitiesByRegion(
+                connection,
+                region
+        );
+    }
+
     /**
      * Rejects a missing or blank geographic scope.
      */

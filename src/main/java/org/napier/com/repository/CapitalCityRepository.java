@@ -33,6 +33,16 @@ public class CapitalCityRepository {
             ORDER BY city.Population DESC
             """;
 
+    private static final String FIND_CAPITAL_CITIES_BY_REGION = """
+        SELECT city.Name AS Name,
+               country.Name AS Country,
+               city.Population AS Population
+        FROM country
+        JOIN city ON country.Capital = city.ID
+        WHERE country.Region = ?
+        ORDER BY city.Population DESC
+        """;
+
     /**
      * Finds every capital city ordered by descending population.
      *
@@ -70,6 +80,20 @@ public class CapitalCityRepository {
      *
      * @return capital-city rows returned by the query
      */
+
+    public List<CapitalCity> findCapitalCitiesByRegion(
+            Connection connection,
+            String region) throws SQLException {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(
+                             FIND_CAPITAL_CITIES_BY_REGION)) {
+
+            statement.setString(1, region);
+            return mapCapitalCities(statement);
+        }
+    }
+
     private List<CapitalCity> mapCapitalCities(
             PreparedStatement statement) throws SQLException {
 

@@ -186,6 +186,37 @@ public class Main {
                 return;
             }
 
+            // Requirement 21 - Top N populated capital cities in a continent
+            // Example: capital-top-continent Asia 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-top-continent")) {
+
+                if (args.length != 3) {
+                    throw new IllegalArgumentException(
+                            "Continent and N must be provided. "
+                                    + "Usage: capital-top-continent <continent> <N>"
+                    );
+                }
+
+                String continent = args[1];
+                int limit = parsePositiveInteger(args[2]);
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateTopNContinentReport(
+                                database.getConnection(),
+                                continent,
+                                limit
+                        );
+
+                formatter.printCapitalCities(
+                        "Top " + limit
+                                + " populated capital cities in continent: "
+                                + continent,
+                        capitalCities
+                );
+                return;
+            }
+
             // Requirement 15 - Top N populated cities in a country (ISO code)
             // Example: java -jar app.jar city-top-country CHN 10
             if (args.length >= 1

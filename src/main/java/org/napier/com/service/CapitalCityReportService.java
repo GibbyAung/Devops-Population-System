@@ -72,6 +72,25 @@ public class CapitalCityReportService {
     }
 
     /**
+     * Generates a Top-N capital-city report for the selected continent.
+     *
+     * @return up to N capitals in the continent, descending by population
+     */
+    public List<CapitalCity> generateTopNContinentReport(
+            Connection connection,
+            String continent,
+            int n) throws SQLException {
+
+        validateScope(continent, "Continent");
+        validateLimit(n);
+        return repository.findTopNCapitalCitiesByContinent(
+                connection,
+                continent,
+                n
+        );
+    }
+
+    /**
      * Rejects a Top-N limit that is not positive.
      */
     private void validateLimit(int limit) {

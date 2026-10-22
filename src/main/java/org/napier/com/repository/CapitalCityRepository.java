@@ -53,6 +53,17 @@ public class CapitalCityRepository {
         LIMIT ?
         """;
 
+    private static final String FIND_TOP_N_CAPITAL_CITIES_BY_CONTINENT = """
+            SELECT city.Name AS Name,
+                   country.Name AS Country,
+                   city.Population AS Population
+            FROM country
+            JOIN city ON country.Capital = city.ID
+            WHERE country.Continent = ?
+            ORDER BY city.Population DESC
+            LIMIT ?
+            """;
+
     /**
      * Finds every capital city ordered by descending population.
      *
@@ -138,5 +149,24 @@ public class CapitalCityRepository {
         }
 
         return capitalCities;
+    }
+
+    /**
+     * Finds up to N most populated capital cities within a continent.
+     *
+     * @return matching capital cities ordered by descending population
+     */
+    public List<CapitalCity> findTopNCapitalCitiesByContinent(
+            Connection connection,
+            String continent,
+            int n) throws SQLException {
+
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_TOP_N_CAPITAL_CITIES_BY_CONTINENT)) {
+
+            statement.setString(1, continent);
+            statement.setInt(2, n);
+            return mapCapitalCities(statement);
+        }
     }
 }

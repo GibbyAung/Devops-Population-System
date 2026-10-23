@@ -111,4 +111,33 @@ public class CapitalCityReportService {
             );
         }
     }
+
+    /**
+     * Generates a Top N capital-city report for a region.
+     *
+     * @param connection active database connection
+     * @param region selected region
+     * @param n maximum number of capital cities
+     * @return matching capital cities ordered by population
+     * @throws SQLException if the database query fails
+     */
+    public List<CapitalCity> generateTopRegionReport(
+            Connection connection,
+            String region,
+            int n) throws SQLException {
+
+        validateScope(region, "Region");
+
+        if (n <= 0) {
+            throw new IllegalArgumentException(
+                    "N must be a positive whole number."
+            );
+        }
+
+        return repository.findTopCapitalCitiesByRegion(
+                connection,
+                region,
+                n
+        );
+    }
 }

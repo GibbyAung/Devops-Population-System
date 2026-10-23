@@ -153,4 +153,52 @@ class CapitalCityReportServiceTest {
         assertEquals(1, result.size());
         assertEquals("Example Capital", result.get(0).getName());
     }
+
+    @Test
+    void rejectsNullRegionForTopN() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopRegionReport(
+                        null,
+                        null,
+                        10
+                )
+        );
+    }
+
+    @Test
+    void rejectsBlankRegionForTopN() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopRegionReport(
+                        null,
+                        "   ",
+                        10
+                )
+        );
+    }
+
+    @Test
+    void rejectsZeroNForRegion() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopRegionReport(
+                        null,
+                        "Southeast Asia",
+                        0
+                )
+        );
+    }
+
+    @Test
+    void rejectsNegativeNForRegion() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateTopRegionReport(
+                        null,
+                        "Southeast Asia",
+                        -5
+                )
+        );
+    }
 }

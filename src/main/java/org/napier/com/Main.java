@@ -217,6 +217,45 @@ public class Main {
                 return;
             }
 
+            // Requirement 22 - Top N populated capital cities in a region
+// Example: capital-top-region "Southeast Asia" 10
+
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-top-region")) {
+
+                if (args.length != 3) {
+                    throw new IllegalArgumentException(
+                            "Usage: capital-top-region <region> <N>"
+                    );
+                }
+
+                String region = args[1];
+
+                int n;
+
+                try {
+                    n = Integer.parseInt(args[2]);
+                } catch (NumberFormatException exception) {
+                    throw new IllegalArgumentException(
+                            "N must be a positive whole number."
+                    );
+                }
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateTopRegionReport(
+                                database.getConnection(),
+                                region,
+                                n
+                        );
+
+                formatter.printCapitalCities(
+                        "Top " + n + " capital cities in region: " + region,
+                        capitalCities
+                );
+
+                return;
+            }
+
             // Requirement 15 - Top N populated cities in a country (ISO code)
             // Example: java -jar app.jar city-top-country CHN 10
             if (args.length >= 1

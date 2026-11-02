@@ -8,6 +8,9 @@ import org.napier.com.service.CountryReportService;
 import org.napier.com.model.City;
 import org.napier.com.repository.CityRepository;
 import org.napier.com.service.CityReportService;
+import org.napier.com.model.CapitalCity;
+import org.napier.com.repository.CapitalCityRepository;
+import org.napier.com.service.CapitalCityReportService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -68,6 +71,190 @@ public class Main {
 
             CityReportService cityService =
                     new CityReportService(new CityRepository());
+
+            CapitalCityReportService capitalCityService =
+                    new CapitalCityReportService(
+                            new CapitalCityRepository()
+                    );
+
+            // Requirement 17 - All capital cities in the world
+            // Example: java -jar app.jar capital-world
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-world")) {
+
+                if (args.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Usage: capital-world"
+                    );
+                }
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateWorldReport(
+                                database.getConnection()
+                        );
+
+                formatter.printCapitalCities(
+                        "All capital cities in the world",
+                        capitalCities
+                );
+                return;
+            }
+
+
+
+
+            // Requirement 18 - All capital cities in a continent
+            // Example: java -jar app.jar capital-continent Asia
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-continent")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Continent must be provided. "
+                                    + "Usage: capital-continent <continent>"
+                    );
+                }
+
+                String continent = args[1];
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateContinentReport(
+                                database.getConnection(),
+                                continent
+                        );
+
+                formatter.printCapitalCities(
+                        "Capital cities in continent: " + continent,
+                        capitalCities
+                );
+                return;
+            }
+
+            // Requirement 19 - All capital cities in a region
+// Example: java -jar app.jar capital-region "Southeast Asia"
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-region")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Region must be provided. "
+                                    + "Usage: capital-region <region>"
+                    );
+                }
+
+                String region = args[1];
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateRegionReport(
+                                database.getConnection(),
+                                region
+                        );
+
+                formatter.printCapitalCities(
+                        "Capital cities in region: " + region,
+                        capitalCities
+                );
+
+                return;
+            }
+
+            // Requirement 20 - Top N populated capital cities in the world
+// Example: java -jar app.jar capital-top-world 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-top-world")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "N must be provided. "
+                                    + "Usage: capital-top-world <N>"
+                    );
+                }
+
+                int limit = parsePositiveInteger(args[1]);
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateTopNWorldReport(
+                                database.getConnection(),
+                                limit
+                        );
+
+                formatter.printCapitalCities(
+                        "Top " + limit
+                                + " populated capital cities in the world",
+                        capitalCities
+                );
+                return;
+            }
+
+            // Requirement 21 - Top N populated capital cities in a continent
+            // Example: capital-top-continent Asia 10
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-top-continent")) {
+
+                if (args.length != 3) {
+                    throw new IllegalArgumentException(
+                            "Continent and N must be provided. "
+                                    + "Usage: capital-top-continent <continent> <N>"
+                    );
+                }
+
+                String continent = args[1];
+                int limit = parsePositiveInteger(args[2]);
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateTopNContinentReport(
+                                database.getConnection(),
+                                continent,
+                                limit
+                        );
+
+                formatter.printCapitalCities(
+                        "Top " + limit
+                                + " populated capital cities in continent: "
+                                + continent,
+                        capitalCities
+                );
+                return;
+            }
+
+            // Requirement 22 - Top N populated capital cities in a region
+// Example: capital-top-region "Southeast Asia" 10
+
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("capital-top-region")) {
+
+                if (args.length != 3) {
+                    throw new IllegalArgumentException(
+                            "Usage: capital-top-region <region> <N>"
+                    );
+                }
+
+                String region = args[1];
+
+                int n;
+
+                try {
+                    n = Integer.parseInt(args[2]);
+                } catch (NumberFormatException exception) {
+                    throw new IllegalArgumentException(
+                            "N must be a positive whole number."
+                    );
+                }
+
+                List<CapitalCity> capitalCities =
+                        capitalCityService.generateTopRegionReport(
+                                database.getConnection(),
+                                region,
+                                n
+                        );
+
+                formatter.printCapitalCities(
+                        "Top " + n + " capital cities in region: " + region,
+                        capitalCities
+                );
+
+                return;
+            }
 
             // Requirement 15 - Top N populated cities in a country (ISO code)
             // Example: java -jar app.jar city-top-country CHN 10
@@ -470,23 +657,16 @@ public class Main {
                 );
             }
 
-
         } catch (IllegalArgumentException exception) {
-
             System.err.println(
-                    "Top-N country report failed: "
-                            + exception.getMessage()
+                    "Report failed: " + exception.getMessage()
             );
-
             System.exit(1);
 
         } catch (SQLException exception) {
-
             System.err.println(
-                    "Country report failed: "
-                            + exception.getMessage()
+                    "Report failed: " + exception.getMessage()
             );
-
             System.exit(1);
 
         } finally {

@@ -129,7 +129,7 @@ The release badge identifies the latest published version; it does not imply tha
 
 ## Requirement Evidence
 
-The following table reports the current development increment. Requirements 17-22 have implementation and screenshot evidence on the feature branch but are pending Product Owner review and release; they are not part of `master` yet. Requirements with long output use a second image to show the final row count and total population.
+The following table reports this `v0.4.0` release candidate. Requirements 17-22 have implementation and screenshot evidence accepted by the Product Owner; they are not part of `master` until this release candidate is merged and tagged. Requirements with long output use a second image to show the final row count and total population.
 
 | ID | Name | Met | Screenshot |
 |---:|---|:---:|---|

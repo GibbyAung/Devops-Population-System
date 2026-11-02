@@ -11,12 +11,13 @@ This Java application generates population reports from the MySQL `world` databa
 
 ## Current Status
 
-**16 of 32 requirements have been implemented (50%).**
+**22 of 32 requirements have been implemented (68.75%).**
 
 - Requirements 1-6: country reports and Top-N country reports.
 - Requirements 7-16: city reports for the world, continent, region, country, and district, including every required Top-N city variant.
+- Requirements 17-22: capital-city reports for the world, continent, and region, including the required Top-N variants.
 
-The current `master` release contains Requirements 1-16.
+The latest published release remains `v0.3.3` and contains Requirements 1-16. Requirements 17-22 are the next release increment and are not in `master` until the release workflow is complete.
 
 ## Technology
 
@@ -54,6 +55,17 @@ After changing Java code, repeat both `mvn clean package` and `docker compose bu
 ## Run Reports
 
 The complete command reference for Requirements 1-16, regression checks, and shutdown instructions is in [`docs/REPORT_COMMANDS.md`](docs/REPORT_COMMANDS.md).
+
+Capital-city commands under review for the next release:
+
+```shell
+docker compose run --rm app capital-world
+docker compose run --rm app capital-continent Asia
+docker compose run --rm app capital-region "Southeast Asia"
+docker compose run --rm app capital-top-world 10
+docker compose run --rm app capital-top-continent Asia 10
+docker compose run --rm app capital-top-region "Southeast Asia" 10
+```
 
 ## Required Report Columns
 
@@ -102,6 +114,7 @@ The GitHub Actions workflow at `.github/workflows/main.yaml`:
 - Code Review 1 demonstration guide: [`docs/CODE_REVIEW_1_GUIDE.md`](docs/CODE_REVIEW_1_GUIDE.md)
 - Country reports: [`use-cases/country-report/`](use-cases/country-report/)
 - City reports: [`use-cases/city-report/`](use-cases/city-report/)
+- Capital-city reports: [`use-cases/capital-city-report/`](use-cases/capital-city-report/)
 - Use-case diagram: [`use-case-diagram.drawio.svg`](use-cases/use-case-diagram.drawio.svg)
 - Requirement evidence register: [`evidence/README.md`](evidence/README.md)
 - Team working agreement: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
@@ -116,7 +129,7 @@ The release badge identifies the latest published version; it does not imply tha
 
 ## Requirement Evidence
 
-The following table reports implementation in the latest `master` release. Requirements with long output use a second image to show the final row count and total population.
+The following table reports this `v0.4.0` release candidate. Requirements 17-22 have implementation and screenshot evidence accepted by the Product Owner; they are not part of `master` until this release candidate is merged and tagged. Requirements with long output use a second image to show the final row count and total population.
 
 | ID | Name | Met | Screenshot |
 |---:|---|:---:|---|
@@ -136,12 +149,12 @@ The following table reports implementation in the latest `master` release. Requi
 | 14 | Top-N cities in a region | Yes | ![Requirement 14](evidence/requirements/requirement-14.png) |
 | 15 | Top-N cities in a country | Yes | ![Requirement 15](evidence/requirements/requirement-15.png) |
 | 16 | Top-N cities in a district | Yes | ![Requirement 16](evidence/requirements/requirement-16.png) |
-| 17 | All capital cities in the world | No | |
-| 18 | All capital cities in a continent | No | |
-| 19 | All capital cities in a region | No | |
-| 20 | Top-N capital cities in the world | No | |
-| 21 | Top-N capital cities in a continent | No | |
-| 22 | Top-N capital cities in a region | No | |
+| 17 | All capital cities in the world | Yes | ![Requirement 17](evidence/requirements/requirement-17.png)<br>![Requirement 17 total](evidence/requirements/requirement-17-total.png) |
+| 18 | All capital cities in a continent | Yes | ![Requirement 18](evidence/requirements/requirement-18.png)<br>![Requirement 18 total](evidence/requirements/requirement-18-total.png) |
+| 19 | All capital cities in a region | Yes | ![Requirement 19](evidence/requirements/requirement-19.png) |
+| 20 | Top-N capital cities in the world | Yes | ![Requirement 20](evidence/requirements/requirement-20.png) |
+| 21 | Top-N capital cities in a continent | Yes | ![Requirement 21](evidence/requirements/requirement-21.png) |
+| 22 | Top-N capital cities in a region | Yes | ![Requirement 22](evidence/requirements/requirement-22.png) |
 | 23 | Population, city population, and non-city population by continent | No | |
 | 24 | Population, city population, and non-city population by region | No | |
 | 25 | Population, city population, and non-city population by country | No | |

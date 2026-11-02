@@ -16,7 +16,7 @@ Screenshot files: Complete for Requirements 1-22
 Evidence review: COMPLETE for Requirements 1-22 - Saw Zwel Myat Tow (Product Owner)
 ```
 
-This verification snapshot records the 46-test pass and the Product Owner's acceptance of Requirements 17-22. Their screenshots are stored with the application. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot. The latest published `master` release is `v0.4.0`.
+This verification snapshot records the 46-test pass and the Product Owner's acceptance of Requirements 17-22. Their screenshots are stored with the application. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot. The latest published `master` release is `v0.4.1`; this patch updates documentation without changing application behavior.
 
 ## Evidence Rules
 

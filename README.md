@@ -17,7 +17,7 @@ This Java application generates population reports from the MySQL `world` databa
 - Requirements 7-16: city reports for the world, continent, region, country, and district, including every required Top-N city variant.
 - Requirements 17-22: capital-city reports for the world, continent, and region, including the required Top-N variants.
 
-The latest published release is `v0.4.0`, which contains Requirements 1-22.
+The latest published release is `v0.4.1`, which contains Requirements 1-22. This patch release refreshes the documentation; the capital-city reports were introduced in `v0.4.0`.
 
 ## Technology
 
@@ -129,7 +129,7 @@ The release badge identifies the latest published version; it does not imply tha
 
 ## Requirement Evidence
 
-The following table reports the latest published `v0.4.0` release on `master`. Requirements 1-22 are implemented and accepted, with output evidence linked below. Requirements with long output use a second image to show the final row count and total population.
+The following table reports the latest published `v0.4.1` release on `master`. Requirements 1-22 are implemented and accepted, with output evidence linked below. Requirements with long output use a second image to show the final row count and total population.
 
 | ID | Name | Met | Screenshot |
 |---:|---|:---:|---|

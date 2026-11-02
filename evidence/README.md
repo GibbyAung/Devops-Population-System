@@ -5,18 +5,18 @@ This folder records application-output evidence for the requirements reported as
 ## Current Verification State
 
 ```text
-Verification date: 14 October 2026
-Application commit: fe25233
-Application branch: docs/documentation-recovery
-Maven result: PASS - 29 tests, 0 failures, 0 errors, 0 skipped
-Docker evidence: Requirements 1-16 reviewed by the Product Owner
+Verification date: 2 November 2026
+Application commit: fa559fe (capital-city feature branch)
+Application branch: feature/capital-city-reports
+Maven result: PASS - 46 tests, 0 failures, 0 errors, 0 skipped
+Docker evidence: screenshots present for Requirements 17-22
 Product Owner: Saw Zwel Myat Tow
 Scrum Master: Win Myat Aung
-Screenshot files: Complete for Requirements 1-16
-Evidence review: COMPLETE for Requirements 1-16 - Saw Zwel Myat Tow (Product Owner)
+Screenshot files: Complete for Requirements 1-22
+Evidence review: Requirements 1-16 verified; Requirements 17-22 pending Product Owner review
 ```
 
-This verification proves the current branch builds and its automated tests pass. Output screenshots are stored and reviewed for Requirements 1-16. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
+This verification proves the capital-city feature branch builds and its automated tests pass. Screenshots for Requirements 17-22 are present, but remain pending Product Owner review and acceptance. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot. The published `master` release remains `v0.3.3` until the release workflow completes.
 
 ## Evidence Rules
 
@@ -92,6 +92,19 @@ docker compose run --rm app city-top-country CHN 10
 docker compose run --rm app city-top-district California 10
 ```
 
+## Capture Capital-City Reports
+
+Requirements 17-22:
+
+```shell
+docker compose run --rm app capital-world
+docker compose run --rm app capital-continent Asia
+docker compose run --rm app capital-region "Southeast Asia"
+docker compose run --rm app capital-top-world 10
+docker compose run --rm app capital-top-continent Asia 10
+docker compose run --rm app capital-top-region "Southeast Asia" 10
+```
+
 Stop the environment after capturing the output:
 
 ```shell
@@ -120,12 +133,12 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 | 14 | `requirements/requirement-14.png` | Region + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
 | 15 | `requirements/requirement-15.png` | Country + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
 | 16 | `requirements/requirement-16.png` | District + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
-| 17 | `requirements/requirement-17.png` | World | Three capital columns | Descending population | Not implemented | |
-| 18 | `requirements/requirement-18.png` | Continent | Three capital columns | Filter + descending population | Not implemented | |
-| 19 | `requirements/requirement-19.png` | Region | Three capital columns | Filter + descending population | Not implemented | |
-| 20 | `requirements/requirement-20.png` | N | Three capital columns | N rows + descending population | Not implemented | |
-| 21 | `requirements/requirement-21.png` | Continent + N | Three capital columns | Filter + N + descending population | Not implemented | |
-| 22 | `requirements/requirement-22.png` | Region + N | Three capital columns | Filter + N + descending population | Not implemented | |
+| 17 | `requirements/requirement-17.png` and `requirements/requirement-17-total.png` | World | Three capital columns | Descending population + total | Pending PO review | |
+| 18 | `requirements/requirement-18.png` and `requirements/requirement-18-total.png` | Continent | Three capital columns | Filter + descending population + total | Pending PO review | |
+| 19 | `requirements/requirement-19.png` | Region | Three capital columns | Filter + descending population + total | Pending PO review | |
+| 20 | `requirements/requirement-20.png` | N | Three capital columns | N rows + descending population + total | Pending PO review | |
+| 21 | `requirements/requirement-21.png` | Continent + N | Three capital columns | Filter + N + descending population + total | Pending PO review | |
+| 22 | `requirements/requirement-22.png` | Region + N | Three capital columns | Filter + N + descending population + total | Pending PO review | |
 | 23 | `requirements/requirement-23.png` | Continent | Totals and percentages | Calculations checked | Not implemented | |
 | 24 | `requirements/requirement-24.png` | Region | Totals and percentages | Calculations checked | Not implemented | |
 | 25 | `requirements/requirement-25.png` | Country | Totals and percentages | Calculations checked | Not implemented | |
@@ -139,7 +152,7 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 
 ## Evidence Review Outcome
 
-Product Owner Saw Zwel Myat Tow reviewed and verified the evidence for Requirements 1-16. Link the evidence commit on the relevant Zube cards so the acceptance record remains traceable.
+Product Owner Saw Zwel Myat Tow reviewed and verified the evidence for Requirements 1-16. Requirements 17-22 have implementation and screenshot evidence on the feature branch, but must remain pending until the Product Owner reviews the images and records acceptance on the relevant Zube cards. Link the evidence commit on those cards so the acceptance record remains traceable.
 
 Use this image format in the root README:
 

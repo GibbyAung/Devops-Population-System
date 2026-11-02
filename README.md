@@ -17,7 +17,7 @@ This Java application generates population reports from the MySQL `world` databa
 - Requirements 7-16: city reports for the world, continent, region, country, and district, including every required Top-N city variant.
 - Requirements 17-22: capital-city reports for the world, continent, and region, including the required Top-N variants.
 
-The latest published release remains `v0.3.3` and contains Requirements 1-16. Requirements 17-22 are the next release increment and are not in `master` until the release workflow is complete.
+The latest published release is `v0.4.1`, which contains Requirements 1-22. This patch release refreshes the documentation; the capital-city reports were introduced in `v0.4.0`.
 
 ## Technology
 
@@ -54,9 +54,9 @@ After changing Java code, repeat both `mvn clean package` and `docker compose bu
 
 ## Run Reports
 
-The complete command reference for Requirements 1-16, regression checks, and shutdown instructions is in [`docs/REPORT_COMMANDS.md`](docs/REPORT_COMMANDS.md).
+The complete command reference for Requirements 1-22, validation checks, and shutdown instructions is in [`docs/REPORT_COMMANDS.md`](docs/REPORT_COMMANDS.md).
 
-Capital-city commands under review for the next release:
+Capital-city reports released in `v0.4.0` (Requirements 17-22):
 
 ```shell
 docker compose run --rm app capital-world
@@ -129,7 +129,7 @@ The release badge identifies the latest published version; it does not imply tha
 
 ## Requirement Evidence
 
-The following table reports this `v0.4.0` release candidate. Requirements 17-22 have implementation and screenshot evidence accepted by the Product Owner; they are not part of `master` until this release candidate is merged and tagged. Requirements with long output use a second image to show the final row count and total population.
+The following table reports the latest published `v0.4.1` release on `master`. Requirements 1-22 are implemented and accepted, with output evidence linked below. Requirements with long output use a second image to show the final row count and total population.
 
 | ID | Name | Met | Screenshot |
 |---:|---|:---:|---|

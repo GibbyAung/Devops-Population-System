@@ -6,8 +6,8 @@ This folder records application-output evidence for the requirements reported as
 
 ```text
 Verification date: 2 November 2026
-Application commit: 49b3203 (capital-city increment merged to develop)
-Application branch: release/v0.4.0
+Application commit: 51916ce (v0.4.0 release merge on master)
+Application branch: master
 Maven result: PASS - 46 tests, 0 failures, 0 errors, 0 skipped
 Docker evidence: Requirements 17-22 screenshots reviewed and accepted by the Product Owner
 Product Owner: Saw Zwel Myat Tow
@@ -16,7 +16,7 @@ Screenshot files: Complete for Requirements 1-22
 Evidence review: COMPLETE for Requirements 1-22 - Saw Zwel Myat Tow (Product Owner)
 ```
 
-This verification snapshot records the 46-test pass and the Product Owner's acceptance of Requirements 17-22. Their screenshots are stored with the application. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot. The published `master` release remains `v0.3.3` until the `v0.4.0` release workflow completes.
+This verification snapshot records the 46-test pass and the Product Owner's acceptance of Requirements 17-22. Their screenshots are stored with the application. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot. The latest published `master` release is `v0.4.0`.
 
 ## Evidence Rules
 

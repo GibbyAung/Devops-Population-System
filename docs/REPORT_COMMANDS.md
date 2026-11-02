@@ -1,6 +1,6 @@
 # Population Report Command Reference
 
-This document contains the application commands for all country, city, and capital-city reports released on `master` in `v0.4.0` (Requirements 1-22).
+This document contains the application commands for all country, city, and capital-city reports in the latest `master` release, `v0.4.1` (Requirements 1-22).
 
 Run every command from the repository root, where `pom.xml` and `docker-compose.yaml` are located.
 

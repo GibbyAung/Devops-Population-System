@@ -81,6 +81,20 @@ docker compose run --rm app city-top-country CHN 10
 docker compose run --rm app city-top-district California 10
 ```
 
+## Population Breakdown Reports
+
+Requirements 23 and 24 take no arguments; each aggregates every continent or region in the database:
+
+```shell
+# Requirement 23: total, city, and non-city population by continent
+docker compose run --rm app continent-population
+
+# Requirement 24: total, city, and non-city population by region
+docker compose run --rm app region-population
+```
+
+Each row shows four data points: the continent or region name, its total population, its city population with the exact percentage of the total (for example `1,234,567 (45.67%)`), and its non-city population with its percentage. Non-city population is calculated as total population minus the sum of city populations, and zero-population rows report `0.00%` instead of dividing by zero.
+
 ## Controlled Checks
 
 Use these examples to demonstrate validation and empty-result handling:
@@ -91,6 +105,9 @@ docker compose run --rm app city-continent Atlantis
 
 # Invalid Top-N value returns an error and a non-zero exit
 docker compose run --rm app city-top-world 0
+
+# Extra arguments on a no-argument report return a usage error
+docker compose run --rm app continent-population extra
 ```
 
 ## Stop Docker

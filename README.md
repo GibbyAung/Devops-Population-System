@@ -11,10 +11,11 @@ This Java application generates population reports from the MySQL `world` databa
 
 ## Current Status
 
-**16 of 32 requirements have been implemented (50%).**
+**18 of 32 requirements have been implemented (56%).**
 
 - Requirements 1-6: country reports and Top-N country reports.
 - Requirements 7-16: city reports for the world, continent, region, country, and district, including every required Top-N city variant.
+- Requirements 23-24: population breakdown reports showing total, city, and non-city population with percentages for every continent and region.
 
 The current `master` release contains Requirements 1-16.
 
@@ -53,7 +54,7 @@ After changing Java code, repeat both `mvn clean package` and `docker compose bu
 
 ## Run Reports
 
-The complete command reference for Requirements 1-16, regression checks, and shutdown instructions is in [`docs/REPORT_COMMANDS.md`](docs/REPORT_COMMANDS.md).
+The complete command reference for Requirements 1-16 and 23-24, regression checks, and shutdown instructions is in [`docs/REPORT_COMMANDS.md`](docs/REPORT_COMMANDS.md).
 
 ## Required Report Columns
 
@@ -102,6 +103,7 @@ The GitHub Actions workflow at `.github/workflows/main.yaml`:
 - Code Review 1 demonstration guide: [`docs/CODE_REVIEW_1_GUIDE.md`](docs/CODE_REVIEW_1_GUIDE.md)
 - Country reports: [`use-cases/country-report/`](use-cases/country-report/)
 - City reports: [`use-cases/city-report/`](use-cases/city-report/)
+- Population breakdown reports: [`use-cases/population-report/`](use-cases/population-report/)
 - Use-case diagram: [`use-case-diagram.drawio.svg`](use-cases/use-case-diagram.drawio.svg)
 - Requirement evidence register: [`evidence/README.md`](evidence/README.md)
 - Team working agreement: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
@@ -142,8 +144,8 @@ The following table reports implementation in the latest `master` release. Requi
 | 20 | Top-N capital cities in the world | No | |
 | 21 | Top-N capital cities in a continent | No | |
 | 22 | Top-N capital cities in a region | No | |
-| 23 | Population, city population, and non-city population by continent | No | |
-| 24 | Population, city population, and non-city population by region | No | |
+| 23 | Population, city population, and non-city population by continent | Yes | ![Requirement 23](evidence/requirements/requirement-23.png) |
+| 24 | Population, city population, and non-city population by region | Yes | ![Requirement 24](evidence/requirements/requirement-24.png) |
 | 25 | Population, city population, and non-city population by country | No | |
 | 26 | Population of the world | No | |
 | 27 | Population of a continent | No | |

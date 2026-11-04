@@ -2,6 +2,7 @@ package org.napier.com.report;
 
 import org.junit.jupiter.api.Test;
 import org.napier.com.model.Country;
+import org.napier.com.model.PopulationBreakdown;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -72,5 +73,96 @@ class ReportFormatterTest {
         assertTrue(text.contains("District"));
         assertTrue(text.contains("Population"));
         assertTrue(text.contains("Seoul"));
+    }
+
+    @Test
+    void printsContinentPopulationBreakdownWithPercentages() {
+        String text = captureContinentBreakdown(List.of(
+                new PopulationBreakdown(
+                        "Example",
+                        1000000L,
+                        456789L
+                )
+        ));
+
+        assertTrue(text.contains("Continent"));
+        assertTrue(text.contains("Total Population"));
+        assertTrue(text.contains("City Population"));
+        assertTrue(text.contains("Non-City Population"));
+        assertTrue(text.contains("1,000,000"));
+        assertTrue(text.contains("456,789 (45.68%)"));
+        assertTrue(text.contains("543,211 (54.32%)"));
+        assertTrue(text.contains("Total"));
+    }
+
+    @Test
+    void printsRegionPopulationBreakdownHeaders() {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream original = System.out;
+
+        try {
+            System.setOut(new PrintStream(output));
+
+            new ReportFormatter().printRegionPopulationBreakdowns(
+                    "Population breakdown by region",
+                    List.of(
+                            new PopulationBreakdown(
+                                    "Eastern Asia",
+                                    1500000000L,
+                                    700000000L
+                            )
+                    )
+            );
+        } finally {
+            System.setOut(original);
+        }
+
+        String text = output.toString(StandardCharsets.UTF_8);
+
+        assertTrue(text.contains("Region"));
+        assertTrue(text.contains("Eastern Asia"));
+        assertTrue(text.contains("1,500,000,000"));
+        assertTrue(text.contains("700,000,000 (46.67%)"));
+        assertTrue(text.contains("800,000,000 (53.33%)"));
+    }
+
+    @Test
+    void zeroTotalPopulationReportsZeroPercentWithoutError() {
+        String text = captureContinentBreakdown(List.of(
+                new PopulationBreakdown("Antarctica", 0L, 0L)
+        ));
+
+        assertTrue(text.contains("0 (0.00%)"));
+        assertTrue(text.contains("Antarctica"));
+    }
+
+    @Test
+    void emptyBreakdownListShowsNoDataMessage() {
+        String text = captureContinentBreakdown(List.of());
+
+        assertTrue(text.contains(
+                "Report for Population breakdown by continent"
+        ));
+        assertTrue(text.contains("No population data found."));
+    }
+
+    private String captureContinentBreakdown(
+            List<PopulationBreakdown> breakdowns) {
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream original = System.out;
+
+        try {
+            System.setOut(new PrintStream(output));
+
+            new ReportFormatter().printContinentPopulationBreakdowns(
+                    "Population breakdown by continent",
+                    breakdowns
+            );
+        } finally {
+            System.setOut(original);
+        }
+
+        return output.toString(StandardCharsets.UTF_8);
     }
 }

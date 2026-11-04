@@ -126,8 +126,8 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 | 20 | `requirements/requirement-20.png` | N | Three capital columns | N rows + descending population | Not implemented | |
 | 21 | `requirements/requirement-21.png` | Continent + N | Three capital columns | Filter + N + descending population | Not implemented | |
 | 22 | `requirements/requirement-22.png` | Region + N | Three capital columns | Filter + N + descending population | Not implemented | |
-| 23 | `requirements/requirement-23.png` | Continent | Totals and percentages | Calculations checked | Not implemented | |
-| 24 | `requirements/requirement-24.png` | Region | Totals and percentages | Calculations checked | Not implemented | |
+| 23 | `requirements/requirement-23.png` | Continent | Totals and percentages | Calculations checked | Implemented | |
+| 24 | `requirements/requirement-24.png` | Region | Totals and percentages | Calculations checked | Implemented | |
 | 25 | `requirements/requirement-25.png` | Country | Totals and percentages | Calculations checked | Not implemented | |
 | 26 | `requirements/requirement-26.png` | World | Population | Total checked | Not implemented | |
 | 27 | `requirements/requirement-27.png` | Continent | Population | Total checked | Not implemented | |

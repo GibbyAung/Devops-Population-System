@@ -8,6 +8,9 @@ import org.napier.com.service.CountryReportService;
 import org.napier.com.model.City;
 import org.napier.com.repository.CityRepository;
 import org.napier.com.service.CityReportService;
+import org.napier.com.model.PopulationBreakdown;
+import org.napier.com.repository.PopulationBreakdownRepository;
+import org.napier.com.service.PopulationReportService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -68,6 +71,57 @@ public class Main {
 
             CityReportService cityService =
                     new CityReportService(new CityRepository());
+
+            PopulationReportService populationReportService =
+                    new PopulationReportService(
+                            new PopulationBreakdownRepository()
+                    );
+
+            // Requirement 23 - Population breakdown by continent
+            // Example: java -jar app.jar continent-population
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("continent-population")) {
+
+                if (args.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Usage: continent-population"
+                    );
+                }
+
+                List<PopulationBreakdown> breakdowns =
+                        populationReportService.generateContinentReport(
+                                database.getConnection()
+                        );
+
+                formatter.printContinentPopulationBreakdowns(
+                        "Population breakdown by continent",
+                        breakdowns
+                );
+                return;
+            }
+
+            // Requirement 24 - Population breakdown by region
+            // Example: java -jar app.jar region-population
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("region-population")) {
+
+                if (args.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Usage: region-population"
+                    );
+                }
+
+                List<PopulationBreakdown> breakdowns =
+                        populationReportService.generateRegionReport(
+                                database.getConnection()
+                        );
+
+                formatter.printRegionPopulationBreakdowns(
+                        "Population breakdown by region",
+                        breakdowns
+                );
+                return;
+            }
 
             // Requirement 15 - Top N populated cities in a country (ISO code)
             // Example: java -jar app.jar city-top-country CHN 10

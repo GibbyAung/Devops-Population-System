@@ -348,6 +348,23 @@ public class ReportFormatter {
     }
 
     /**
+     * Prints a country population-breakdown report.
+     */
+    public void printCountryPopulationBreakdowns(
+            String reportName,
+            List<PopulationBreakdown> breakdowns) {
+        printPopulationBreakdowns(reportName, "Country", breakdowns);
+    }
+
+    /**
+     * Prints the world population as a labelled 64-bit value.
+     */
+    public void printWorldTotalPopulation(long totalPopulation) {
+        System.out.println("World total population: "
+                + formatPopulation(totalPopulation));
+    }
+
+    /**
      * Prints a named population-breakdown report with totals and
      * urban-versus-rural percentages.
      */

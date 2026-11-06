@@ -134,6 +134,44 @@ class ReportFormatterTest {
     }
 
     @Test
+    void printsCountryPopulationBreakdownWithPercentages() {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream original = System.out;
+
+        try {
+            System.setOut(new PrintStream(output));
+            new ReportFormatter().printCountryPopulationBreakdowns(
+                    "Population breakdown by country",
+                    List.of(new PopulationBreakdown(
+                            "Example", 1000L, 250L)));
+        } finally {
+            System.setOut(original);
+        }
+
+        String text = output.toString(StandardCharsets.UTF_8);
+        assertTrue(text.contains("Country"));
+        assertTrue(text.contains("Example"));
+        assertTrue(text.contains("250 (25.00%)"));
+        assertTrue(text.contains("750 (75.00%)"));
+    }
+
+    @Test
+    void printsWorldTotalPopulationAsLabelledLong() {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream original = System.out;
+
+        try {
+            System.setOut(new PrintStream(output));
+            new ReportFormatter().printWorldTotalPopulation(9_000_000_000L);
+        } finally {
+            System.setOut(original);
+        }
+
+        assertTrue(output.toString(StandardCharsets.UTF_8).contains(
+                "World total population: 9,000,000,000"));
+    }
+
+    @Test
     void zeroTotalPopulationReportsZeroPercentWithoutError() {
         String text = captureContinentBreakdown(List.of(
                 new PopulationBreakdown("Antarctica", 0L, 0L)
@@ -172,7 +210,6 @@ class ReportFormatterTest {
 
         return output.toString(StandardCharsets.UTF_8);
     }
-
     @ParameterizedTest
     @ValueSource(strings = {"Continent", "Region"})
     void printsPopulationTotalWithLongValue(String scopeLabel) {

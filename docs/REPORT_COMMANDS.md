@@ -95,6 +95,18 @@ docker compose run --rm app region-population
 
 Each row shows four data points: the continent or region name, its total population, its city population with the exact percentage of the total (for example `1,234,567 (45.67%)`), and its non-city population with its percentage. Non-city population is calculated as total population minus the sum of city populations, and zero-population rows report `0.00%` instead of dividing by zero.
 
+### Requirements 25-26
+
+```shell
+# Requirement 25: total, city, and non-city population by country
+docker compose run --rm app country-population
+
+# Requirement 26: total population of all countries
+docker compose run --rm app world-population
+```
+
+Requirement 25 uses a `LEFT JOIN` so countries without city records remain in the output. Requirement 26 displays the world total as a 64-bit integer and returns a clear zero result when the country table is empty.
+
 ## Controlled Checks
 
 Use these examples to demonstrate validation and empty-result handling:

@@ -21,6 +21,26 @@ public class PopulationReportService {
     }
 
     /**
+     * Generates the population breakdown for every country.
+     *
+     * @return country rows ordered by descending total population
+     */
+    public List<PopulationBreakdown> generateCountryReport(
+            Connection connection) throws SQLException {
+        return repository.findPopulationBreakdownByCountry(connection);
+    }
+
+    /**
+     * Generates the total population of all countries.
+     *
+     * @return world population as a 64-bit value
+     */
+    public long generateWorldTotalPopulation(Connection connection)
+            throws SQLException {
+        return repository.findWorldTotalPopulation(connection);
+    }
+
+    /**
      * Generates the population breakdown for every continent.
      *
      * @return continent rows ordered by descending total population

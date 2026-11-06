@@ -87,6 +87,49 @@ public class Main {
                             new PopulationTotalRepository()
                     );
 
+            // Requirement 25 - Population breakdown by country
+            // Example: java -jar app.jar country-population
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("country-population")) {
+
+                if (args.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Usage: country-population"
+                    );
+                }
+
+                List<PopulationBreakdown> breakdowns =
+                        populationReportService.generateCountryReport(
+                                database.getConnection()
+                        );
+
+                formatter.printCountryPopulationBreakdowns(
+                        "Population breakdown by country",
+                        breakdowns
+                );
+                return;
+            }
+
+            // Requirement 26 - World total population
+            // Example: java -jar app.jar world-population
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("world-population")) {
+
+                if (args.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Usage: world-population"
+                    );
+                }
+
+                long totalPopulation =
+                        populationReportService.generateWorldTotalPopulation(
+                                database.getConnection()
+                        );
+
+                formatter.printWorldTotalPopulation(totalPopulation);
+                return;
+            }
+
             // Requirement 23 - Population breakdown by continent
             // Example: java -jar app.jar continent-population
             if (args.length >= 1

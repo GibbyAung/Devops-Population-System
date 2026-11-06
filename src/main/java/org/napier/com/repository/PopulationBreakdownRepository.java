@@ -14,6 +14,21 @@ import java.util.List;
  */
 public class PopulationBreakdownRepository {
 
+    private static final String FIND_POPULATION_BREAKDOWN_BY_COUNTRY = """
+            SELECT co.Name AS Name,
+                   co.Population AS TotalPopulation,
+                   COALESCE(SUM(ci.Population), 0) AS CityPopulation
+            FROM country co
+            LEFT JOIN city ci ON ci.CountryCode = co.Code
+            GROUP BY co.Code, co.Name, co.Population
+            ORDER BY co.Population DESC
+            """;
+
+    private static final String FIND_WORLD_TOTAL_POPULATION = """
+            SELECT COALESCE(SUM(Population), 0) AS TotalPopulation
+            FROM country
+            """;
+
     private static final String FIND_POPULATION_BREAKDOWN_BY_CONTINENT = """
             SELECT co.Continent AS Name,
                    SUM(co.Population) AS TotalPopulation,
@@ -43,6 +58,36 @@ public class PopulationBreakdownRepository {
             GROUP BY co.Region
             ORDER BY TotalPopulation DESC
             """;
+
+    /**
+     * Finds the population breakdown for every country, including countries
+     * without a matching city row.
+     *
+     * @return country rows ordered by descending total population
+     */
+    public List<PopulationBreakdown> findPopulationBreakdownByCountry(
+            Connection connection) throws SQLException {
+
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_POPULATION_BREAKDOWN_BY_COUNTRY)) {
+            return mapPopulationBreakdowns(statement);
+        }
+    }
+
+    /**
+     * Finds the total population across all countries.
+     *
+     * @return world population as a 64-bit value
+     */
+    public long findWorldTotalPopulation(Connection connection)
+            throws SQLException {
+
+        try (PreparedStatement statement = connection.prepareStatement(
+                FIND_WORLD_TOTAL_POPULATION);
+             ResultSet results = statement.executeQuery()) {
+            return results.next() ? results.getLong("TotalPopulation") : 0L;
+        }
+    }
 
     /**
      * Finds the population breakdown for every continent.

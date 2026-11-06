@@ -52,6 +52,49 @@ class PopulationReportServiceTest {
     }
 
     @Test
+    void delegatesCountryReportToRepository() throws SQLException {
+        AtomicBoolean repositoryCalled = new AtomicBoolean(false);
+
+        PopulationBreakdownRepository stubRepository =
+                new PopulationBreakdownRepository() {
+                    @Override
+                    public List<PopulationBreakdown>
+                            findPopulationBreakdownByCountry(
+                                    Connection connection)
+                                    throws SQLException {
+                        repositoryCalled.set(true);
+                        return List.of(new PopulationBreakdown(
+                                "Example", 1000L, 400L));
+                    }
+                };
+
+        PopulationReportService testService =
+                new PopulationReportService(stubRepository);
+        List<PopulationBreakdown> result =
+                testService.generateCountryReport(null);
+
+        assertTrue(repositoryCalled.get());
+        assertEquals("Example", result.get(0).getName());
+    }
+
+    @Test
+    void delegatesWorldTotalPopulationToRepository() throws SQLException {
+        PopulationBreakdownRepository stubRepository =
+                new PopulationBreakdownRepository() {
+                    @Override
+                    public long findWorldTotalPopulation(Connection connection) {
+                        return 9_000_000_000L;
+                    }
+                };
+
+        PopulationReportService testService =
+                new PopulationReportService(stubRepository);
+
+        assertEquals(9_000_000_000L,
+                testService.generateWorldTotalPopulation(null));
+    }
+
+    @Test
     void delegatesRegionReportToRepository() throws SQLException {
         AtomicBoolean repositoryCalled = new AtomicBoolean(false);
 

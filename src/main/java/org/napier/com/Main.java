@@ -11,6 +11,9 @@ import org.napier.com.service.CityReportService;
 import org.napier.com.model.PopulationBreakdown;
 import org.napier.com.repository.PopulationBreakdownRepository;
 import org.napier.com.service.PopulationReportService;
+import org.napier.com.model.PopulationTotal;
+import org.napier.com.repository.PopulationTotalRepository;
+import org.napier.com.service.PopulationTotalService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -60,6 +63,8 @@ public class Main {
             System.exit(1);
         }
 
+        int exitCode = 0;
+
         try {
             CountryReportService service =
                     new CountryReportService(
@@ -75,6 +80,11 @@ public class Main {
             PopulationReportService populationReportService =
                     new PopulationReportService(
                             new PopulationBreakdownRepository()
+                    );
+
+            PopulationTotalService populationTotalService =
+                    new PopulationTotalService(
+                            new PopulationTotalRepository()
                     );
 
             // Requirement 23 - Population breakdown by continent
@@ -120,6 +130,48 @@ public class Main {
                         "Population breakdown by region",
                         breakdowns
                 );
+                return;
+            }
+
+            // Requirement 27 - Total population of one continent
+// Example: java -jar app.jar continent-total-population Asia
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("continent-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: continent-total-population <continent>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateContinentReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("Continent", total);
+                return;
+            }
+
+// Requirement 28 - Total population of one region
+// Example: java -jar app.jar region-total-population "Southeast Asia"
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("region-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: region-total-population <region>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateRegionReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("Region", total);
                 return;
             }
 
@@ -528,23 +580,24 @@ public class Main {
         } catch (IllegalArgumentException exception) {
 
             System.err.println(
-                    "Top-N country report failed: "
-                            + exception.getMessage()
+                    "Report failed: " + exception.getMessage()
             );
-
-            System.exit(1);
+            exitCode = 1;
 
         } catch (SQLException exception) {
 
             System.err.println(
-                    "Country report failed: "
-                            + exception.getMessage()
+                    "Database report failed: " + exception.getMessage()
             );
-
-            System.exit(1);
+            exitCode = 1;
 
         } finally {
             database.disconnect();
+        }
+
+        // ---> THIS GOES RIGHT AFTER FINALLY, INSIDE THE MAIN METHOD:
+        if (exitCode != 0) {
+            System.exit(exitCode);
         }
     }
 }

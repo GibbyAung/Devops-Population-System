@@ -3,6 +3,9 @@ package org.napier.com.report;
 import org.junit.jupiter.api.Test;
 import org.napier.com.model.Country;
 import org.napier.com.model.PopulationBreakdown;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.napier.com.model.PopulationTotal;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -164,5 +167,33 @@ class ReportFormatterTest {
         }
 
         return output.toString(StandardCharsets.UTF_8);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Continent", "Region"})
+    void printsPopulationTotalWithLongValue(String scopeLabel) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream original = System.out;
+
+        try {
+            System.setOut(new PrintStream(output));
+
+            new ReportFormatter().printPopulationTotal(
+                    scopeLabel,
+                    new PopulationTotal(
+                            "Example",
+                            3700000000L
+                    )
+            );
+        } finally {
+            System.setOut(original);
+        }
+
+        String text = output.toString(StandardCharsets.UTF_8);
+
+        assertTrue(text.contains(scopeLabel));
+        assertTrue(text.contains("Total Population"));
+        assertTrue(text.contains("Example"));
+        assertTrue(text.contains("3,700,000,000"));
     }
 }

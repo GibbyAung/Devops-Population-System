@@ -3,6 +3,7 @@ package org.napier.com.report;
 import org.napier.com.model.Country;
 import org.napier.com.model.City;
 import org.napier.com.model.PopulationBreakdown;
+import org.napier.com.model.PopulationTotal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -543,5 +544,42 @@ public class ReportFormatter {
         }
 
         return row.toString();
+    }
+
+    /**
+     * Prints one continent or region population total.
+     */
+    public void printPopulationTotal(
+            String scopeLabel,
+            PopulationTotal total) {
+
+        String[] headers = {
+                scopeLabel,
+                "Total Population"
+        };
+
+        String[] row = {
+                total.getName(),
+                formatPopulation(total.getTotalPopulation())
+        };
+
+        int[] widths = {
+                Math.max(headers[0].length(), row[0].length()),
+                Math.max(headers[1].length(), row[1].length())
+        };
+
+        System.out.println(
+                "Report for Total population of "
+                        + scopeLabel.toLowerCase(Locale.ROOT)
+                        + ": " + total.getName()
+        );
+        System.out.println();
+
+        System.out.println(formatSeparator(widths));
+        System.out.println(formatPopulationBreakdownRow(headers, widths));
+        System.out.println(formatSeparator(widths));
+        System.out.println(formatPopulationBreakdownRow(row, widths));
+        System.out.println(formatSeparator(widths));
+        System.out.println();
     }
 }

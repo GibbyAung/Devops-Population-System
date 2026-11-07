@@ -175,6 +175,48 @@ public class Main {
                 return;
             }
 
+            // Requirement 29 - Total population of one country by full name
+// Example: java -jar app.jar country-total-population "United Kingdom"
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("country-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: country-total-population <countryName>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateCountryReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("Country", total);
+                return;
+            }
+
+// Requirement 30 - Aggregated city population of one district
+// Example: java -jar app.jar district-total-population California
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("district-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: district-total-population <district>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateDistrictReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("District", total);
+                return;
+            }
+
             // Requirement 15 - Top N populated cities in a country (ISO code)
             // Example: java -jar app.jar city-top-country CHN 10
             if (args.length >= 1

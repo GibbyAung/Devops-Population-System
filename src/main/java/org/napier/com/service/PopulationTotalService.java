@@ -42,6 +42,30 @@ public class PopulationTotalService {
                 ));
     }
 
+    public PopulationTotal generateCountryReport(
+            Connection connection,
+            String countryName) throws SQLException {
+
+        String name = validateName(countryName, "Country");
+
+        return repository.findTotalByCountry(connection, name)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Unknown country: " + name
+                ));
+    }
+
+    public PopulationTotal generateDistrictReport(
+            Connection connection,
+            String district) throws SQLException {
+
+        String name = validateName(district, "District");
+
+        return repository.findTotalByDistrict(connection, name)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Unknown district: " + name
+                ));
+    }
+
     private String validateName(String value, String label) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(

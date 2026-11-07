@@ -29,6 +29,21 @@ public class PopulationTotalRepository {
             GROUP BY Region
             """;
 
+    private static final String FIND_TOTAL_BY_COUNTRY = """
+        SELECT Name,
+               CAST(Population AS SIGNED) AS TotalPopulation
+        FROM country
+        WHERE Name = ?
+        """;
+
+    private static final String FIND_TOTAL_BY_DISTRICT = """
+        SELECT District AS Name,
+               CAST(SUM(Population) AS SIGNED) AS TotalPopulation
+        FROM city
+        WHERE District = ?
+        GROUP BY District
+        """;
+
     public Optional<PopulationTotal> findTotalByContinent(
             Connection connection,
             String continent) throws SQLException {
@@ -48,6 +63,28 @@ public class PopulationTotalRepository {
                 connection,
                 FIND_TOTAL_BY_REGION,
                 region
+        );
+    }
+
+    public Optional<PopulationTotal> findTotalByCountry(
+            Connection connection,
+            String countryName) throws SQLException {
+
+        return findTotal(
+                connection,
+                FIND_TOTAL_BY_COUNTRY,
+                countryName
+        );
+    }
+
+    public Optional<PopulationTotal> findTotalByDistrict(
+            Connection connection,
+            String district) throws SQLException {
+
+        return findTotal(
+                connection,
+                FIND_TOTAL_BY_DISTRICT,
+                district
         );
     }
 

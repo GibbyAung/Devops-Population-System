@@ -66,6 +66,18 @@ public class PopulationTotalService {
                 ));
     }
 
+    public PopulationTotal generateCityReport(
+            Connection connection,
+            String cityName) throws SQLException {
+
+        String name = validateName(cityName, "City");
+
+        return repository.findTotalByCity(connection, name)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Unknown city: " + name
+                ));
+    }
+
     private String validateName(String value, String label) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(

@@ -14,153 +14,86 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class PopulationTotalServiceTest {
+class PopulationTotalCityServiceTest {
 
     private final PopulationTotalService service =
-            new PopulationTotalService(
-                    new PopulationTotalRepository() {
+            new PopulationTotalService(new PopulationTotalRepository() {
+                @Override
+                public Optional<PopulationTotal> findTotalByCity(
+                        Connection connection,
+                        String cityName) throws SQLException {
 
-                        @Override
-                        public Optional<PopulationTotal> findTotalByContinent(
-                                Connection connection,
-                                String continent) {
-
-                            if ("Asia".equals(continent)) {
-                                return Optional.of(
-                                        new PopulationTotal(
-                                                "Asia",
-                                                3700000000L
-                                        )
-                                );
-                            }
-
-                            if ("Antarctica".equals(continent)) {
-                                return Optional.of(
-                                        new PopulationTotal(
-                                                "Antarctica",
-                                                0L
-                                        )
-                                );
-                            }
-
-                            return Optional.empty();
-                        }
-
-                        @Override
-                        public Optional<PopulationTotal> findTotalByRegion(
-                                Connection connection,
-                                String region) {
-
-                            if ("Southeast Asia".equals(region)) {
-                                return Optional.of(
-                                        new PopulationTotal(
-                                                "Southeast Asia",
-                                                500000000L
-                                        )
-                                );
-                            }
-
-                            return Optional.empty();
-                        }
-                    }
-            );
+                    return switch (cityName) {
+                        case "Yangon" -> Optional.of(
+                                new PopulationTotal("Yangon", 4581000L)
+                        );
+                        // Represents the agreed duplicate-name behavior.
+                        case "Duplicate Name" -> Optional.of(
+                                new PopulationTotal("Duplicate Name", 12000L)
+                        );
+                        case "Zero City" -> Optional.of(
+                                new PopulationTotal("Zero City", 0L)
+                        );
+                        case "Database failure" ->
+                                throw new SQLException("City query failed");
+                        default -> Optional.empty();
+                    };
+                }
+            });
 
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = {" ", "   ", "\t"})
-    void rejectsMissingContinent(String input) {
+    void rejectsMissingCity(String input) {
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> service.generateContinentReport(null, input)
+                () -> service.generateCityReport(null, input)
         );
 
-        assertEquals(
-                "Continent must be provided.",
-                exception.getMessage()
-        );
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = {" ", "   ", "\t"})
-    void rejectsMissingRegion(String input) {
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> service.generateRegionReport(null, input)
-        );
-
-        assertEquals(
-                "Region must be provided.",
-                exception.getMessage()
-        );
+        assertEquals("City must be provided.", exception.getMessage());
     }
 
     @Test
-    void rejectsUnknownContinent() {
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> service.generateContinentReport(
-                        null,
-                        "Atlantis"
-                )
-        );
-
-        assertEquals(
-                "Unknown continent: Atlantis",
-                exception.getMessage()
-        );
-    }
-
-    @Test
-    void rejectsUnknownRegion() {
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> service.generateRegionReport(
-                        null,
-                        "Atlantis"
-                )
-        );
-
-        assertEquals(
-                "Unknown region: Atlantis",
-                exception.getMessage()
-        );
-    }
-
-    @Test
-    void preservesContinentTotalAboveIntegerMaximum()
-            throws SQLException {
-
+    void stripsCityNameWhitespace() throws SQLException {
         PopulationTotal result =
-                service.generateContinentReport(null, " Asia ");
+                service.generateCityReport(null, " Yangon ");
 
-        assertEquals("Asia", result.getName());
-        assertEquals(3700000000L, result.getTotalPopulation());
+        assertEquals("Yangon", result.getName());
+        assertEquals(4581000L, result.getTotalPopulation());
     }
 
     @Test
-    void acceptsRegionNameWithSpaces() throws SQLException {
-        PopulationTotal result =
-                service.generateRegionReport(
-                        null,
-                        " Southeast Asia "
-                );
+    void rejectsUnknownCity() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> service.generateCityReport(null, "No Such City")
+        );
 
-        assertEquals("Southeast Asia", result.getName());
-        assertEquals(500000000L, result.getTotalPopulation());
+        assertEquals("Unknown city: No Such City", exception.getMessage());
     }
 
     @Test
-    void acceptsKnownContinentWithZeroPopulation()
-            throws SQLException {
-
+    void preservesKnownZeroPopulation() throws SQLException {
         PopulationTotal result =
-                service.generateContinentReport(
-                        null,
-                        "Antarctica"
-                );
+                service.generateCityReport(null, "Zero City");
 
-        assertEquals("Antarctica", result.getName());
         assertEquals(0L, result.getTotalPopulation());
+    }
+
+    @Test
+    void returnsTheAgreedDuplicateNameResult() throws SQLException {
+        PopulationTotal result =
+                service.generateCityReport(null, "Duplicate Name");
+
+        assertEquals("Duplicate Name", result.getName());
+        assertEquals(12000L, result.getTotalPopulation());
+    }
+
+    @Test
+    void propagatesDatabaseFailure() {
+        assertThrows(
+                SQLException.class,
+                () -> service.generateCityReport(null, "Database failure")
+        );
     }
 }

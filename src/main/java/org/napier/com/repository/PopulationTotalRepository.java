@@ -44,6 +44,14 @@ public class PopulationTotalRepository {
         GROUP BY District
         """;
 
+    private static final String FIND_TOTAL_BY_CITY = """
+        SELECT Name,
+               CAST(SUM(Population) AS SIGNED) AS TotalPopulation
+        FROM city
+        WHERE Name = ?
+        GROUP BY Name
+        """;
+
     public Optional<PopulationTotal> findTotalByContinent(
             Connection connection,
             String continent) throws SQLException {
@@ -85,6 +93,17 @@ public class PopulationTotalRepository {
                 connection,
                 FIND_TOTAL_BY_DISTRICT,
                 district
+        );
+    }
+
+    public Optional<PopulationTotal> findTotalByCity(
+            Connection connection,
+            String cityName) throws SQLException {
+
+        return findTotal(
+                connection,
+                FIND_TOTAL_BY_CITY,
+                cityName
         );
     }
 

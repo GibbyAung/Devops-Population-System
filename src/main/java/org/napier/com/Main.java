@@ -217,6 +217,27 @@ public class Main {
                 return;
             }
 
+            // Requirement 31 - Total population of a city
+// Example: java -jar app.jar city-total-population "Yangon"
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: city-total-population <cityName>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateCityReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("City", total);
+                return;
+            }
+
             // Requirement 15 - Top N populated cities in a country (ISO code)
             // Example: java -jar app.jar city-top-country CHN 10
             if (args.length >= 1

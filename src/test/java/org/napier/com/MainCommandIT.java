@@ -43,8 +43,8 @@ class MainCommandIT {
                 "All capital cities in the world");
         assertReport(new String[]{"capital-top-world", "3"},
                 "Top 3 populated capital cities in the world");
-        assertReport(new String[]{"city-total-population", "Yangon"},
-                "Yangon");
+        assertReport(new String[]{"city-total-population", "London"},
+                "London");
     }
 
     @Test

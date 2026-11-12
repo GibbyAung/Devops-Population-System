@@ -26,7 +26,7 @@ Show `.github/workflows/main.yaml` and a successful PR run. It runs Maven verifi
 
 ### 4. Deployment (1 minute)
 
-Show the dependency-inclusive JAR, `Dockerfile`, and `docker-compose.yaml`. Rehearse `mvn clean package`, `docker compose up -d --wait mysql`, `docker compose build app`, and `docker compose run --rm app city-total-population "Yangon"`.
+Show the dependency-inclusive JAR, `Dockerfile`, and `docker-compose.yaml`. Rehearse `mvn clean package`, `docker compose up -d --wait mysql`, `docker compose build app`, and `docker compose run --rm app city-total-population "London"`.
 
 ### 5. Bug reporting (1 minute)
 

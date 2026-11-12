@@ -49,7 +49,7 @@ run_and_expect "Continent" continent-total-population Asia
 run_and_expect "Region" region-total-population "Southeast Asia"
 run_and_expect "United Kingdom" country-total-population "United Kingdom"
 run_and_expect "District" district-total-population California
-run_and_expect "Yangon" city-total-population Yangon
+run_and_expect "London" city-total-population London
 expect_failure_with "Unknown city" city-total-population "No Such City"
 
 printf 'All MySQL report integration smoke tests passed.\n'

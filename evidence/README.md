@@ -10,6 +10,7 @@ Application branch: feature/population-breakdown-reports (integration of origin/
 Latest published release: v0.4.1 (Requirements 1-22)
 Sprint 5: Requirements 23-31 implemented with screenshots; integrated test/evidence review pending
 Maven result after merge resolution: PASS - 94 tests, 0 failures, 0 errors, 0 skipped
+MySQL integration profile locally: 5 integration tests skipped because DB_HOST/Docker were unavailable
 Docker Compose verification: Not run locally - Docker daemon unavailable
 Product Owner: Saw Zwel Myat Tow
 Scrum Master: Win Myat Aung

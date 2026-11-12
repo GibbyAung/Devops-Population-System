@@ -2,6 +2,7 @@ package org.napier.com.report;
 
 import org.junit.jupiter.api.Test;
 import org.napier.com.model.Country;
+import org.napier.com.model.CapitalCity;
 import org.napier.com.model.PopulationBreakdown;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -260,5 +261,27 @@ class ReportFormatterTest {
         assertTrue(text.contains("Total Population"));
         assertTrue(text.contains("Example"));
         assertTrue(text.contains("3,500,000,000"));
+    }
+
+    @Test
+    void printsRequiredCapitalCityHeadings() {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream original = System.out;
+
+        try {
+            System.setOut(new PrintStream(output));
+            new ReportFormatter().printCapitalCities(List.of(
+                    new CapitalCity("Tokyo", "Japan", 7980230L)
+            ));
+        } finally {
+            System.setOut(original);
+        }
+
+        String text = output.toString(StandardCharsets.UTF_8);
+        assertTrue(text.contains("Name"));
+        assertTrue(text.contains("Country"));
+        assertTrue(text.contains("Population"));
+        assertTrue(text.contains("Tokyo"));
+        assertTrue(text.contains("Japan"));
     }
 }

@@ -1,6 +1,6 @@
 # Population Report Command Reference
 
-This document contains the application commands for the country and city reports released on `master`.
+This document contains application commands for Requirements 1-31. Requirements 1-22 are in the latest release (`v0.4.1`); Requirements 23-31 are integrated development work and are not released yet.
 
 Run every command from the repository root, where `pom.xml` and `docker-compose.yaml` are located.
 
@@ -81,6 +81,30 @@ docker compose run --rm app city-top-country CHN 10
 docker compose run --rm app city-top-district California 10
 ```
 
+## Capital-City Reports
+
+Requirements 17-22 report capital cities only. Their columns are Name, Country, and Population; results are ordered by capital-city population descending.
+
+```shell
+# Requirement 17: all capital cities in the world
+docker compose run --rm app capital-world
+
+# Requirement 18: capital cities in a continent
+docker compose run --rm app capital-continent Asia
+
+# Requirement 19: capital cities in a region
+docker compose run --rm app capital-region "Southeast Asia"
+
+# Requirement 20: Top-N capital cities in the world
+docker compose run --rm app capital-top-world 10
+
+# Requirement 21: Top-N capital cities in a continent
+docker compose run --rm app capital-top-continent Asia 10
+
+# Requirement 22: Top-N capital cities in a region
+docker compose run --rm app capital-top-region "Southeast Asia" 10
+```
+
 ## Population Breakdown Reports
 
 Requirements 23 and 24 take no arguments; each aggregates every continent or region in the database:
@@ -107,6 +131,25 @@ docker compose run --rm app world-population
 
 Requirement 25 uses a `LEFT JOIN` so countries without city records remain in the output. Requirement 26 displays the world total as a 64-bit integer and returns a clear zero result when the country table is empty.
 
+### Requirements 27-31
+
+```shell
+# Requirement 27: total population of a continent
+docker compose run --rm app continent-total-population Asia
+
+# Requirement 28: total population of a region
+docker compose run --rm app region-total-population "Southeast Asia"
+
+# Requirement 29: total population of a country
+docker compose run --rm app country-total-population "United Kingdom"
+
+# Requirement 30: total population of a district
+docker compose run --rm app district-total-population California
+
+# Requirement 31: total population of a city
+docker compose run --rm app city-total-population "Yangon"
+```
+
 ## Controlled Checks
 
 Use these examples to demonstrate validation and empty-result handling:
@@ -120,6 +163,9 @@ docker compose run --rm app city-top-world 0
 
 # Extra arguments on a no-argument report return a usage error
 docker compose run --rm app continent-population extra
+
+# Invalid capital-city Top-N value returns an error and a non-zero exit
+docker compose run --rm app capital-top-world 0
 ```
 
 ## Stop Docker

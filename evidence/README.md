@@ -5,18 +5,17 @@ This folder records application-output evidence for the requirements reported as
 ## Current Verification State
 
 ```text
-Verification date: 14 October 2026
-Application commit: fe25233
-Application branch: docs/documentation-recovery
-Maven result: PASS - 29 tests, 0 failures, 0 errors, 0 skipped
-Docker evidence: Requirements 1-16 reviewed by the Product Owner
+Verification date: 12 November 2026
+Application branch: feature/population-breakdown-reports (integration of origin/develop in progress)
+Latest published release: v0.4.1 (Requirements 1-22)
+Sprint 5: Requirements 23-31 implemented with screenshots; integrated test/evidence review pending
+Maven result after merge resolution: PASS - 94 tests, 0 failures, 0 errors, 0 skipped
+Docker Compose verification: Not run locally - Docker daemon unavailable
 Product Owner: Saw Zwel Myat Tow
 Scrum Master: Win Myat Aung
-Screenshot files: Complete for Requirements 1-16
-Evidence review: COMPLETE for Requirements 1-16 - Saw Zwel Myat Tow (Product Owner)
 ```
 
-This verification proves the current branch builds and its automated tests pass. Output screenshots are stored and reviewed for Requirements 1-16. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
+The released evidence for Requirements 1-22 remains reviewed. Sprint 5 evidence screenshots for Requirements 23-31 are present on the population feature branch; do not mark them independently verified until the merged application has been tested and the screenshots reviewed. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
 
 ## Evidence Rules
 
@@ -120,26 +119,26 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 | 14 | `requirements/requirement-14.png` | Region + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
 | 15 | `requirements/requirement-15.png` | Country + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
 | 16 | `requirements/requirement-16.png` | District + N | Four city columns | Filter + N + descending population | Verified | Saw Zwel Myat Tow |
-| 17 | `requirements/requirement-17.png` | World | Three capital columns | Descending population | Not implemented | |
-| 18 | `requirements/requirement-18.png` | Continent | Three capital columns | Filter + descending population | Not implemented | |
-| 19 | `requirements/requirement-19.png` | Region | Three capital columns | Filter + descending population | Not implemented | |
-| 20 | `requirements/requirement-20.png` | N | Three capital columns | N rows + descending population | Not implemented | |
-| 21 | `requirements/requirement-21.png` | Continent + N | Three capital columns | Filter + N + descending population | Not implemented | |
-| 22 | `requirements/requirement-22.png` | Region + N | Three capital columns | Filter + N + descending population | Not implemented | |
-| 23 | `requirements/requirement-23.png` | Continent | Totals and percentages | Calculations checked | Implemented | |
-| 24 | `requirements/requirement-24.png` | Region | Totals and percentages | Calculations checked | Implemented | |
-| 25 | `requirements/requirement-25.png` | Country | Totals and percentages | Calculations checked | Not implemented | |
-| 26 | `requirements/requirement-26.png` | World | Population | Total checked | Not implemented | |
-| 27 | `requirements/requirement-27.png` | Continent | Population | Total checked | Not implemented | |
-| 28 | `requirements/requirement-28.png` | Region | Population | Total checked | Not implemented | |
-| 29 | `requirements/requirement-29.png` | Country | Population | Total checked | Not implemented | |
-| 30 | `requirements/requirement-30.png` | District | Population | Total checked | Not implemented | |
-| 31 | `requirements/requirement-31.png` | City | Population | Total checked | Not implemented | |
+| 17 | `requirements/requirement-17.png` and `requirements/requirement-17-total.png` | World | Three capital columns | Descending population + total | Verified | Saw Zwel Myat Tow |
+| 18 | `requirements/requirement-18.png` and `requirements/requirement-18-total.png` | Continent | Three capital columns | Filter + descending population + total | Verified | Saw Zwel Myat Tow |
+| 19 | `requirements/requirement-19.png` | Region | Three capital columns | Filter + descending population + total | Verified | Saw Zwel Myat Tow |
+| 20 | `requirements/requirement-20.png` | N | Three capital columns | N rows + descending population + total | Verified | Saw Zwel Myat Tow |
+| 21 | `requirements/requirement-21.png` | Continent + N | Three capital columns | Filter + N + descending population + total | Verified | Saw Zwel Myat Tow |
+| 22 | `requirements/requirement-22.png` | Region + N | Three capital columns | Filter + N + descending population + total | Verified | Saw Zwel Myat Tow |
+| 23 | `requirements/requirement-23.png` | Continent | Totals and percentages | Calculations checked | Implemented; review pending | |
+| 24 | `requirements/requirement-24.png` | Region | Totals and percentages | Calculations checked | Implemented; review pending | |
+| 25 | `requirements/requirement-25.png` | Country | Totals and percentages | Calculations checked | Implemented; review pending | |
+| 26 | `requirements/requirement-26.png` | World | Population | Total checked | Implemented; review pending | |
+| 27 | `requirements/requirement-27.png` | Continent | Population | Total checked | Implemented; review pending | |
+| 28 | `requirements/requirement-28.png` | Region | Population | Total checked | Implemented; review pending | |
+| 29 | `requirements/requirement-29.png` | Country | Population | Total checked | Implemented; review pending | |
+| 30 | `requirements/requirement-30.png` | District | Population | Total checked | Implemented; review pending | |
+| 31 | `requirements/requirement-31.png` | City | Population | Total checked | Implemented; review pending | |
 | 32 | `requirements/requirement-32.png` | Five languages | Language, speakers, percentage | Descending count + calculations | Not implemented | |
 
 ## Evidence Review Outcome
 
-Product Owner Saw Zwel Myat Tow reviewed and verified the evidence for Requirements 1-16. Link the evidence commit on the relevant Zube cards so the acceptance record remains traceable.
+Product Owner Saw Zwel Myat Tow reviewed and verified the evidence for Requirements 1-22. Requirements 23-31 have acceptance recorded in their GitHub issues; complete an integrated-branch screenshot review and update their register rows before claiming evidence review complete. Link evidence commits on the relevant Zube cards.
 
 Use this image format in the root README:
 

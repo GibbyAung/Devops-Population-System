@@ -11,13 +11,16 @@ This Java application generates population reports from the MySQL `world` databa
 
 ## Current Status
 
-**18 of 32 requirements have been implemented (56%).**
+**31 of 32 requirements have been implemented (96.875%).**
 
 - Requirements 1-6: country reports and Top-N country reports.
 - Requirements 7-16: city reports for the world, continent, region, country, and district, including every required Top-N city variant.
-- Requirements 23-24: population breakdown reports showing total, city, and non-city population with percentages for every continent and region.
+- Requirements 17-22: capital-city reports for the world, continent, and region, including the required Top-N variants.
+- Requirements 23-25: population breakdowns by continent, region, and country.
+- Requirements 26-31: world, continent, region, country, district, and city population totals.
+- Requirement 32 (language populations) remains unimplemented.
 
-The current `master` release contains Requirements 1-16.
+The latest published release is `v0.4.1`, containing Requirements 1-22. Requirements 23-31 are integrated development work on this branch and have not been released yet.
 
 ## Technology
 
@@ -54,7 +57,7 @@ After changing Java code, repeat both `mvn clean package` and `docker compose bu
 
 ## Run Reports
 
-The complete command reference for Requirements 1-16 and 23-24, regression checks, and shutdown instructions is in [`docs/REPORT_COMMANDS.md`](docs/REPORT_COMMANDS.md).
+The complete command reference for Requirements 1-31, validation checks, regression checks, and shutdown instructions is in [`docs/REPORT_COMMANDS.md`](docs/REPORT_COMMANDS.md).
 
 ## Required Report Columns
 
@@ -103,7 +106,8 @@ The GitHub Actions workflow at `.github/workflows/main.yaml`:
 - Code Review 1 demonstration guide: [`docs/CODE_REVIEW_1_GUIDE.md`](docs/CODE_REVIEW_1_GUIDE.md)
 - Country reports: [`use-cases/country-report/`](use-cases/country-report/)
 - City reports: [`use-cases/city-report/`](use-cases/city-report/)
-- Population breakdown reports: [`use-cases/population-report/`](use-cases/population-report/)
+- Population reports: [`use-cases/population-report/`](use-cases/population-report/)
+- Capital-city reports: [`use-cases/capital-city-report/`](use-cases/capital-city-report/)
 - Use-case diagram: [`use-case-diagram.drawio.svg`](use-cases/use-case-diagram.drawio.svg)
 - Requirement evidence register: [`evidence/README.md`](evidence/README.md)
 - Team working agreement: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
@@ -118,7 +122,7 @@ The release badge identifies the latest published version; it does not imply tha
 
 ## Requirement Evidence
 
-The following table reports implementation in the latest `master` release. Requirements with long output use a second image to show the final row count and total population.
+The following table reports the integrated development state of this branch, not only the latest published release. Requirements 1-31 have implementation and screenshot evidence; Requirement 32 remains unimplemented. Requirements with long output use a second image to show the final row count and total population.
 
 | ID | Name | Met | Screenshot |
 |---:|---|:---:|---|
@@ -138,21 +142,21 @@ The following table reports implementation in the latest `master` release. Requi
 | 14 | Top-N cities in a region | Yes | ![Requirement 14](evidence/requirements/requirement-14.png) |
 | 15 | Top-N cities in a country | Yes | ![Requirement 15](evidence/requirements/requirement-15.png) |
 | 16 | Top-N cities in a district | Yes | ![Requirement 16](evidence/requirements/requirement-16.png) |
-| 17 | All capital cities in the world | No | |
-| 18 | All capital cities in a continent | No | |
-| 19 | All capital cities in a region | No | |
-| 20 | Top-N capital cities in the world | No | |
-| 21 | Top-N capital cities in a continent | No | |
-| 22 | Top-N capital cities in a region | No | |
+| 17 | All capital cities in the world | Yes | ![Requirement 17](evidence/requirements/requirement-17.png)<br>![Requirement 17 total](evidence/requirements/requirement-17-total.png) |
+| 18 | All capital cities in a continent | Yes | ![Requirement 18](evidence/requirements/requirement-18.png)<br>![Requirement 18 total](evidence/requirements/requirement-18-total.png) |
+| 19 | All capital cities in a region | Yes | ![Requirement 19](evidence/requirements/requirement-19.png) |
+| 20 | Top-N capital cities in the world | Yes | ![Requirement 20](evidence/requirements/requirement-20.png) |
+| 21 | Top-N capital cities in a continent | Yes | ![Requirement 21](evidence/requirements/requirement-21.png) |
+| 22 | Top-N capital cities in a region | Yes | ![Requirement 22](evidence/requirements/requirement-22.png) |
 | 23 | Population, city population, and non-city population by continent | Yes | ![Requirement 23](evidence/requirements/requirement-23.png) |
 | 24 | Population, city population, and non-city population by region | Yes | ![Requirement 24](evidence/requirements/requirement-24.png) |
-| 25 | Population, city population, and non-city population by country | No | |
-| 26 | Population of the world | No | |
-| 27 | Population of a continent | No | |
-| 28 | Population of a region | No | |
-| 29 | Population of a country | No | |
-| 30 | Population of a district | No | |
-| 31 | Population of a city | No | |
+| 25 | Population, city population, and non-city population by country | Yes | ![Requirement 25](evidence/requirements/requirement-25.png) |
+| 26 | Population of the world | Yes | ![Requirement 26](evidence/requirements/requirement-26.png) |
+| 27 | Population of a continent | Yes | ![Requirement 27](evidence/requirements/requirement-27.png) |
+| 28 | Population of a region | Yes | ![Requirement 28](evidence/requirements/requirement-28.png) |
+| 29 | Population of a country | Yes | ![Requirement 29](evidence/requirements/requirement-29.png) |
+| 30 | Population of a district | Yes | ![Requirement 30](evidence/requirements/requirement-30.png) |
+| 31 | Population of a city | Yes | ![Requirement 31](evidence/requirements/requirement-31.png) |
 | 32 | Five language populations and world percentages | No | |
 
 Detailed evidence rules and the verification register are in [`evidence/README.md`](evidence/README.md).
@@ -177,4 +181,6 @@ This project is licensed under the [Apache License 2.0](LICENSE).
 
 ## Outstanding Assessment Items
 
-- **Coverage:** configure real coverage reporting for `master` before adding the required coverage badge.
+- **Coverage:** configure real coverage reporting and add its required badge.
+- **Integration tests:** add dedicated database/repository integration tests; current CI smoke-runs the Docker Compose application with MySQL but test sources are unit/service-level.
+- **Bug reporting:** confirm the GitHub bug-issue workflow/labels are configured and demonstrate the reporting process at review.

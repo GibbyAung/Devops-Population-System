@@ -1,0 +1,53 @@
+name: Bug report
+description: Report an incorrect result, crash, or other reproducible defect.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Please include enough detail for a teammate to reproduce the issue. Do not include passwords or private data.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug summary
+      description: What is wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the command and safe sample inputs.
+      placeholder: |
+        1. Start MySQL with docker compose up -d mysql
+        2. Run docker compose run --rm app ...
+        3. Observe the result
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Java version, Docker version, and branch or commit.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Remove secrets and personal information before posting.
+      render: text
+    validations:
+      required: false

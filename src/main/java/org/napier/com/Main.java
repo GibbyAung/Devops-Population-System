@@ -11,6 +11,12 @@ import org.napier.com.service.CityReportService;
 import org.napier.com.model.CapitalCity;
 import org.napier.com.repository.CapitalCityRepository;
 import org.napier.com.service.CapitalCityReportService;
+import org.napier.com.model.PopulationBreakdown;
+import org.napier.com.repository.PopulationBreakdownRepository;
+import org.napier.com.service.PopulationReportService;
+import org.napier.com.model.PopulationTotal;
+import org.napier.com.repository.PopulationTotalRepository;
+import org.napier.com.service.PopulationTotalService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -60,6 +66,8 @@ public class Main {
             System.exit(1);
         }
 
+        int exitCode = 0;
+
         try {
             CountryReportService service =
                     new CountryReportService(
@@ -76,6 +84,189 @@ public class Main {
                     new CapitalCityReportService(
                             new CapitalCityRepository()
                     );
+
+            PopulationReportService populationReportService =
+                    new PopulationReportService(
+                            new PopulationBreakdownRepository()
+                    );
+
+            PopulationTotalService populationTotalService =
+                    new PopulationTotalService(
+                            new PopulationTotalRepository()
+                    );
+
+            // Requirement 25 - Population breakdown by country
+            // Example: java -jar app.jar country-population
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("country-population")) {
+
+                if (args.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Usage: country-population"
+                    );
+                }
+
+                List<PopulationBreakdown> breakdowns =
+                        populationReportService.generateCountryReport(
+                                database.getConnection()
+                        );
+
+                formatter.printCountryPopulationBreakdowns(
+                        "Population breakdown by country",
+                        breakdowns
+                );
+                return;
+            }
+
+            // Requirement 26 - World total population
+            // Example: java -jar app.jar world-population
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("world-population")) {
+
+                if (args.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Usage: world-population"
+                    );
+                }
+
+                long totalPopulation =
+                        populationReportService.generateWorldTotalPopulation(
+                                database.getConnection()
+                        );
+
+                formatter.printWorldTotalPopulation(totalPopulation);
+                return;
+            }
+
+            // Requirement 23 - Population breakdown by continent
+            // Example: java -jar app.jar continent-population
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("continent-population")) {
+
+                if (args.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Usage: continent-population"
+                    );
+                }
+
+                List<PopulationBreakdown> breakdowns =
+                        populationReportService.generateContinentReport(
+                                database.getConnection()
+                        );
+
+                formatter.printContinentPopulationBreakdowns(
+                        "Population breakdown by continent",
+                        breakdowns
+                );
+                return;
+            }
+
+            // Requirement 24 - Population breakdown by region
+            // Example: java -jar app.jar region-population
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("region-population")) {
+
+                if (args.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Usage: region-population"
+                    );
+                }
+
+                List<PopulationBreakdown> breakdowns =
+                        populationReportService.generateRegionReport(
+                                database.getConnection()
+                        );
+
+                formatter.printRegionPopulationBreakdowns(
+                        "Population breakdown by region",
+                        breakdowns
+                );
+                return;
+            }
+
+            // Requirement 27 - Total population of one continent
+// Example: java -jar app.jar continent-total-population Asia
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("continent-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: continent-total-population <continent>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateContinentReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("Continent", total);
+                return;
+            }
+
+// Requirement 28 - Total population of one region
+// Example: java -jar app.jar region-total-population "Southeast Asia"
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("region-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: region-total-population <region>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateRegionReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("Region", total);
+                return;
+            }
+
+            // Requirement 29 - Total population of one country by full name
+// Example: java -jar app.jar country-total-population "United Kingdom"
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("country-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: country-total-population <countryName>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateCountryReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("Country", total);
+                return;
+            }
+
+// Requirement 30 - Aggregated city population of one district
+// Example: java -jar app.jar district-total-population California
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("district-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: district-total-population <district>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateDistrictReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("District", total);
+                return;
+            }
 
             // Requirement 17 - All capital cities in the world
             // Example: java -jar app.jar capital-world
@@ -253,6 +444,28 @@ public class Main {
                         capitalCities
                 );
 
+                return;
+            }
+
+
+            // Requirement 31 - Total population of a city
+// Example: java -jar app.jar city-total-population "Yangon"
+            if (args.length >= 1
+                    && args[0].equalsIgnoreCase("city-total-population")) {
+
+                if (args.length != 2) {
+                    throw new IllegalArgumentException(
+                            "Usage: city-total-population <cityName>"
+                    );
+                }
+
+                PopulationTotal total =
+                        populationTotalService.generateCityReport(
+                                database.getConnection(),
+                                args[1]
+                        );
+
+                formatter.printPopulationTotal("City", total);
                 return;
             }
 
@@ -657,20 +870,28 @@ public class Main {
                 );
             }
 
+
         } catch (IllegalArgumentException exception) {
+
             System.err.println(
                     "Report failed: " + exception.getMessage()
             );
-            System.exit(1);
+            exitCode = 1;
 
         } catch (SQLException exception) {
+
             System.err.println(
-                    "Report failed: " + exception.getMessage()
+                    "Database report failed: " + exception.getMessage()
             );
-            System.exit(1);
+            exitCode = 1;
 
         } finally {
             database.disconnect();
+        }
+
+        // ---> THIS GOES RIGHT AFTER FINALLY, INSIDE THE MAIN METHOD:
+        if (exitCode != 0) {
+            System.exit(exitCode);
         }
     }
 }

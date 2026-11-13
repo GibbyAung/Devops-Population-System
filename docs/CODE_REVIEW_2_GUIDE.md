@@ -34,7 +34,7 @@ Open GitHub Issues → **New issue** → **Bug report**. Show reproduction steps
 
 ### 6. Badges and requirements (2 minutes)
 
-Show master build, develop build, coverage, latest release, and license badges in the root README. Explain that the coverage SVG is generated from the JaCoCo CSV report and committed on active branches after CI passes; the release badge reflects GitHub Releases. Show the requirement table: **31/32 (96.875%) implemented**, with evidence for Requirements 1-31. Requirement 32 (language populations) remains explicitly unmet. Sprint 5 is not released until its approved release PR and tag are complete.
+Show master build, develop build, coverage, latest release, and license badges in the root README. Explain that the coverage SVG is generated from the JaCoCo CSV report and committed on active branches after CI passes; the release badge reflects GitHub Releases. Show the requirement table: **31/32 (96.875%) implemented**, with evidence for Requirements 1-31. Requirement 32 (language populations) remains explicitly unmet. The `v0.5.0` release is complete only after its approved PR is merged and its tag/release are published.
 
 ### 7. GitHub/Kanban quality (1 minute)
 
@@ -49,7 +49,7 @@ Show a requirement issue linked to its use case, implementation PR, test/evidenc
 | CI | `.github/workflows/main.yaml`, successful pull-request Actions run |
 | Deployment | `Dockerfile`, `docker-compose.yaml`, successful MySQL-backed smoke run |
 | Bug reporting | `.github/ISSUE_TEMPLATE/bug_report.yml`, GitHub `bug` label |
-| Five badges | Root `README.md`; coverage badge generated on master |
+| Five badges | Root `README.md`; coverage badge generated on `develop`, release, and master pushes |
 | Requirements met | Root README table and `evidence/README.md` review register |
 | Kanban and commits | GitHub Issues/PR links and Zube sprint board |
 
@@ -58,4 +58,4 @@ Show a requirement issue linked to its use case, implementation PR, test/evidenc
 - The capital/population integration baseline is 94 passing unit tests.
 - The preparation machine had no running Docker daemon, so MySQL integration tests and Compose smoke checks have not been run locally. Require a green GitHub Actions run before presenting them as passed.
 - Sprint 5 screenshot review remains pending in `evidence/README.md` until integrated screenshots have been checked.
-- Latest published release is `v0.4.1`; do not tag or announce Sprint 5 before review and green CI.
+- The release candidate is version `v0.5.0`; release/tag publication remains gated on approval and green CI.

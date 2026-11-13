@@ -21,7 +21,7 @@ This Java application generates population reports from the MySQL `world` databa
 - Requirements 26-31: world, continent, region, country, district, and city population totals.
 - Requirement 32 (language populations) remains unimplemented.
 
-The latest published release is `v0.4.1`, containing Requirements 1-22. Requirements 23-31 are integrated development work on this branch and have not been released yet.
+The `v0.5.0` release includes Requirements 1-31. Requirement 32 (language populations) remains unimplemented.
 
 ## Technology
 
@@ -186,5 +186,5 @@ This project is licensed under the [Apache License 2.0](LICENSE).
 
 ## Outstanding Assessment Items
 
-- **Coverage badge:** JaCoCo is configured; the master coverage badge is generated and committed by the master CI run after this change is merged to `master`.
+- **Coverage:** JaCoCo reports are generated and uploaded by CI; coverage and branch badges are generated on `develop`, `release/**`, and `master` after successful verification.
 - **Bug reporting:** GitHub Issues includes a bug template and `bug` label; demonstrate filing a reproducible report during review.

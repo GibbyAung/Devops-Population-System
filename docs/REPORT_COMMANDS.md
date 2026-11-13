@@ -1,6 +1,6 @@
 # Population Report Command Reference
 
-This document contains application commands for Requirements 1-31. Requirements 1-22 are in the latest release (`v0.4.1`); Requirements 23-31 are integrated development work and are not released yet.
+This document contains application commands for Requirements 1-31 included in release `v0.5.0`. Requirement 32 (language populations) is not implemented.
 
 Run every command from the repository root, where `pom.xml` and `docker-compose.yaml` are located.
 

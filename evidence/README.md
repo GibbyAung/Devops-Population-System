@@ -5,18 +5,18 @@ This folder records application-output evidence for the requirements reported as
 ## Current Verification State
 
 ```text
-Verification date: 12 November 2026
-Application branch: feature/population-breakdown-reports (integration of origin/develop in progress)
-Latest published release: v0.4.1 (Requirements 1-22)
-Sprint 5: Requirements 23-31 implemented with screenshots; integrated test/evidence review pending
-Maven result after merge resolution: PASS - 94 tests, 0 failures, 0 errors, 0 skipped
-MySQL integration profile locally: 5 integration tests skipped because DB_HOST/Docker were unavailable
-Docker Compose verification: Not run locally - Docker daemon unavailable
+Verification date: 13 November 2026
+Application merge commit: PR #60, `9d9f2a4` (v0.5.0 code)
+Release scope: Requirements 1-31; Requirement 32 remains unimplemented
+Sprint 5: Requirements 23-31 included with screenshots
+GitHub Actions run 43366357040: PASS - unit and MySQL integration tests, Docker build, Compose run, and report smoke tests
+JaCoCo from release CI: 64.2% instruction coverage; 49.6% branch coverage badge (badge truncates to one decimal)
+Local Docker verification: Not available; MySQL and Compose checks passed in GitHub Actions
 Product Owner: Saw Zwel Myat Tow
 Scrum Master: Win Myat Aung
 ```
 
-The released evidence for Requirements 1-22 remains reviewed. Sprint 5 evidence screenshots for Requirements 23-31 are present on the population feature branch; do not mark them independently verified until the merged application has been tested and the screenshots reviewed. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
+The released evidence for Requirements 1-22 remains reviewed. Sprint 5 screenshots for Requirements 23-31 are in this integrated release candidate and the corresponding application commands passed CI. A formal human evidence-register review remains pending; do not substitute CI success for Product Owner/peer review. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
 
 ## Evidence Rules
 
@@ -126,15 +126,15 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 | 20 | `requirements/requirement-20.png` | N | Three capital columns | N rows + descending population + total | Verified | Saw Zwel Myat Tow |
 | 21 | `requirements/requirement-21.png` | Continent + N | Three capital columns | Filter + N + descending population + total | Verified | Saw Zwel Myat Tow |
 | 22 | `requirements/requirement-22.png` | Region + N | Three capital columns | Filter + N + descending population + total | Verified | Saw Zwel Myat Tow |
-| 23 | `requirements/requirement-23.png` | Continent | Totals and percentages | Calculations checked | Implemented; review pending | |
-| 24 | `requirements/requirement-24.png` | Region | Totals and percentages | Calculations checked | Implemented; review pending | |
-| 25 | `requirements/requirement-25.png` | Country | Totals and percentages | Calculations checked | Implemented; review pending | |
-| 26 | `requirements/requirement-26.png` | World | Population | Total checked | Implemented; review pending | |
-| 27 | `requirements/requirement-27.png` | Continent | Population | Total checked | Implemented; review pending | |
-| 28 | `requirements/requirement-28.png` | Region | Population | Total checked | Implemented; review pending | |
-| 29 | `requirements/requirement-29.png` | Country | Population | Total checked | Implemented; review pending | |
-| 30 | `requirements/requirement-30.png` | District | Population | Total checked | Implemented; review pending | |
-| 31 | `requirements/requirement-31.png` | City | Population | Total checked | Implemented; review pending | |
+| 23 | `requirements/requirement-23.png` | Continent | Totals and percentages | Calculations checked | CI passed; human screenshot review pending | |
+| 24 | `requirements/requirement-24.png` | Region | Totals and percentages | Calculations checked | CI passed; human screenshot review pending | |
+| 25 | `requirements/requirement-25.png` | Country | Totals and percentages | Calculations checked | CI passed; human screenshot review pending | |
+| 26 | `requirements/requirement-26.png` | World | Population | Total checked | CI passed; human screenshot review pending | |
+| 27 | `requirements/requirement-27.png` | Continent | Population | Total checked | CI passed; human screenshot review pending | |
+| 28 | `requirements/requirement-28.png` | Region | Population | Total checked | CI passed; human screenshot review pending | |
+| 29 | `requirements/requirement-29.png` | Country | Population | Total checked | CI passed; human screenshot review pending | |
+| 30 | `requirements/requirement-30.png` | District | Population | Total checked | CI passed; human screenshot review pending | |
+| 31 | `requirements/requirement-31.png` | City | Population | Total checked | CI passed; human screenshot review pending | |
 | 32 | `requirements/requirement-32.png` | Five languages | Language, speakers, percentage | Descending count + calculations | Not implemented | |
 
 ## Evidence Review Outcome

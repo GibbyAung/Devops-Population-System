@@ -9,8 +9,8 @@ Verification date: 13 November 2026
 Application branch: release/v0.5.0 (release candidate)
 Latest published release: v0.4.1 (Requirements 1-22)
 Sprint 5: Requirements 23-31 implemented with screenshots; release PR and tag pending
-GitHub Actions run 43365853944: PASS - 94 unit tests, 5 MySQL integration tests, Docker build, Compose run, and report smoke tests
-JaCoCo from CI: 64.2% instruction coverage; 49.7% branch coverage
+GitHub Actions run 43366357040: PASS - unit and MySQL integration tests, Docker build, Compose run, and report smoke tests
+JaCoCo from release-candidate CI: 64.2% instruction coverage; 49.6% branch coverage badge (badge truncates to one decimal)
 Local Docker verification: Not available; MySQL and Compose checks passed in GitHub Actions
 Product Owner: Saw Zwel Myat Tow
 Scrum Master: Win Myat Aung

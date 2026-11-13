@@ -13,8 +13,8 @@ This release candidate integrates Sprint 5 population reports with the previousl
 
 ## Verification
 
-- GitHub Actions run [43365853944](https://github.com/GibbyAung/Devops-Population-System/actions/runs/43365853944) passed the Maven unit/integration tests, Docker build, Compose application run, and report smoke tests.
-- CI JaCoCo report: 64.2% instruction coverage and 49.7% branch coverage.
+- Release-candidate GitHub Actions run [43366357040](https://github.com/GibbyAung/Devops-Population-System/actions/runs/43366357040) passed the Maven unit/integration tests, Docker build, Compose application run, and report smoke tests.
+- CI JaCoCo badge: 64.2% instruction coverage and 49.6% branch coverage. The badge generator truncates to one decimal; the raw branch ratio is 49.6599%.
 
 ## Known limitation
 

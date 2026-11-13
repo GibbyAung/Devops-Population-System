@@ -7,7 +7,7 @@ This guide maps the Moodle Code Review 2 rubric to repository evidence and a sho
 - Merge the reviewed feature PR into `develop`; do not describe the local merge as released.
 - Confirm the PR's GitHub Actions run is green, including unit tests, MySQL integration tests, Docker build, and report smoke tests.
 - Record coverage from the CI JaCoCo report; do not use a local result where database tests were skipped.
-- Confirm all five README badges render. The coverage badge is generated from `master` and committed by its CI run after the release reaches `master`.
+- Confirm all five README badges render. After successful verification, CI generates and commits the branch-specific coverage SVG on pushes to `develop`, `release/**`, and `master`.
 - Start Docker Desktop and rehearse the commands below before the meeting.
 
 ## Suggested 10-Minute Walkthrough
@@ -34,7 +34,7 @@ Open GitHub Issues → **New issue** → **Bug report**. Show reproduction steps
 
 ### 6. Badges and requirements (2 minutes)
 
-Show master build, develop build, coverage, latest release, and license badges in the root README. Explain that master CI refreshes the coverage SVG and the release badge reflects GitHub Releases. Show the requirement table: **31/32 (96.875%) implemented**, with evidence for Requirements 1-31. Requirement 32 (language populations) remains explicitly unmet. Sprint 5 is not released until its approved release PR and tag are complete.
+Show master build, develop build, coverage, latest release, and license badges in the root README. Explain that the coverage SVG is generated from the JaCoCo CSV report and committed on active branches after CI passes; the release badge reflects GitHub Releases. Show the requirement table: **31/32 (96.875%) implemented**, with evidence for Requirements 1-31. Requirement 32 (language populations) remains explicitly unmet. Sprint 5 is not released until its approved release PR and tag are complete.
 
 ### 7. GitHub/Kanban quality (1 minute)
 

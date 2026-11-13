@@ -65,8 +65,12 @@ jobs:
         if: always()
         run: docker compose down -v
 
-  update-master-coverage-badge:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+  update-coverage-badges:
+    if: >-
+      github.event_name == 'push' &&
+      (github.ref == 'refs/heads/master' ||
+       github.ref == 'refs/heads/develop' ||
+       startsWith(github.ref, 'refs/heads/release/'))
     needs: build-and-test
     runs-on: ubuntu-latest
     permissions:

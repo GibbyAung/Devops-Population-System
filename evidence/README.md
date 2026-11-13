@@ -6,11 +6,11 @@ This folder records application-output evidence for the requirements reported as
 
 ```text
 Verification date: 13 November 2026
-Application branch: release/v0.5.0 (release candidate)
-Latest published release: v0.4.1 (Requirements 1-22)
-Sprint 5: Requirements 23-31 implemented with screenshots; release PR and tag pending
+Application merge commit: PR #60, `9d9f2a4` (v0.5.0 code)
+Release scope: Requirements 1-31; Requirement 32 remains unimplemented
+Sprint 5: Requirements 23-31 included with screenshots
 GitHub Actions run 43366357040: PASS - unit and MySQL integration tests, Docker build, Compose run, and report smoke tests
-JaCoCo from release-candidate CI: 64.2% instruction coverage; 49.6% branch coverage badge (badge truncates to one decimal)
+JaCoCo from release CI: 64.2% instruction coverage; 49.6% branch coverage badge (badge truncates to one decimal)
 Local Docker verification: Not available; MySQL and Compose checks passed in GitHub Actions
 Product Owner: Saw Zwel Myat Tow
 Scrum Master: Win Myat Aung

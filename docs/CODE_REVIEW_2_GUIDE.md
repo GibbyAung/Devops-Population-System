@@ -34,7 +34,7 @@ Open GitHub Issues → **New issue** → **Bug report**. Show reproduction steps
 
 ### 6. Badges and requirements (2 minutes)
 
-Show master build, develop build, coverage, latest release, and license badges in the root README. Explain that the coverage SVG is generated from the JaCoCo CSV report and committed on active branches after CI passes; the release badge reflects GitHub Releases. Show the requirement table: **31/32 (96.875%) implemented**, with evidence for Requirements 1-31. Requirement 32 (language populations) remains explicitly unmet. The `v0.5.0` release is complete only after its approved PR is merged and its tag/release are published.
+Show master build, develop build, coverage, latest release, and license badges in the root README. Explain that the coverage SVG is generated from the JaCoCo CSV report and committed on active branches after CI passes; the release badge reflects GitHub Releases. Show the requirement table: **31/32 (96.875%) implemented**, with evidence for Requirements 1-31. Requirement 32 (language populations) remains explicitly unmet. The Sprint 5 release is `v0.5.0`.
 
 ### 7. GitHub/Kanban quality (1 minute)
 
@@ -58,4 +58,4 @@ Show a requirement issue linked to its use case, implementation PR, test/evidenc
 - The capital/population integration baseline is 94 passing unit tests.
 - The preparation machine had no running Docker daemon, so MySQL integration tests and Compose smoke checks have not been run locally. Require a green GitHub Actions run before presenting them as passed.
 - Sprint 5 screenshot review remains pending in `evidence/README.md` until integrated screenshots have been checked.
-- The release candidate is version `v0.5.0`; release/tag publication remains gated on approval and green CI.
+- Sprint 5 code was merged to `master` by PR #60 (commit `9d9f2a4`); create the `v0.5.0` tag on the approved master commit containing the finalized release metadata.

@@ -21,7 +21,7 @@ This Java application generates population reports from the MySQL `world` databa
 - Requirements 26-31: world, continent, region, country, district, and city population totals.
 - Requirement 32 (language populations) remains unimplemented.
 
-The latest published release remains `v0.4.1` until the `v0.5.0` release candidate is approved, merged, and tagged. The candidate includes Requirements 1-31; Requirement 32 remains unimplemented.
+The `v0.5.0` release includes Requirements 1-31. Requirement 32 (language populations) remains unimplemented.
 
 ## Technology
 

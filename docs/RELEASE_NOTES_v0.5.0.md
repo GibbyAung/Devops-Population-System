@@ -2,7 +2,7 @@
 
 ## Summary
 
-This release candidate integrates Sprint 5 population reports with the previously released country, city, and capital-city reports. It brings the application to **31 of 32 requirements implemented**.
+This release integrates Sprint 5 population reports with the previously released country, city, and capital-city reports. It brings the application to **31 of 32 requirements implemented**.
 
 ## Included
 
@@ -22,4 +22,4 @@ Requirement 32 (language population reports) is not implemented and is not inclu
 
 ## Release status
 
-This document describes the `v0.5.0` release candidate. Publish the tag and GitHub release only after the release pull request is approved, merged to `master`, and its CI is green.
+Sprint 5 code was merged to `master` by PR #60 at commit `9d9f2a4`. Apply the `v0.5.0` tag to the approved master commit containing the finalized release metadata.

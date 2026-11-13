@@ -10,6 +10,9 @@ on:
     branches:
       - develop
 
+permissions:
+  contents: read
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -25,14 +28,34 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Build JAR and run tests
-        run: mvn clean package
+      - name: Start MySQL for integration tests
+        run: docker compose up -d --wait mysql
+
+      - name: Build JAR, run unit and integration tests, and create JaCoCo report
+        run: mvn clean verify -Pintegration-tests
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_NAME: world
+          DB_USER: devops
+          DB_PASSWORD: devopspassword
+
+      - name: Upload JaCoCo report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: target/site/jacoco/
+          if-no-files-found: warn
 
       - name: Build Docker image
         run: docker build -t devops-population-app .
 
       - name: Run application with MySQL
         run: docker compose up --build --exit-code-from app
+
+      - name: Run report integration smoke tests against MySQL
+        run: bash scripts/integration-smoke.sh
 
       - name: Show application logs
         if: always()
@@ -41,3 +64,33 @@ jobs:
       - name: Stop Docker Compose
         if: always()
         run: docker compose down -v
+
+  update-coverage-badges:
+    if: >-
+      github.event_name == 'push' &&
+      (github.ref == 'refs/heads/master' ||
+       github.ref == 'refs/heads/develop' ||
+       startsWith(github.ref, 'refs/heads/release/'))
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+
+      - name: Download JaCoCo report
+        uses: actions/download-artifact@v4
+        with:
+          name: jacoco-report
+          path: target/site/jacoco/
+
+      - name: Generate master coverage badges
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          generate-branches-badge: true
+
+      - name: Commit updated master coverage badges
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: "Update JaCoCo coverage badges"

@@ -5,18 +5,18 @@ This folder records application-output evidence for the requirements reported as
 ## Current Verification State
 
 ```text
-Verification date: 2 November 2026
-Application commit: 51916ce (v0.4.0 release merge on master)
-Application branch: master
-Maven result: PASS - 46 tests, 0 failures, 0 errors, 0 skipped
-Docker evidence: Requirements 17-22 screenshots reviewed and accepted by the Product Owner
+Verification date: 13 November 2026
+Application branch: release/v0.5.0 (release candidate)
+Latest published release: v0.4.1 (Requirements 1-22)
+Sprint 5: Requirements 23-31 implemented with screenshots; release PR and tag pending
+GitHub Actions run 43365853944: PASS - 94 unit tests, 5 MySQL integration tests, Docker build, Compose run, and report smoke tests
+JaCoCo from CI: 64.2% instruction coverage; 49.7% branch coverage
+Local Docker verification: Not available; MySQL and Compose checks passed in GitHub Actions
 Product Owner: Saw Zwel Myat Tow
 Scrum Master: Win Myat Aung
-Screenshot files: Complete for Requirements 1-22
-Evidence review: COMPLETE for Requirements 1-22 - Saw Zwel Myat Tow (Product Owner)
 ```
 
-This verification snapshot records the 46-test pass and the Product Owner's acceptance of Requirements 17-22. Their screenshots are stored with the application. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot. The latest published `master` release is `v0.4.1`; this patch updates documentation without changing application behavior.
+The released evidence for Requirements 1-22 remains reviewed. Sprint 5 screenshots for Requirements 23-31 are in this integrated release candidate and the corresponding application commands passed CI. A formal human evidence-register review remains pending; do not substitute CI success for Product Owner/peer review. Requirements 7-11 use separate `-total` images because their complete reports are too long to show the heading, leading rows, and total in one readable screenshot.
 
 ## Evidence Rules
 
@@ -92,19 +92,6 @@ docker compose run --rm app city-top-country CHN 10
 docker compose run --rm app city-top-district California 10
 ```
 
-## Capture Capital-City Reports
-
-Requirements 17-22:
-
-```shell
-docker compose run --rm app capital-world
-docker compose run --rm app capital-continent Asia
-docker compose run --rm app capital-region "Southeast Asia"
-docker compose run --rm app capital-top-world 10
-docker compose run --rm app capital-top-continent Asia 10
-docker compose run --rm app capital-top-region "Southeast Asia" 10
-```
-
 Stop the environment after capturing the output:
 
 ```shell
@@ -139,20 +126,20 @@ Change a row to `Verified` only after a teammate has opened the image and checke
 | 20 | `requirements/requirement-20.png` | N | Three capital columns | N rows + descending population + total | Verified | Saw Zwel Myat Tow |
 | 21 | `requirements/requirement-21.png` | Continent + N | Three capital columns | Filter + N + descending population + total | Verified | Saw Zwel Myat Tow |
 | 22 | `requirements/requirement-22.png` | Region + N | Three capital columns | Filter + N + descending population + total | Verified | Saw Zwel Myat Tow |
-| 23 | `requirements/requirement-23.png` | Continent | Totals and percentages | Calculations checked | Not implemented | |
-| 24 | `requirements/requirement-24.png` | Region | Totals and percentages | Calculations checked | Not implemented | |
-| 25 | `requirements/requirement-25.png` | Country | Totals and percentages | Calculations checked | Not implemented | |
-| 26 | `requirements/requirement-26.png` | World | Population | Total checked | Not implemented | |
-| 27 | `requirements/requirement-27.png` | Continent | Population | Total checked | Not implemented | |
-| 28 | `requirements/requirement-28.png` | Region | Population | Total checked | Not implemented | |
-| 29 | `requirements/requirement-29.png` | Country | Population | Total checked | Not implemented | |
-| 30 | `requirements/requirement-30.png` | District | Population | Total checked | Not implemented | |
-| 31 | `requirements/requirement-31.png` | City | Population | Total checked | Not implemented | |
+| 23 | `requirements/requirement-23.png` | Continent | Totals and percentages | Calculations checked | CI passed; human screenshot review pending | |
+| 24 | `requirements/requirement-24.png` | Region | Totals and percentages | Calculations checked | CI passed; human screenshot review pending | |
+| 25 | `requirements/requirement-25.png` | Country | Totals and percentages | Calculations checked | CI passed; human screenshot review pending | |
+| 26 | `requirements/requirement-26.png` | World | Population | Total checked | CI passed; human screenshot review pending | |
+| 27 | `requirements/requirement-27.png` | Continent | Population | Total checked | CI passed; human screenshot review pending | |
+| 28 | `requirements/requirement-28.png` | Region | Population | Total checked | CI passed; human screenshot review pending | |
+| 29 | `requirements/requirement-29.png` | Country | Population | Total checked | CI passed; human screenshot review pending | |
+| 30 | `requirements/requirement-30.png` | District | Population | Total checked | CI passed; human screenshot review pending | |
+| 31 | `requirements/requirement-31.png` | City | Population | Total checked | CI passed; human screenshot review pending | |
 | 32 | `requirements/requirement-32.png` | Five languages | Language, speakers, percentage | Descending count + calculations | Not implemented | |
 
 ## Evidence Review Outcome
 
-Product Owner Saw Zwel Myat Tow reviewed and verified the evidence for Requirements 1-22. Link the evidence commit on the relevant Zube cards so the acceptance record remains traceable.
+Product Owner Saw Zwel Myat Tow reviewed and verified the evidence for Requirements 1-22. Requirements 23-31 have acceptance recorded in their GitHub issues; complete an integrated-branch screenshot review and update their register rows before claiming evidence review complete. Link evidence commits on the relevant Zube cards.
 
 Use this image format in the root README:
 

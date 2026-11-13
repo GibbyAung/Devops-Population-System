@@ -3,6 +3,8 @@ package org.napier.com.report;
 import org.napier.com.model.Country;
 import org.napier.com.model.City;
 import org.napier.com.model.CapitalCity;
+import org.napier.com.model.PopulationBreakdown;
+import org.napier.com.model.PopulationTotal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -320,6 +322,284 @@ public class ReportFormatter {
         return widths;
     }
 
+    /**
+     * Prints a continent population-breakdown report.
+     */
+    public void printContinentPopulationBreakdowns(
+            String reportName,
+            List<PopulationBreakdown> breakdowns) {
+        printPopulationBreakdowns(
+                reportName,
+                "Continent",
+                breakdowns
+        );
+    }
+
+    /**
+     * Prints a region population-breakdown report.
+     */
+    public void printRegionPopulationBreakdowns(
+            String reportName,
+            List<PopulationBreakdown> breakdowns) {
+        printPopulationBreakdowns(
+                reportName,
+                "Region",
+                breakdowns
+        );
+    }
+
+    /**
+     * Prints a country population-breakdown report.
+     */
+    public void printCountryPopulationBreakdowns(
+            String reportName,
+            List<PopulationBreakdown> breakdowns) {
+        printPopulationBreakdowns(reportName, "Country", breakdowns);
+    }
+
+    /**
+     * Prints the world population as a labelled 64-bit value.
+     */
+    public void printWorldTotalPopulation(long totalPopulation) {
+        System.out.println("World total population: "
+                + formatPopulation(totalPopulation));
+    }
+
+    /**
+     * Prints a named population-breakdown report with totals and
+     * urban-versus-rural percentages.
+     */
+    private void printPopulationBreakdowns(
+            String reportName,
+            String scopeLabel,
+            List<PopulationBreakdown> breakdowns) {
+
+        System.out.println("Report for " + reportName);
+        System.out.println();
+
+        if (breakdowns.isEmpty()) {
+            System.out.println("No population data found.");
+            System.out.println();
+            return;
+        }
+
+        String[] headers = {
+                scopeLabel,
+                "Total Population",
+                "City Population",
+                "Non-City Population"
+        };
+
+        List<String[]> rows = new ArrayList<>();
+
+        for (PopulationBreakdown breakdown : breakdowns) {
+            rows.add(toPopulationBreakdownRow(breakdown));
+        }
+
+        String[] totalRow = createPopulationBreakdownTotalRow(breakdowns);
+
+        List<String[]> rowsForWidthCalculation = new ArrayList<>(rows);
+        rowsForWidthCalculation.add(totalRow);
+
+        int[] columnWidths = calculatePopulationBreakdownColumnWidths(
+                headers,
+                rowsForWidthCalculation
+        );
+
+        System.out.println(formatSeparator(columnWidths));
+        System.out.println(formatPopulationBreakdownRow(
+                headers,
+                columnWidths
+        ));
+        System.out.println(formatSeparator(columnWidths));
+
+        for (String[] row : rows) {
+            System.out.println(formatPopulationBreakdownRow(
+                    row,
+                    columnWidths
+            ));
+        }
+
+        System.out.println(formatSeparator(columnWidths));
+        System.out.println(formatPopulationBreakdownRow(
+                totalRow,
+                columnWidths
+        ));
+        System.out.println(formatSeparator(columnWidths));
+
+        System.out.println();
+    }
+
+    /**
+     * Converts a population breakdown into formatted table cells.
+     *
+     * @return breakdown values ready for display
+     */
+    private String[] toPopulationBreakdownRow(PopulationBreakdown breakdown) {
+        long total = breakdown.getTotalPopulation();
+
+        return new String[]{
+                valueOrBlank(breakdown.getName()),
+                formatPopulation(total),
+                formatPopulationWithPercent(
+                        breakdown.getCityPopulation(),
+                        total
+                ),
+                formatPopulationWithPercent(
+                        breakdown.getNonCityPopulation(),
+                        total
+                )
+        };
+    }
+
+    /**
+     * Creates the summary row for a population-breakdown report.
+     *
+     * @return row containing totals and world percentages
+     */
+    private String[] createPopulationBreakdownTotalRow(
+            List<PopulationBreakdown> breakdowns) {
+
+        long totalPopulation = breakdowns.stream()
+                .mapToLong(PopulationBreakdown::getTotalPopulation)
+                .sum();
+        long cityPopulation = breakdowns.stream()
+                .mapToLong(PopulationBreakdown::getCityPopulation)
+                .sum();
+        long nonCityPopulation = breakdowns.stream()
+                .mapToLong(PopulationBreakdown::getNonCityPopulation)
+                .sum();
+
+        return new String[]{
+                "Total",
+                formatPopulation(totalPopulation),
+                formatPopulationWithPercent(cityPopulation, totalPopulation),
+                formatPopulationWithPercent(
+                        nonCityPopulation,
+                        totalPopulation
+                )
+        };
+    }
+
+    /**
+     * Formats a population with its percentage of the given total.
+     * A zero or negative total reports 0.00% to avoid division by zero.
+     *
+     * @return formatted value such as {@code 1,234,567 (45.67%)}
+     */
+    private String formatPopulationWithPercent(long value, long total) {
+        if (total <= 0) {
+            return formatPopulation(value) + " (0.00%)";
+        }
+
+        double percent = value * 100.0 / total;
+
+        return String.format(
+                Locale.US,
+                "%,d (%.2f%%)",
+                value,
+                percent
+        );
+    }
+
+    /**
+     * Calculates population-breakdown column widths from headings and rows.
+     *
+     * @return display width for each breakdown column
+     */
+    private int[] calculatePopulationBreakdownColumnWidths(
+            String[] headers,
+            List<String[]> rows) {
+
+        int[] widths = new int[headers.length];
+
+        for (int column = 0; column < headers.length; column++) {
+            widths[column] = headers[column].length();
+        }
+
+        for (String[] row : rows) {
+            for (int column = 0; column < row.length; column++) {
+                widths[column] = Math.max(
+                        widths[column],
+                        row[column].length()
+                );
+            }
+        }
+
+        return widths;
+    }
+
+    /**
+     * Aligns and formats one population-breakdown table row with every
+     * population column right-aligned.
+     *
+     * @return formatted population-breakdown table row
+     */
+    private String formatPopulationBreakdownRow(
+            String[] values,
+            int[] columnWidths) {
+
+        StringBuilder row = new StringBuilder("|");
+
+        for (int column = 0; column < values.length; column++) {
+            String value = values[column];
+            row.append(" ");
+
+            if (column > 0) {
+                // Right-align the three population columns.
+                row.append(" ".repeat(
+                        columnWidths[column] - value.length()
+                ));
+                row.append(value);
+            } else {
+                row.append(value);
+                row.append(" ".repeat(
+                        columnWidths[column] - value.length()
+                ));
+            }
+
+            row.append(" |");
+        }
+
+        return row.toString();
+    }
+
+    /**
+     * Prints one continent or region population total.
+     */
+    public void printPopulationTotal(
+            String scopeLabel,
+            PopulationTotal total) {
+
+        String[] headers = {
+                scopeLabel,
+                "Total Population"
+        };
+
+        String[] row = {
+                total.getName(),
+                formatPopulation(total.getTotalPopulation())
+        };
+
+        int[] widths = {
+                Math.max(headers[0].length(), row[0].length()),
+                Math.max(headers[1].length(), row[1].length())
+        };
+
+        System.out.println(
+                "Report for Total population of "
+                        + scopeLabel.toLowerCase(Locale.ROOT)
+                        + ": " + total.getName()
+        );
+        System.out.println();
+
+        System.out.println(formatSeparator(widths));
+        System.out.println(formatPopulationBreakdownRow(headers, widths));
+        System.out.println(formatSeparator(widths));
+        System.out.println(formatPopulationBreakdownRow(row, widths));
+        System.out.println(formatSeparator(widths));
+        System.out.println();
+    }
     private static final String[] CAPITAL_CITY_HEADERS = {
             "Name",
             "Country",
